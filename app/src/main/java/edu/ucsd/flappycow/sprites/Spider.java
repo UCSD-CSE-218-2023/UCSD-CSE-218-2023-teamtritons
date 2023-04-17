@@ -16,7 +16,7 @@ import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.Util;
 
-public class Spider extends Sprite {
+public class Spider extends IGameObstacle {
 
     /**
      * Static bitmap to reduce memory usage.
@@ -38,6 +38,7 @@ public class Spider extends Sprite {
      * @param x
      * @param y
      */
+    @Override
     public void init(int x, int y) {
         this.x = x;
         this.y = y;

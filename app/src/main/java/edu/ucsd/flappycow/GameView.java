@@ -350,7 +350,7 @@ public class GameView extends SurfaceView {
      */
     private void createObstacle() {
         if (obstacles.size() < 1) {
-            obstacles.add(new Obstacle(this, gameActivity));
+            obstacles.add(new Obstacle(this, gameActivity, new Spider(this, gameActivity), new WoodLog(this, gameActivity)));
         }
     }
 

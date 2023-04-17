@@ -15,7 +15,7 @@ import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.Util;
 
-public class WoodLog extends Sprite {
+public class WoodLog extends IGameObstacle {
 
     /**
      * Static bitmap to reduce memory usage.
@@ -37,6 +37,7 @@ public class WoodLog extends Sprite {
      * @param x
      * @param y
      */
+    @Override
     public void init(int x, int y) {
         this.x = x;
         this.y = y;

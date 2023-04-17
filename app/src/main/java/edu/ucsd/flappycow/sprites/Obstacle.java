@@ -16,8 +16,8 @@ import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.MainActivity;
 
 public class Obstacle extends Sprite {
-    private Spider spider;
-    private WoodLog log;
+    private IGameObstacle spider;
+    private IGameObstacle log;
 
     private static int collideSound = -1;
     private static int passSound = -1;
@@ -25,10 +25,10 @@ public class Obstacle extends Sprite {
     /** Necessary so the onPass method is just called once */
     public boolean isAlreadyPassed = false;
 
-    public Obstacle(GameView view, GameActivity gameActivity) {
+    public Obstacle(GameView view, GameActivity gameActivity, IGameObstacle spider, IGameObstacle log) {
         super(view, gameActivity);
-        spider = new Spider(view, gameActivity);
-        log = new WoodLog(view, gameActivity);
+        this.spider = spider;
+        this.log = log;
 
         if (collideSound == -1) {
             collideSound = GameActivity.soundPool.load(gameActivity, R.raw.crash, 1);
