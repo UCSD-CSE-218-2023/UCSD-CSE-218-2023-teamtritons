@@ -57,7 +57,7 @@ public class GameView extends SurfaceView {
     private List<Obstacle> obstacles = new ArrayList<Obstacle>();
     private List<PowerUp> powerUps = new ArrayList<PowerUp>();
 
-    private PauseButton pauseButton;
+    private IGameButton pauseButton;
     volatile private boolean paused = true;
 
     private Tutorial tutorial;
@@ -72,7 +72,7 @@ public class GameView extends SurfaceView {
         player = new Cow(this, gameActivity);
         background = new Background(this, gameActivity);
         frontground = new Frontground(this, gameActivity);
-        pauseButton = new PauseButton(this, gameActivity);
+        this.pauseButton = new PauseButton(this, gameActivity);
         tutorial = new Tutorial(this, gameActivity);
     }
 
