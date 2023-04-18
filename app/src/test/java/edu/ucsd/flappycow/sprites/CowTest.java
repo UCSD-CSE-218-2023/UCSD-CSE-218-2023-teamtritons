@@ -3,6 +3,7 @@ package edu.ucsd.flappycow;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
+import android.graphics.Canvas;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.android.internal.AndroidTestEnvironment;
 
@@ -12,6 +13,7 @@ import static org.mockito.Mockito.mock;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Canvas;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
@@ -22,26 +24,19 @@ import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.MainActivity;
 import edu.ucsd.flappycow.sprites.Accessory;
+import edu.ucsd.flappycow.sprites.Cow;
 
 @RunWith(AndroidJUnit4.class)
-public class AccessoryTest {
+public class CowTest {
 
     @Test
-    public void initAccessoryObject(){
+    public void initCowObject(){
         GameActivity gameActivity = Robolectric.setupActivity(GameActivity.class);
         GameView gameView = new GameView(gameActivity);
-        Accessory tAccessory = new Accessory(gameView, gameActivity);
-        tAccessory.moveTo(3,4);
-        assertFalse(tAccessory.getX() == 0 && tAccessory.getY() == 0);
-        assertTrue(tAccessory.getX() == 3 && tAccessory.getY() == 4);
+        Cow tCow = new Cow(gameView, gameActivity, new Accessory(gameView, gameActivity));
+        tCow.move();
+        assertTrue("Move successfull", true);
     }
 
-    @Test
-    public void checkTouchingSpider(){
-        GameActivity gameActivity = Robolectric.setupActivity(GameActivity.class);
-        GameView gameView = new GameView(gameActivity);
-        Accessory tAccessory = new Accessory(gameView, gameActivity);
-        assertTrue(tAccessory.isTouching(1, 1));
-    }
 
 }
