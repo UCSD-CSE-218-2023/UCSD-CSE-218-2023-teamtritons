@@ -1,10 +1,10 @@
 package edu.ucsd.flappycow.sprites;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-
+import static org.junit.Assert.assertTrue;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 
