@@ -19,7 +19,8 @@ Make sure to check out [Space Cowboy](https://play.google.com/store/apps/details
 * Tap ad to increase money
 
 ## How-to use the code
-* Read the instruction from [INSTRUCTIONS file](/INSTRUCTIONS.md)
+
+[//]: # (* Read the instruction from [INSTRUCTIONS file]&#40;/INSTRUCTIONS.md&#41;)
 
 ## Permissions
 * INTERNET, for ads
