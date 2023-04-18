@@ -9,14 +9,13 @@ import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 
 @RunWith(AndroidJUnit4.class)
-public class CowTest {
-
+public class NyanCatTest {
     @Test
     public void initCowObject(){
         GameActivity gameActivity = Robolectric.setupActivity(GameActivity.class);
         GameView gameView = new GameView(gameActivity);
-        Cow tCow = new Cow(gameView, gameActivity, new Accessory(gameView, gameActivity));
-        tCow.move();
-        assertTrue("Move successfull", true);
+        NyanCat tNyanCat= new NyanCat(gameView, gameActivity, new Rainbow(gameView, gameActivity));
+        tNyanCat.move();
+        assertTrue("Move successful", true);
     }
 }
