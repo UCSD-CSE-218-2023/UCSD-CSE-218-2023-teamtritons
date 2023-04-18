@@ -27,7 +27,7 @@ import edu.ucsd.flappycow.sprites.Accessory;
 public class RainbowTest {
 
     @Test
-    public void initAccessoryObject(){
+    public void initRainbowObject(){
         GameActivity gameActivity = Robolectric.setupActivity(GameActivity.class);
         GameView gameView = new GameView(gameActivity);
         Rainbow tRainbow = new Rainbow(gameView, gameActivity);
