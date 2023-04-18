@@ -11,7 +11,7 @@ import edu.ucsd.flappycow.GameView;
 @RunWith(AndroidJUnit4.class)
 public class NyanCatTest {
     @Test
-    public void initCowObject(){
+    public void initNyanCatObject(){
         GameActivity gameActivity = Robolectric.setupActivity(GameActivity.class);
         GameView gameView = new GameView(gameActivity);
         NyanCat tNyanCat= new NyanCat(gameView, gameActivity, new Rainbow(gameView, gameActivity));
