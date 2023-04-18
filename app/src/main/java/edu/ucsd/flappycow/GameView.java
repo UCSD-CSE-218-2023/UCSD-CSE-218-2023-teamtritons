@@ -69,7 +69,7 @@ public class GameView extends SurfaceView {
         setFocusable(true);
 
         holder = getHolder();
-        player = new Cow(this, gameActivity);
+        player = new Cow(this, gameActivity, new Accessory(this, gameActivity));
         background = new Background(this, gameActivity);
         frontground = new Frontground(this, gameActivity);
         this.pauseButton = new PauseButton(this, gameActivity);
@@ -385,7 +385,7 @@ public class GameView extends SurfaceView {
         gameActivity.handler.sendMessage(Message.obtain(gameActivity.handler, 1, R.string.toast_achievement_toastification, GameActivity.MyHandler.SHOW_TOAST));
 
         PlayableCharacter tmp = this.player;
-        this.player = new NyanCat(this, gameActivity);
+        this.player = new NyanCat(this, gameActivity, new Rainbow(this, gameActivity));
         this.player.setX(tmp.getX());
         this.player.setY(tmp.getY());
         this.player.setSpeedX(tmp.getSpeedX());
