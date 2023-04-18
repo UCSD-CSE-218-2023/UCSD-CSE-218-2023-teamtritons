@@ -9,7 +9,5 @@ public abstract class IGameButton extends Sprite{
     }
 
     @Override
-    public void move() {
-
-    }
+    public abstract void move();
 }
