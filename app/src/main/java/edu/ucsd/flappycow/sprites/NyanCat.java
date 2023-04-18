@@ -24,9 +24,9 @@ public class NyanCat extends PlayableCharacter {
     public static Bitmap globalBitmap;
 
     /** The rainbow tail behind the cat */
-    private Rainbow rainbow;
+    private IRainbow rainbow;
 
-    public NyanCat(GameView view, GameActivity gameActivity) {
+    public NyanCat(GameView view, GameActivity gameActivity, IRainbow rainbow) {
         super(view, gameActivity);
         if (globalBitmap == null) {
             globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.nyan_cat);
@@ -35,8 +35,7 @@ public class NyanCat extends PlayableCharacter {
         this.width = this.bitmap.getWidth();
         this.height = this.bitmap.getHeight() / 2;
         this.y = gameActivity.getResources().getDisplayMetrics().heightPixels / 2;
-
-        this.rainbow = new Rainbow(view, gameActivity);
+        this.rainbow = rainbow;
     }
 
     /**

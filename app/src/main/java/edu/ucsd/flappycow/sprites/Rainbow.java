@@ -15,7 +15,7 @@ import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.Util;
 
-public class Rainbow extends Sprite {
+public class Rainbow extends IRainbow{
 
     /**
      * Static bitmap to reduce memory usage.
@@ -37,6 +37,4 @@ public class Rainbow extends Sprite {
         changeToNextFrame();
         super.move();
     }
-
-
 }

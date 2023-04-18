@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Run App" type="AndroidRunConfigurationType" factoryName="Android App">
-    <module name="FlappyCow.app.main" />
+    <module name="UCSD-CSE-218-2023-teamtritons.app.main" />
     <option name="DEPLOY" value="true" />
     <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
     <option name="DEPLOY_AS_INSTANT" value="false" />
