@@ -29,9 +29,9 @@ public class Cow extends PlayableCharacter {
     private static int sound = -1;
 
     /** sunglasses, hats and stuff */
-    private Accessory accessory;
+    private AccessoryImpl accessory;
 
-    public Cow(GameView view, GameActivity gameActivity) {
+    public Cow(GameView view, GameActivity gameActivity, AccessoryImpl accessory) {
         super(view, gameActivity);
         if (globalBitmap == null) {
             globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.cow);
@@ -46,7 +46,7 @@ public class Cow extends PlayableCharacter {
             sound = GameActivity.soundPool.load(gameActivity, R.raw.cow, 1);
         }
 
-        this.accessory = new Accessory(view, gameActivity);
+        this.accessory = accessory;
     }
 
     private void playSound() {

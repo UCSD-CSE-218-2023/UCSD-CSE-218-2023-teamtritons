@@ -13,7 +13,7 @@ import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.Util;
 
-public class PauseButton extends Sprite {
+public class PauseButton extends IGameButton {
     public PauseButton(GameView view, GameActivity gameActivity) {
         super(view, gameActivity);
         this.bitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.pause_button);

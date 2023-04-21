@@ -57,7 +57,7 @@ public class GameView extends SurfaceView {
     private List<Obstacle> obstacles = new ArrayList<Obstacle>();
     private List<PowerUp> powerUps = new ArrayList<PowerUp>();
 
-    private PauseButton pauseButton;
+    private IGameButton pauseButton;
     volatile private boolean paused = true;
 
     private Tutorial tutorial;
@@ -69,10 +69,10 @@ public class GameView extends SurfaceView {
         setFocusable(true);
 
         holder = getHolder();
-        player = new Cow(this, gameActivity);
+        player = new Cow(this, gameActivity, new Accessory(this, gameActivity));
         background = new Background(this, gameActivity);
         frontground = new Frontground(this, gameActivity);
-        pauseButton = new PauseButton(this, gameActivity);
+        this.pauseButton = new PauseButton(this, gameActivity);
         tutorial = new Tutorial(this, gameActivity);
     }
 
@@ -350,7 +350,7 @@ public class GameView extends SurfaceView {
      */
     private void createObstacle() {
         if (obstacles.size() < 1) {
-            obstacles.add(new Obstacle(this, gameActivity));
+            obstacles.add(new Obstacle(this, gameActivity, new Spider(this, gameActivity), new WoodLog(this, gameActivity)));
         }
     }
 
@@ -385,7 +385,7 @@ public class GameView extends SurfaceView {
         gameActivity.handler.sendMessage(Message.obtain(gameActivity.handler, 1, R.string.toast_achievement_toastification, GameActivity.MyHandler.SHOW_TOAST));
 
         PlayableCharacter tmp = this.player;
-        this.player = new NyanCat(this, gameActivity);
+        this.player = new NyanCat(this, gameActivity, new Rainbow(this, gameActivity));
         this.player.setX(tmp.getX());
         this.player.setY(tmp.getY());
         this.player.setSpeedX(tmp.getSpeedX());
