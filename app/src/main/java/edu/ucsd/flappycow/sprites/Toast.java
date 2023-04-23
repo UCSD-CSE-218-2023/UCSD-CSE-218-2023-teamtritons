@@ -15,7 +15,7 @@ import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.Util;
 
-public class Toast extends PowerUp {
+public class Toast extends PowerUp implements IObserver<T> {
 
     /**
      * Static bitmap to reduce memory usage.
@@ -43,5 +43,9 @@ public class Toast extends PowerUp {
         view.changeToNyanCat();
     }
 
+    @Override 
+    public void onUpdate(Long time) {
+        // formats the seconds nicely and prints them
+    }
 
 }

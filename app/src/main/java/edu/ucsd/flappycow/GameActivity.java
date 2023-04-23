@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+// TODO: remove this
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -103,6 +104,7 @@ public class GameActivity extends Activity {
      */
     public int numberOfRevive = 1;
 
+    // TODO: Remove this knowledge of GameOverDialog
     /**
      * The dialog displayed when the game is over
      */
@@ -252,12 +254,25 @@ public class GameActivity extends Activity {
     /**
      * Shows the GameOverDialog when a message with code 0 is received.
      */
-    class MyHandler extends Handler {
+    class MyHandler extends Handler implements ISubject<T> {
         public static final int SHOW_GAME_OVER_DIALOG = 0;
         public static final int SHOW_TOAST = 1;
         public static final int SHOW_AD = 2;
 
         private final GameActivity gameActivity;
+
+        private ISubjectImpl<Long> subjImpl = new SubjectImpl();
+
+        @Override 
+        public void register(IObserver<T> observer) { 
+            subjImpl.register(observer); 
+        }
+        
+        @Override 
+        public void remove(IObserver<T> observer) { 
+            subjImpl.remove(observer); 
+        }
+}
 
         public MyHandler(GameActivity gameActivity) {
             this.gameActivity = gameActivity;
