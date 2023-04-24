@@ -244,7 +244,7 @@ public class GameView extends SurfaceView {
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(getScoreTextMetrics());
-        canvas.drawText(gameActivity.getResources().getString(R.string.onscreen_score_text) + " " + gameActivity.accomplishmentBox.points
+        canvas.drawText(gameActivity.getResources().getString(R.string.onscreen_score_text) + " " + gameActivity.accomplishmentBox.getPoints()
                 + " / " + gameActivity.getResources().getString(R.string.onscreen_coin_text) + " " + gameActivity.coins,
             0, getScoreTextMetrics(), paint);
     }
@@ -285,9 +285,9 @@ public class GameView extends SurfaceView {
      */
     private void createPowerUp() {
         // Toast
-        if (gameActivity.accomplishmentBox.points >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(player instanceof NyanCat)) {
+        if (gameActivity.accomplishmentBox.getPoints() >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(player instanceof NyanCat)) {
             // If no powerUp is present and you have more than / equal 42 points
-            if (gameActivity.accomplishmentBox.points == Toast.POINTS_TO_TOAST) {    // First time 100 % chance
+            if (gameActivity.accomplishmentBox.getPoints() == Toast.POINTS_TO_TOAST) {    // First time 100 % chance
                 powerUps.add(new Toast(this, gameActivity));
             } else if (Math.random() * 100 < 33) {    // 33% chance
                 powerUps.add(new Toast(this, gameActivity));
@@ -381,7 +381,7 @@ public class GameView extends SurfaceView {
      * Changes the player to Nyan Cat
      */
     public void changeToNyanCat() {
-        gameActivity.accomplishmentBox.achievement_toastification = true;
+        gameActivity.accomplishmentBox.setAchievement_toastification(true);
         gameActivity.handler.sendMessage(Message.obtain(gameActivity.handler, 1, R.string.toast_achievement_toastification, GameActivityHandler.SHOW_TOAST));
 
         IPlayableCharacter tmp = this.player;
@@ -407,7 +407,7 @@ public class GameView extends SurfaceView {
         int speedDefault = this.getWidth() / 45;
 
         // 1,2 every 4 points @ 720x1280 px
-        int speedIncrease = (int) (this.getWidth() / 600f * (gameActivity.accomplishmentBox.points / 4));
+        int speedIncrease = (int) (this.getWidth() / 600f * (gameActivity.accomplishmentBox.getPoints() / 4));
 
         int speed = speedDefault + speedIncrease;
 

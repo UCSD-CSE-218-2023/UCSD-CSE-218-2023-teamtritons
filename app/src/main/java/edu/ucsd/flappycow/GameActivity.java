@@ -32,8 +32,10 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.util.List;
 
+import edu.ucsd.flappycow.consts.ApplicationConstants;
 
-public class GameActivity<T> extends Activity implements ISubjectImpl<T>{
+
+public class GameActivity extends Activity {
     /**
      * Name of the SharedPreference that saves the medals
      */
@@ -140,27 +142,18 @@ public class GameActivity<T> extends Activity implements ISubjectImpl<T>{
      */
     private InterstitialAd interstitial;
 
-    private List<IObserver> observerList;
+//    private ISubjectImpl<AchievementBoxUpdate> subjImpl = new SubjectImpl();
+    private ISubjectImpl<AchievementBoxUpdate> gameActivitySub;
 
-    @Override
-    public void register(IObserver observer) {
-        observerList.add(observer);
-    }
-
-    @Override
-    public void remove(IObserver observer) {
-        observerList.remove(observer);
-    }
-
-    @Override
-    public void notify(T data) {
-
+    public GameActivity() {
+        gameActivitySub = new GameActivitySubjectImpl<>();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         accomplishmentBox = new AchievementBox();
+        gameActivitySub.register(accomplishmentBox);
         view = new GameView(this);
         gameOverDialog = new GameOverDialog(this);
         handler = new GameActivityHandler(this);
@@ -249,9 +242,9 @@ public class GameActivity<T> extends Activity implements ISubjectImpl<T>{
 
     public void increaseCoin() {
         this.coins++;
-        if (coins >= 50 && !accomplishmentBox.achievement_50_coins) {
-//            accomplishmentBox.achievement_50_coins = true;
-            accomplishmentBox.setAchievement_50_coins(true);
+        if (coins >= 50 && !accomplishmentBox.isAchievement_50_coins()) {
+//            accomplishmentBox.setAchievement_50_coins(true);
+            notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_50_COINS, "true"));
             handler.sendMessage(Message.obtain(handler, 1, R.string.toast_achievement_50_coins, GameActivityHandler.SHOW_TOAST));
         }
     }
@@ -264,30 +257,29 @@ public class GameActivity<T> extends Activity implements ISubjectImpl<T>{
      * What should happen, when an obstacle is passed?
      */
     public void increasePoints() {
-//        accomplishmentBox.points++;
+//        accomplishmentBox.setPoints(accomplishmentBox.getPoints()+1);
+        notifyObserver(new AchievementBoxUpdate(ApplicationConstants.POINTS, Integer.toString(accomplishmentBox.getPoints()+1)));
 
-        accomplishmentBox.setPoints(accomplishmentBox.getPoints()+1);
+        this.view.getPlayer().upgradeBitmap(accomplishmentBox.getPoints());
 
-        this.view.getPlayer().upgradeBitmap(accomplishmentBox.points);
-
-        if (accomplishmentBox.points >= AchievementBox.BRONZE_POINTS) {
-            if (!accomplishmentBox.achievement_bronze) {
-//                accomplishmentBox.achievement_bronze = true;
-                accomplishmentBox.setAchievement_bronze(true);
+        if (accomplishmentBox.getPoints() >= AchievementBox.getBronzePoints()) {
+            if (!accomplishmentBox.isAchievement_bronze()) {
+//                accomplishmentBox.setAchievement_bronze(true);
+                notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_BRONZE, "true"));
                 handler.sendMessage(Message.obtain(handler, GameActivityHandler.SHOW_TOAST, R.string.toast_achievement_bronze, GameActivityHandler.SHOW_TOAST));
             }
 
-            if (accomplishmentBox.points >= AchievementBox.SILVER_POINTS) {
-                if (!accomplishmentBox.achievement_silver) {
-//                    accomplishmentBox.achievement_silver = true;
-                    accomplishmentBox.setAchievement_silver(true);
+            if (accomplishmentBox.getPoints() >= AchievementBox.getSilverPoints()) {
+                if (!accomplishmentBox.isAchievement_silver()) {
+//                    accomplishmentBox.setAchievement_silver(true);
+                    notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_SILVER, "true"));
                     handler.sendMessage(Message.obtain(handler, GameActivityHandler.SHOW_TOAST, R.string.toast_achievement_silver, GameActivityHandler.SHOW_TOAST));
                 }
 
-                if (accomplishmentBox.points >= AchievementBox.GOLD_POINTS) {
-                    if (!accomplishmentBox.achievement_gold) {
-//                        accomplishmentBox.achievement_gold = true;
-                        accomplishmentBox.setAchievement_gold(true);
+                if (accomplishmentBox.getPoints() >= AchievementBox.getGoldPoints()) {
+                    if (!accomplishmentBox.isAchievement_gold()) {
+//                        accomplishmentBox.setAchievement_gold(true);
+                        notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_GOLD, "true"));
                         handler.sendMessage(Message.obtain(handler, GameActivityHandler.SHOW_TOAST, R.string.toast_achievement_gold, GameActivityHandler.SHOW_TOAST));
                     }
                 }
@@ -296,8 +288,8 @@ public class GameActivity<T> extends Activity implements ISubjectImpl<T>{
     }
 
     public void decreasePoints() {
-//        accomplishmentBox.points--;
-        accomplishmentBox.setPoints(accomplishmentBox.getPoints()-1);
+//        accomplishmentBox.setPoints(accomplishmentBox.getPoints()-1);
+        notifyObserver(new AchievementBoxUpdate(ApplicationConstants.POINTS, Integer.toString(accomplishmentBox.getPoints()-1)));
     }
 
     /**
@@ -342,5 +334,9 @@ public class GameActivity<T> extends Activity implements ISubjectImpl<T>{
                 GameActivity.this.interstitial = null;
             }
         });
+    }
+
+    public void notifyObserver(AchievementBoxUpdate data) {
+        gameActivitySub.notify(data);
     }
 }

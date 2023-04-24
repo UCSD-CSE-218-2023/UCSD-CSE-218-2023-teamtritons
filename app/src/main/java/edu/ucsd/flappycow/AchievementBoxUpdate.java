@@ -8,17 +8,16 @@ public class AchievementBoxUpdate {
         this.updatedKey = updatedKey;
         this.updatedValue = updatedValue;
     }
-
     public String getUpdatedKey() {
         return updatedKey;
     }
 
-    public String getUpdatedValue() {
-        return updatedValue;
-    }
-
     public void setUpdatedKey(String updatedKey) {
         this.updatedKey = updatedKey;
+    }
+
+    public String getUpdatedValue() {
+        return updatedValue;
     }
 
     public void setUpdatedValue(String updatedValue) {

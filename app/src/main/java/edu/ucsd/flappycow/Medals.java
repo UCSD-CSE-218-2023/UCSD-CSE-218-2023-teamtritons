@@ -18,17 +18,17 @@ public class Medals extends Dialog implements IObserver<GameOverUpdate>{
 
             SharedPreferences.Editor editor = MEDAL_SAVE.edit();
 
-            if (data.gameActivity.accomplishmentBox.achievement_gold) {
+            if (data.gameActivity.accomplishmentBox.isAchievement_gold()) {
                 data.imageView.setImageBitmap(Util.getScaledBitmapAlpha8(data.gameActivity, R.drawable.gold));
                 if (medal < 3) {
                     editor.putInt(MainActivity.MEDAL_KEY, 3);
                 }
-            } else if (data.gameActivity.accomplishmentBox.achievement_silver) {
+            } else if (data.gameActivity.accomplishmentBox.isAchievement_silver()) {
                 data.imageView.setImageBitmap(Util.getScaledBitmapAlpha8(data.gameActivity, R.drawable.silver));
                 if (medal < 2) {
                     editor.putInt(MainActivity.MEDAL_KEY, 2);
                 }
-            } else if (data.gameActivity.accomplishmentBox.achievement_bronze) {
+            } else if (data.gameActivity.accomplishmentBox.isAchievement_bronze()) {
                 data.imageView.setImageBitmap(Util.getScaledBitmapAlpha8(data.gameActivity, R.drawable.bronce));
                 if (medal < 1) {
                     editor.putInt(MainActivity.MEDAL_KEY, 1);

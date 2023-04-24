@@ -11,37 +11,39 @@ package edu.ucsd.flappycow;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
-public class AchievementBox<T> implements IObserver<T> {
+import edu.ucsd.flappycow.consts.ApplicationConstants;
+
+public class AchievementBox implements IObserver<AchievementBoxUpdate> {
     /**
      * Points needed for a gold medal
      */
-    public static final int GOLD_POINTS = 100;
+    private static final int GOLD_POINTS = 100;
 
     /**
      * Points needed for a silver medal
      */
-    public static final int SILVER_POINTS = 50;
+    private static final int SILVER_POINTS = 50;
 
     /**
      * Points needed for a bronze medal
      */
-    public static final int BRONZE_POINTS = 10;
+    private static final int BRONZE_POINTS = 10;
 
-    public static final String SAVE_NAME = "achivements";
+    private static final String SAVE_NAME = "achivements";
 
-    public static final String KEY_POINTS = "points";
-    public static final String ACHIEVEMENT_KEY_50_COINS = "achievement_survive_5_minutes";
-    public static final String ACHIEVEMENT_KEY_TOASTIFICATION = "achievement_toastification";
-    public static final String ACHIEVEMENT_KEY_BRONZE = "achievement_bronze";
-    public static final String ACHIEVEMENT_KEY_SILVER = "achievement_silver";
-    public static final String ACHIEVEMENT_KEY_GOLD = "achievement_gold";
+    private static final String KEY_POINTS = "points";
+    private static final String ACHIEVEMENT_KEY_50_COINS = "achievement_survive_5_minutes";
+    private static final String ACHIEVEMENT_KEY_TOASTIFICATION = "achievement_toastification";
+    private static final String ACHIEVEMENT_KEY_BRONZE = "achievement_bronze";
+    private static final String ACHIEVEMENT_KEY_SILVER = "achievement_silver";
+    private static final String ACHIEVEMENT_KEY_GOLD = "achievement_gold";
 
-    int points;
-    boolean achievement_50_coins;
-    boolean achievement_toastification;
-    boolean achievement_bronze;
-    boolean achievement_silver;
-    boolean achievement_gold;
+    private int points;
+    private boolean achievement_50_coins;
+    private boolean achievement_toastification;
+    private boolean achievement_bronze;
+    private boolean achievement_silver;
+    private boolean achievement_gold;
 
     /**
      * Stores the score and achievements locally.
@@ -147,8 +149,61 @@ public class AchievementBox<T> implements IObserver<T> {
         this.achievement_gold = achievement_gold;
     }
 
-    @Override
-    public void onUpdate(T data) {
+    public static int getGoldPoints() {
+        return GOLD_POINTS;
+    }
 
+    public static int getSilverPoints() {
+        return SILVER_POINTS;
+    }
+
+    public static int getBronzePoints() {
+        return BRONZE_POINTS;
+    }
+
+    public static String getSaveName() {
+        return SAVE_NAME;
+    }
+
+    public static String getKeyPoints() {
+        return KEY_POINTS;
+    }
+
+    public static String getAchievementKey50Coins() {
+        return ACHIEVEMENT_KEY_50_COINS;
+    }
+
+    public static String getAchievementKeyToastification() {
+        return ACHIEVEMENT_KEY_TOASTIFICATION;
+    }
+
+    public static String getAchievementKeyBronze() {
+        return ACHIEVEMENT_KEY_BRONZE;
+    }
+
+    public static String getAchievementKeySilver() {
+        return ACHIEVEMENT_KEY_SILVER;
+    }
+
+    public static String getAchievementKeyGold() {
+        return ACHIEVEMENT_KEY_GOLD;
+    }
+
+    @Override
+    public void onUpdate(AchievementBoxUpdate data) {
+        String key = data.getUpdatedKey();
+        String value = data.getUpdatedValue();
+
+        if (key == ApplicationConstants.POINTS) {
+            setPoints(Integer.parseInt(value));
+        } else if (key == ApplicationConstants.ACHIEVEMENT_50_COINS) {
+            setAchievement_50_coins(Boolean.parseBoolean(value));
+        } else if (key == ApplicationConstants.ACHIEVEMENT_BRONZE) {
+            setAchievement_bronze(Boolean.parseBoolean(value));
+        } else if (key == ApplicationConstants.ACHIEVEMENT_SILVER) {
+            setAchievement_silver(Boolean.parseBoolean(value));
+        } else if (key == ApplicationConstants.ACHIEVEMENT_GOLD) {
+            setAchievement_gold(Boolean.parseBoolean(value));
+        }
     }
 }
