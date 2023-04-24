@@ -1,65 +1,41 @@
 package edu.ucsd.flappycow.sprite;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-public class Toast implements IPowerUp{
-    @Override
-    public boolean isColliding() {
-        return false;
+import edu.ucsd.flappycow.GameActivity;
+import edu.ucsd.flappycow.GameView;
+import edu.ucsd.flappycow.R;
+import edu.ucsd.flappycow.Util;
+
+public class Toast extends PowerUp{
+    /**
+     * Static bitmap to reduce memory usage.
+     */
+    public static Bitmap globalBitmap;
+
+    public static final int POINTS_TO_TOAST = 42;
+
+    public Toast(GameView view, GameActivity gameActivity) {
+        super(view, gameActivity);
+        if (globalBitmap == null) {
+            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.toast);
+        }
+        this.setBitmap(globalBitmap);
+        this.setWidth(this.getBitmap().getWidth());
+        this.setHeight(this.getBitmap().getHeight());
     }
 
-    @Override
-    public boolean isCollidingRadius() {
-        return false;
-    }
-
-    @Override
-    public boolean isTouching() {
-        return false;
-    }
-
+    /**
+     * When eaten the player will turn into nyan cat.
+     */
     @Override
     public void onCollision() {
-
+        super.onCollision();
+        this.getView().changeToNyanCat();
+    }
+    public static float getPointsToToast() {
+        return POINTS_TO_TOAST;
     }
 
-    @Override
-    public boolean isTouchingEdge() {
-        return false;
-    }
-
-    @Override
-    public boolean isTouchingSky() {
-        return false;
-    }
-
-    @Override
-    public boolean isPassed() {
-        return false;
-    }
-
-    @Override
-    public int getCollisionTolerance() {
-        return 0;
-    }
-
-    @Override
-    public void draw(Canvas canvas) {
-
-    }
-
-    @Override
-    public void move() {
-
-    }
-
-    @Override
-    public void changeToNextFrame() {
-
-    }
-
-    @Override
-    public boolean isOutOfRange() {
-        return false;
-    }
 }
