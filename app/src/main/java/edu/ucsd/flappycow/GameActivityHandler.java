@@ -2,14 +2,11 @@ package edu.ucsd.flappycow;
 
 import android.os.Handler;
 import android.os.Message;
+import edu.ucsd.flappycow.consts.ApplicationConstants;
 
 class GameActivityHandler extends Handler {
 
     private ISubjectImpl<GameActivityHandlerUpdate> GameActivityHandlerSub = new GameActivityHandlerSubjectImpl<>();
-
-    public static final int SHOW_GAME_OVER_DIALOG = 0;
-    public static final int SHOW_TOAST = 1;
-    public static final int SHOW_AD = 2;
 
     public GameActivity getGameActivity() {
         return gameActivity;
@@ -29,13 +26,13 @@ class GameActivityHandler extends Handler {
     public void handleMessage(Message msg) {
 
         switch (msg.what) {
-            case SHOW_GAME_OVER_DIALOG:
+            case ApplicationConstants.SHOW_GAME_OVER_DIALOG:
                 showGameOverDialog(msg);
                 break;
-            case SHOW_TOAST:
-                GameActivityHandlerSub.notify(new GameActivityHandlerUpdate(getGameActivity(), msg, SHOW_TOAST));
+            case ApplicationConstants.SHOW_TOAST:
+                GameActivityHandlerSub.notify(new GameActivityHandlerUpdate(getGameActivity(), msg, ApplicationConstants.SHOW_TOAST));
                 break;
-            case SHOW_AD:
+            case ApplicationConstants.SHOW_AD:
                 showAdIfAvailable(msg);
                 break;
         }
@@ -50,6 +47,6 @@ class GameActivityHandler extends Handler {
     }
 
     private void showGameOverDialog(Message msg) {
-        GameActivityHandlerSub.notify(new GameActivityHandlerUpdate(getGameActivity(), msg, SHOW_GAME_OVER_DIALOG));
+        GameActivityHandlerSub.notify(new GameActivityHandlerUpdate(getGameActivity(), msg, ApplicationConstants.SHOW_GAME_OVER_DIALOG));
     }
 }

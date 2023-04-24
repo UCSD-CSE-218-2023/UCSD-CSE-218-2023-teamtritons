@@ -11,6 +11,9 @@ public class ApplicationConstants {
 
     public static final String MEDALS = "medals";
 
+    public static final int SHOW_GAME_OVER_DIALOG = 0;
 
+    public static final int SHOW_TOAST = 1;
 
+    public static final int SHOW_AD = 2;
 }
