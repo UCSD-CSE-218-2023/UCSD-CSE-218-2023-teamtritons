@@ -2,9 +2,6 @@ package edu.ucsd.flappycow;
 
 import android.os.Handler;
 import android.os.Message;
-import android.widget.Toast;
-
-import edu.ucsd.flappycow.GameActivity;
 
 class GameActivityHandler extends Handler {
 
