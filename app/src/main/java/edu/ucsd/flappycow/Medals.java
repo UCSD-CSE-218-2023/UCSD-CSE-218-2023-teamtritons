@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.ImageView;
 
+import edu.ucsd.flappycow.consts.ApplicationConstants;
+
 public class Medals extends Dialog implements IObserver<GameOverUpdate>{
 
     Medals(GameActivity gameActivity){
@@ -12,7 +14,7 @@ public class Medals extends Dialog implements IObserver<GameOverUpdate>{
     }
     @Override
     public void onUpdate(GameOverUpdate data) {
-        if(data.type.equals("medals")){
+        if(data.type.equals(ApplicationConstants.MEDALS)){
             SharedPreferences MEDAL_SAVE = data.gameActivity.getSharedPreferences(MainActivity.MEDAL_SAVE, 0);
             int medal = MEDAL_SAVE.getInt(MainActivity.MEDAL_KEY, 0);
 

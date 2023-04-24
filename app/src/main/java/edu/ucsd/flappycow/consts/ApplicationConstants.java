@@ -7,4 +7,10 @@ public class ApplicationConstants {
     public static final String ACHIEVEMENT_GOLD = "ACHIEVEMENT_GOLD";
     public static final String ACHIEVEMENT_BRONZE = "ACHIEVEMENT_BRONZE";
 
+    public static final String SCORE = "score";
+
+    public static final String MEDALS = "medals";
+
+
+
 }

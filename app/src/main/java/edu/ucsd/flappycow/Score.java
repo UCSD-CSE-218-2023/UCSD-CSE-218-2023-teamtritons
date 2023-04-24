@@ -4,6 +4,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.widget.TextView;
 
+import edu.ucsd.flappycow.consts.ApplicationConstants;
+
 public class Score implements IObserver<GameOverUpdate> {
     /**
      * Name of the SharedPreference that saves the score
@@ -20,7 +22,7 @@ public class Score implements IObserver<GameOverUpdate> {
 
     @Override
     public void onUpdate(GameOverUpdate gameActivityHandlerUpdate) {
-        if(gameActivityHandlerUpdate.type.equals("score")){
+        if(gameActivityHandlerUpdate.type.equals(ApplicationConstants.SCORE)){
             SharedPreferences saves = gameActivityHandlerUpdate.gameActivity.getSharedPreferences(score_save_name, 0);
             int oldPoints = saves.getInt(best_score_key, 0);
             if (gameActivityHandlerUpdate.gameActivity.accomplishmentBox.getPoints() > oldPoints) {
