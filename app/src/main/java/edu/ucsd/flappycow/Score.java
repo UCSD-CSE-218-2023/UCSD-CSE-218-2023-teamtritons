@@ -27,7 +27,7 @@ public class Score implements IObserver<GameOverUpdate> {
                 // Save new highscore
                 SharedPreferences.Editor editor = saves.edit();
                 editor.putInt(best_score_key, gameActivityHandlerUpdate.gameActivity.accomplishmentBox.points);
-                this.tvBestScoreVal.setTextColor(Color.RED);
+                gameActivityHandlerUpdate.tvCurrentScoreVal.setTextColor(Color.RED);
                 editor.apply();
             }
             gameActivityHandlerUpdate.tvCurrentScoreVal.setText("" + gameActivityHandlerUpdate.gameActivity.accomplishmentBox.points);

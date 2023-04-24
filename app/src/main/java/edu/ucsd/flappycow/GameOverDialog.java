@@ -59,31 +59,19 @@ public class GameOverDialog extends Dialog {
     public void init() {
         Button okButton = (Button) findViewById(R.id.b_ok);
 
-        okButton.setOnClickListener(view -> {
-            saveCoins();
-            if (gameActivity.numberOfRevive <= 1) {
-                gameActivity.accomplishmentBox.save(gameActivity);
-            }
-
-            dismiss();
-            gameActivity.finish();
-        });
+        okButton.setOnClickListener(this::onOKClick);
 
         Button reviveButton = (Button) findViewById(R.id.b_revive);
 
         reviveButton.setText(gameActivity.getResources().getString(R.string.revive_button)
             + " " + REVIVE_PRICE * gameActivity.numberOfRevive + " "
             + gameActivity.getResources().getString(R.string.coins));
-        reviveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-                gameActivity.coins -= REVIVE_PRICE * gameActivity.numberOfRevive;
-                saveCoins();
-                gameActivity.view.revive();
-            }
-        });
-
+        reviveButton.setOnClickListener(this::onReviveClick);
+        if (gameActivity.coins < REVIVE_PRICE * gameActivity.numberOfRevive) {
+            reviveButton.setClickable(false);
+        } else {
+            reviveButton.setClickable(true);
+        }
 
        GameButtonHandlerSub.notify(new GameOverUpdate(this.gameActivity, tvCurrentScoreVal, tvBestScoreVal, "score"));
        GameButtonHandlerSub.notify(new GameOverUpdate(this.gameActivity, imageView, "medals"));
@@ -139,4 +127,21 @@ public class GameOverDialog extends Dialog {
         editor.apply();
     }
 
+    private void onOKClick(View view) {
+        saveCoins();
+        if (gameActivity.numberOfRevive <= 1) {
+            gameActivity.accomplishmentBox.save(gameActivity);
+        }
+
+        dismiss();
+        gameActivity.finish();
+    }
+
+    private void onReviveClick(View view) {
+        dismiss();
+        gameActivity.coins -= REVIVE_PRICE * gameActivity.numberOfRevive;
+        saveCoins();
+        gameActivity.view.revive();
+
+    }
 }

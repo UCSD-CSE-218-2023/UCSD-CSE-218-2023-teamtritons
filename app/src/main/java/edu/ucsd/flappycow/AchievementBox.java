@@ -25,7 +25,7 @@ public class AchievementBox<T> implements IObserver<T> {
     /**
      * Points needed for a bronze medal
      */
-    public static final int BRONZE_POINTS = 10;
+    public static final int BRONZE_POINTS = 1;
 
     public static final String SAVE_NAME = "achivements";
 
