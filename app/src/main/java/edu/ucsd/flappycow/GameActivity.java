@@ -233,9 +233,9 @@ public class GameActivity extends Activity {
      */
     public void gameOver() {
         if (gameOverCounter % GAMES_PER_AD == 0) {
-            handler.sendMessage(Message.obtain(handler, GameActivityHandler.SHOW_AD));
+            handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_AD));
         } else {
-            handler.sendMessage(Message.obtain(handler, GameActivityHandler.SHOW_GAME_OVER_DIALOG));
+            handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_GAME_OVER_DIALOG));
         }
 
     }
@@ -245,7 +245,7 @@ public class GameActivity extends Activity {
         if (coins >= 50 && !accomplishmentBox.isAchievement_50_coins()) {
 //            accomplishmentBox.setAchievement_50_coins(true);
             notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_50_COINS, "true"));
-            handler.sendMessage(Message.obtain(handler, 1, R.string.toast_achievement_50_coins, GameActivityHandler.SHOW_TOAST));
+            handler.sendMessage(Message.obtain(handler, 1, R.string.toast_achievement_50_coins, ApplicationConstants.SHOW_TOAST));
         }
     }
 
@@ -266,21 +266,21 @@ public class GameActivity extends Activity {
             if (!accomplishmentBox.isAchievement_bronze()) {
 //                accomplishmentBox.setAchievement_bronze(true);
                 notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_BRONZE, "true"));
-                handler.sendMessage(Message.obtain(handler, GameActivityHandler.SHOW_TOAST, R.string.toast_achievement_bronze, GameActivityHandler.SHOW_TOAST));
+                handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_TOAST, R.string.toast_achievement_bronze, ApplicationConstants.SHOW_TOAST));
             }
 
             if (accomplishmentBox.getPoints() >= AchievementBox.getSilverPoints()) {
                 if (!accomplishmentBox.isAchievement_silver()) {
 //                    accomplishmentBox.setAchievement_silver(true);
                     notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_SILVER, "true"));
-                    handler.sendMessage(Message.obtain(handler, GameActivityHandler.SHOW_TOAST, R.string.toast_achievement_silver, GameActivityHandler.SHOW_TOAST));
+                    handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_TOAST, R.string.toast_achievement_silver, ApplicationConstants.SHOW_TOAST));
                 }
 
                 if (accomplishmentBox.getPoints() >= AchievementBox.getGoldPoints()) {
                     if (!accomplishmentBox.isAchievement_gold()) {
 //                        accomplishmentBox.setAchievement_gold(true);
                         notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_GOLD, "true"));
-                        handler.sendMessage(Message.obtain(handler, GameActivityHandler.SHOW_TOAST, R.string.toast_achievement_gold, GameActivityHandler.SHOW_TOAST));
+                        handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_TOAST, R.string.toast_achievement_gold, ApplicationConstants.SHOW_TOAST));
                     }
                 }
             }
@@ -317,7 +317,7 @@ public class GameActivity extends Activity {
                 interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                     @Override
                     public void onAdDismissedFullScreenContent() {
-                        handler.sendMessage(Message.obtain(handler, GameActivityHandler.SHOW_GAME_OVER_DIALOG));
+                        handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_GAME_OVER_DIALOG));
                     }
                 });
                 GameActivity.this.interstitial = interstitialAd;
