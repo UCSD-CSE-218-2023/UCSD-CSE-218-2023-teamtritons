@@ -382,7 +382,7 @@ public class GameView extends SurfaceView {
      */
     public void changeToNyanCat() {
         gameActivity.accomplishmentBox.achievement_toastification = true;
-        gameActivity.handler.sendMessage(Message.obtain(gameActivity.handler, 1, R.string.toast_achievement_toastification, GameActivity.MyHandler.SHOW_TOAST));
+        gameActivity.handler.sendMessage(Message.obtain(gameActivity.handler, 1, R.string.toast_achievement_toastification, GameActivityHandler.SHOW_TOAST));
 
         IPlayableCharacter tmp = this.player;
         this.player = new NyanCat(this, gameActivity, new Rainbow(this, gameActivity));

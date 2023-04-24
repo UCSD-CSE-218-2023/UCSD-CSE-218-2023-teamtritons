@@ -83,7 +83,7 @@ public class GameActivity<T> extends Activity implements ISubjectImpl<T>{
     /**
      * To do UI things from different threads
      */
-    public MyHandler handler;
+    public GameActivityHandler handler;
 
     /**
      * Hold all accomplishments
@@ -138,7 +138,7 @@ public class GameActivity<T> extends Activity implements ISubjectImpl<T>{
         accomplishmentBox = new AchievementBox();
         view = new GameView(this);
         gameOverDialog = new GameOverDialog(this);
-        handler = new MyHandler(this);
+        handler = new GameActivityHandler(this);
         setContentView(view);
         initMusicPlayer();
         loadCoins();
@@ -215,9 +215,9 @@ public class GameActivity<T> extends Activity implements ISubjectImpl<T>{
      */
     public void gameOver() {
         if (gameOverCounter % GAMES_PER_AD == 0) {
-            handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_AD));
+            handler.sendMessage(Message.obtain(handler, GameActivityHandler.SHOW_AD));
         } else {
-            handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_GAME_OVER_DIALOG));
+            handler.sendMessage(Message.obtain(handler, GameActivityHandler.SHOW_GAME_OVER_DIALOG));
         }
 
     }
@@ -227,7 +227,7 @@ public class GameActivity<T> extends Activity implements ISubjectImpl<T>{
         if (coins >= 50 && !accomplishmentBox.achievement_50_coins) {
 //            accomplishmentBox.achievement_50_coins = true;
             accomplishmentBox.setAchievement_50_coins(true);
-            handler.sendMessage(Message.obtain(handler, 1, R.string.toast_achievement_50_coins, MyHandler.SHOW_TOAST));
+            handler.sendMessage(Message.obtain(handler, 1, R.string.toast_achievement_50_coins, GameActivityHandler.SHOW_TOAST));
         }
     }
 
@@ -249,21 +249,21 @@ public class GameActivity<T> extends Activity implements ISubjectImpl<T>{
             if (!accomplishmentBox.achievement_bronze) {
 //                accomplishmentBox.achievement_bronze = true;
                 accomplishmentBox.setAchievement_bronze(true);
-                handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_bronze, MyHandler.SHOW_TOAST));
+                handler.sendMessage(Message.obtain(handler, GameActivityHandler.SHOW_TOAST, R.string.toast_achievement_bronze, GameActivityHandler.SHOW_TOAST));
             }
 
             if (accomplishmentBox.points >= AchievementBox.SILVER_POINTS) {
                 if (!accomplishmentBox.achievement_silver) {
 //                    accomplishmentBox.achievement_silver = true;
                     accomplishmentBox.setAchievement_silver(true);
-                    handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_silver, MyHandler.SHOW_TOAST));
+                    handler.sendMessage(Message.obtain(handler, GameActivityHandler.SHOW_TOAST, R.string.toast_achievement_silver, GameActivityHandler.SHOW_TOAST));
                 }
 
                 if (accomplishmentBox.points >= AchievementBox.GOLD_POINTS) {
                     if (!accomplishmentBox.achievement_gold) {
 //                        accomplishmentBox.achievement_gold = true;
                         accomplishmentBox.setAchievement_gold(true);
-                        handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_gold, MyHandler.SHOW_TOAST));
+                        handler.sendMessage(Message.obtain(handler, GameActivityHandler.SHOW_TOAST, R.string.toast_achievement_gold, GameActivityHandler.SHOW_TOAST));
                     }
                 }
             }
@@ -278,46 +278,7 @@ public class GameActivity<T> extends Activity implements ISubjectImpl<T>{
     /**
      * Shows the GameOverDialog when a message with code 0 is received.
      */
-    class MyHandler extends Handler {
-        public static final int SHOW_GAME_OVER_DIALOG = 0;
-        public static final int SHOW_TOAST = 1;
-        public static final int SHOW_AD = 2;
-
-        private final GameActivity gameActivity;
-
-        public MyHandler(GameActivity gameActivity) {
-            this.gameActivity = gameActivity;
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case SHOW_GAME_OVER_DIALOG:
-                    showGameOverDialog();
-                    break;
-                case SHOW_TOAST:
-                    Toast.makeText(gameActivity, msg.arg1, Toast.LENGTH_SHORT).show();
-                    break;
-                case SHOW_AD:
-                    showAdIfAvailable();
-                    break;
-            }
-        }
-
-        private void showAdIfAvailable() {
-            if (gameActivity.interstitial == null) {
-                showGameOverDialog();
-            } else {
-                gameActivity.interstitial.show(GameActivity.this);
-            }
-        }
-
-        private void showGameOverDialog() {
-            ++GameActivity.gameOverCounter;
-            gameActivity.gameOverDialog.init();
-            gameActivity.gameOverDialog.show();
-        }
-    }
+    
 
     private void setupAd() {
         MobileAds.initialize(this, initializationStatus -> { /* no-op */ });
@@ -339,7 +300,7 @@ public class GameActivity<T> extends Activity implements ISubjectImpl<T>{
                 interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                     @Override
                     public void onAdDismissedFullScreenContent() {
-                        handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_GAME_OVER_DIALOG));
+                        handler.sendMessage(Message.obtain(handler, GameActivityHandler.SHOW_GAME_OVER_DIALOG));
                     }
                 });
                 GameActivity.this.interstitial = interstitialAd;
