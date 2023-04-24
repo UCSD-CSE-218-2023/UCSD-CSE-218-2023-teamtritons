@@ -11,7 +11,7 @@ package edu.ucsd.flappycow;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
-public class AchievementBox {
+public class AchievementBox<T> implements IObserver<T> {
     /**
      * Points needed for a gold medal
      */
@@ -97,5 +97,58 @@ public class AchievementBox {
         box.achievement_gold = saves.getBoolean(ACHIEVEMENT_KEY_GOLD, false);
 
         return box;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public boolean isAchievement_50_coins() {
+        return achievement_50_coins;
+    }
+
+    public void setAchievement_50_coins(boolean achievement_50_coins) {
+        this.achievement_50_coins = achievement_50_coins;
+    }
+
+    public boolean isAchievement_toastification() {
+        return achievement_toastification;
+    }
+
+    public void setAchievement_toastification(boolean achievement_toastification) {
+        this.achievement_toastification = achievement_toastification;
+    }
+
+    public boolean isAchievement_bronze() {
+        return achievement_bronze;
+    }
+
+    public void setAchievement_bronze(boolean achievement_bronze) {
+        this.achievement_bronze = achievement_bronze;
+    }
+
+    public boolean isAchievement_silver() {
+        return achievement_silver;
+    }
+
+    public void setAchievement_silver(boolean achievement_silver) {
+        this.achievement_silver = achievement_silver;
+    }
+
+    public boolean isAchievement_gold() {
+        return achievement_gold;
+    }
+
+    public void setAchievement_gold(boolean achievement_gold) {
+        this.achievement_gold = achievement_gold;
+    }
+
+    @Override
+    public void onUpdate(T data) {
+
     }
 }

@@ -16,7 +16,7 @@ import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.Util;
 
-public class Background extends Sprite {
+public class Background extends IMovableSprite {
 
     /** Static bitmap to reduce memory usage */
     public static Bitmap globalBitmap;

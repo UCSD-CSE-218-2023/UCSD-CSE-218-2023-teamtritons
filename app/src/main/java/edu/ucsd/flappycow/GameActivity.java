@@ -30,8 +30,10 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
+import java.util.List;
 
-public class GameActivity extends Activity {
+
+public class GameActivity<T> extends Activity implements ISubjectImpl<T>{
     /**
      * Name of the SharedPreference that saves the medals
      */
@@ -112,6 +114,23 @@ public class GameActivity extends Activity {
      * Interstitial ad.
      */
     private InterstitialAd interstitial;
+
+    private List<IObserver> observerList;
+
+    @Override
+    public void register(IObserver observer) {
+        observerList.add(observer);
+    }
+
+    @Override
+    public void remove(IObserver observer) {
+        observerList.remove(observer);
+    }
+
+    @Override
+    public void notify(T data) {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,7 +225,8 @@ public class GameActivity extends Activity {
     public void increaseCoin() {
         this.coins++;
         if (coins >= 50 && !accomplishmentBox.achievement_50_coins) {
-            accomplishmentBox.achievement_50_coins = true;
+//            accomplishmentBox.achievement_50_coins = true;
+            accomplishmentBox.setAchievement_50_coins(true);
             handler.sendMessage(Message.obtain(handler, 1, R.string.toast_achievement_50_coins, MyHandler.SHOW_TOAST));
         }
     }
@@ -219,25 +239,30 @@ public class GameActivity extends Activity {
      * What should happen, when an obstacle is passed?
      */
     public void increasePoints() {
-        accomplishmentBox.points++;
+//        accomplishmentBox.points++;
+
+        accomplishmentBox.setPoints(accomplishmentBox.getPoints()+1);
 
         this.view.getPlayer().upgradeBitmap(accomplishmentBox.points);
 
         if (accomplishmentBox.points >= AchievementBox.BRONZE_POINTS) {
             if (!accomplishmentBox.achievement_bronze) {
-                accomplishmentBox.achievement_bronze = true;
+//                accomplishmentBox.achievement_bronze = true;
+                accomplishmentBox.setAchievement_bronze(true);
                 handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_bronze, MyHandler.SHOW_TOAST));
             }
 
             if (accomplishmentBox.points >= AchievementBox.SILVER_POINTS) {
                 if (!accomplishmentBox.achievement_silver) {
-                    accomplishmentBox.achievement_silver = true;
+//                    accomplishmentBox.achievement_silver = true;
+                    accomplishmentBox.setAchievement_silver(true);
                     handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_silver, MyHandler.SHOW_TOAST));
                 }
 
                 if (accomplishmentBox.points >= AchievementBox.GOLD_POINTS) {
                     if (!accomplishmentBox.achievement_gold) {
-                        accomplishmentBox.achievement_gold = true;
+//                        accomplishmentBox.achievement_gold = true;
+                        accomplishmentBox.setAchievement_gold(true);
                         handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_gold, MyHandler.SHOW_TOAST));
                     }
                 }
@@ -246,7 +271,8 @@ public class GameActivity extends Activity {
     }
 
     public void decreasePoints() {
-        accomplishmentBox.points--;
+//        accomplishmentBox.points--;
+        accomplishmentBox.setPoints(accomplishmentBox.getPoints()-1);
     }
 
     /**
