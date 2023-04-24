@@ -7,7 +7,6 @@ import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
-import edu.ucsd.flappycow.sprites.IRainbow;
 
 public class NyanCat extends IPlayableCharacter{
     /** Static bitmap to reduce memory usage */

@@ -8,7 +8,6 @@ import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.MainActivity;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
-import edu.ucsd.flappycow.sprites.AccessoryImpl;
 
 public class Cow extends IPlayableCharacter{
     private static final int POINTS_TO_SIR = 23;

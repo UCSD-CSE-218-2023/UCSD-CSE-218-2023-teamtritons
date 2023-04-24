@@ -7,8 +7,8 @@ import static org.junit.Assert.assertTrue;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
-import edu.ucsd.flappycow.sprite.NyanCat;
-import edu.ucsd.flappycow.sprite.Rainbow;
+import edu.ucsd.flappycow.sprites.NyanCat;
+import edu.ucsd.flappycow.sprites.Rainbow;
 
 @RunWith(AndroidJUnit4.class)
 public class NyanCatTest {
