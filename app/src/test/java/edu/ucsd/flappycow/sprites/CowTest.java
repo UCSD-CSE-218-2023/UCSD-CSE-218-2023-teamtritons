@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
+import edu.ucsd.flappycow.sprite.Accessory;
+import edu.ucsd.flappycow.sprite.Cow;
 
 @RunWith(AndroidJUnit4.class)
 public class CowTest {

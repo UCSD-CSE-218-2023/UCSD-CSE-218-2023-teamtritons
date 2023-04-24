@@ -21,7 +21,8 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.MainActivity;
-import edu.ucsd.flappycow.sprites.Accessory;
+import edu.ucsd.flappycow.sprite.Rainbow;
+import edu.ucsd.flappycow.sprite.Accessory;
 
 @RunWith(AndroidJUnit4.class)
 public class RainbowTest {
