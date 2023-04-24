@@ -50,6 +50,31 @@ public class GameActivity<T> extends Activity implements ISubjectImpl<T>{
     public static SoundPool soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
 
     private static final int GAMES_PER_AD = 3;
+
+    public static int getGameOverCounter() {
+        return gameOverCounter;
+    }
+
+    public static void setGameOverCounter(int gameOverCounter) {
+        GameActivity.gameOverCounter = gameOverCounter;
+    }
+
+    public long getBackPressed() {
+        return backPressed;
+    }
+
+    public void setBackPressed(long backPressed) {
+        this.backPressed = backPressed;
+    }
+
+    public InterstitialAd getInterstitial() {
+        return interstitial;
+    }
+
+    public void setInterstitial(InterstitialAd interstitial) {
+        this.interstitial = interstitial;
+    }
+
     /**
      * Counts number of played games
      */

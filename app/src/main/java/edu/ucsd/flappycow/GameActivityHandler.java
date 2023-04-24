@@ -33,15 +33,15 @@ class GameActivityHandler extends Handler {
     }
 
     private void showAdIfAvailable() {
-        if (gameActivity.interstitial == null) {
+        if (gameActivity.getInterstitial() == null) {
             showGameOverDialog();
         } else {
-            gameActivity.interstitial.show(GameActivity.this);
+            gameActivity.getInterstitial().show(gameActivity);
         }
     }
 
     private void showGameOverDialog() {
-        ++GameActivity.gameOverCounter;
+        gameActivity.setGameOverCounter(gameActivity.getGameOverCounter() + 1);
         gameActivity.gameOverDialog.init();
         gameActivity.gameOverDialog.show();
     }
