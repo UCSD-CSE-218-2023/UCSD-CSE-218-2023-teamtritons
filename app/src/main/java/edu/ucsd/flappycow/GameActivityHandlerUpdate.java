@@ -2,8 +2,14 @@ package edu.ucsd.flappycow;
 
 import android.os.Message;
 
-public class GameActivityHandlerPojo {
+public class GameActivityHandlerUpdate {
     GameActivity gameActivity;
     Message msg;
     int msgType;
+
+    public GameActivityHandlerUpdate(GameActivity gameActivity, Message msg, int msgType) {
+        this.gameActivity = gameActivity;
+        this.msg = msg;
+        this.msgType = msgType;
+    }
 }
