@@ -1,6 +1,5 @@
-package edu.ucsd.flappycow.sprite;
+package edu.ucsd.flappycow.sprites;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import edu.ucsd.flappycow.GameActivity;

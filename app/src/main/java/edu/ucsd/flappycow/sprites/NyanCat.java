@@ -1,40 +1,30 @@
-/**
- * Nyan Cat character
- *
- * @author Lars Harmsen
- * Copyright (c) <2014> <Lars Harmsen - Quchen>
- * <p>
- * Nyan Cat was drawn by Christopher Torres and momo momo remixed the music by daniwell
- */
-
 package edu.ucsd.flappycow.sprites;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-import edu.ucsd.flappycow.R;
-
 import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
+import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
+import edu.ucsd.flappycow.sprites.IRainbow;
 
-public class NyanCat extends PlayableCharacter {
-
+public class NyanCat extends IPlayableCharacter{
     /** Static bitmap to reduce memory usage */
-    public static Bitmap globalBitmap;
+    private static Bitmap globalBitmap;
 
     /** The rainbow tail behind the cat */
-    private IRainbow rainbow;
+    private Rainbow rainbow;
 
-    public NyanCat(GameView view, GameActivity gameActivity, IRainbow rainbow) {
+    public NyanCat(GameView view, GameActivity gameActivity, Rainbow rainbow) {
         super(view, gameActivity);
         if (globalBitmap == null) {
             globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.nyan_cat);
         }
-        this.bitmap = globalBitmap;
-        this.width = this.bitmap.getWidth();
-        this.height = this.bitmap.getHeight() / 2;
-        this.y = gameActivity.getResources().getDisplayMetrics().heightPixels / 2;
+        this.setBitmap(globalBitmap);
+        this.setWidth(this.getBitmap().getWidth());
+        this.setHeight(this.getBitmap().getHeight() / 2);
+        this.setY(gameActivity.getResources().getDisplayMetrics().heightPixels / 2);
         this.rainbow = rainbow;
     }
 
@@ -52,17 +42,17 @@ public class NyanCat extends PlayableCharacter {
     }
 
     private void manageRainbowMovement() {
-        rainbow.y = this.y;        // nyan cat and rainbow bitmap have the same height
-        rainbow.x = this.x - rainbow.width;
+        rainbow.setY(this.getY());       // nyan cat and rainbow bitmap have the same height
+        rainbow.setX(this.getX() - rainbow.getWidth());
         rainbow.move();
 
         // manage frames of the rainbow
-        if (speedY > getTabSpeed() / 3 && speedY < getMaxSpeed() * 1 / 3) {
-            rainbow.row = 0;
-        } else if (speedY > 0) {
-            rainbow.row = 1;
+        if (this.getSpeedY() > getTabSpeed() / 3 && this.getSpeedY() < getMaxSpeed() * 1 / 3) {
+            rainbow.setRow(new Integer(0).byteValue());
+        } else if (this.getSpeedY() > 0) {
+            rainbow.setRow((byte) 1);
         } else {
-            rainbow.row = 2;
+            rainbow.setRow((byte) 2);
         }
     }
 
@@ -73,7 +63,7 @@ public class NyanCat extends PlayableCharacter {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        if (rainbow != null && !isDead) {
+        if (rainbow != null && !this.isDead()) {
             rainbow.draw(canvas);
         }
     }
@@ -86,7 +76,7 @@ public class NyanCat extends PlayableCharacter {
     @Override
     public void dead() {
         super.dead();
-        this.row = 1;
+        this.setRow((byte) 1);
 
         // Maybe an explosion
     }

@@ -1,19 +1,11 @@
-/**
- * An obstacle: spider + logHead
- *
- * @author Lars Harmsen
- * Copyright (c) <2014> <Lars Harmsen - Quchen>
- */
-
 package edu.ucsd.flappycow.sprites;
 
 import android.graphics.Canvas;
 
-import edu.ucsd.flappycow.R;
-
 import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.MainActivity;
+import edu.ucsd.flappycow.R;
 
 public class Obstacle extends Sprite {
     private IGameObstacle spider;
@@ -46,17 +38,17 @@ public class Obstacle extends Sprite {
      * The vertical position is in a certain area random.
      */
     private void initPos() {
-        int height = gameActivity.getResources().getDisplayMetrics().heightPixels;
-        int gab = height / 4 - view.getSpeedX();
+        int height = this.getGameActivity().getResources().getDisplayMetrics().heightPixels;
+        int gab = height / 4 - this.getView().getSpeedX();
         if (gab < height / 5) {
             gab = height / 5;
         }
         int random = (int) (Math.random() * height * 2 / 5);
-        int y1 = (height / 10) + random - spider.height;
+        int y1 = (height / 10) + random - spider.getHeight();
         int y2 = (height / 10) + random + gab;
 
-        spider.init(gameActivity.getResources().getDisplayMetrics().widthPixels, y1);
-        log.init(gameActivity.getResources().getDisplayMetrics().widthPixels, y2);
+        spider.init(this.getGameActivity().getResources().getDisplayMetrics().widthPixels, y1);
+        log.init(this.getGameActivity().getResources().getDisplayMetrics().widthPixels, y2);
     }
 
     /**
@@ -118,7 +110,7 @@ public class Obstacle extends Sprite {
     public void onPass() {
         if (!isAlreadyPassed) {
             isAlreadyPassed = true;
-            view.getGameActivity().increasePoints();
+            this.getView().getGameActivity().increasePoints();
             GameActivity.soundPool.play(passSound, MainActivity.volume / SOUND_VOLUME_DIVIDER, MainActivity.volume / SOUND_VOLUME_DIVIDER, 0, 0, 1);
         }
     }

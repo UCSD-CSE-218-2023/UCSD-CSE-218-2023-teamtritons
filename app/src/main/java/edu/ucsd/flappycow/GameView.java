@@ -33,7 +33,7 @@ import edu.ucsd.flappycow.sprites.Frontground;
 import edu.ucsd.flappycow.sprites.NyanCat;
 import edu.ucsd.flappycow.sprites.Obstacle;
 import edu.ucsd.flappycow.sprites.PauseButton;
-import edu.ucsd.flappycow.sprites.PlayableCharacter;
+import edu.ucsd.flappycow.sprites.IPlayableCharacter;
 import edu.ucsd.flappycow.sprites.PowerUp;
 import edu.ucsd.flappycow.sprites.Toast;
 import edu.ucsd.flappycow.sprites.Tutorial;
@@ -51,7 +51,7 @@ public class GameView extends SurfaceView {
     private SurfaceHolder holder;
 
     private GameActivity gameActivity;
-    private PlayableCharacter player;
+    private IPlayableCharacter player;
     private Background background;
     private Frontground frontground;
     private List<Obstacle> obstacles = new ArrayList<Obstacle>();
@@ -384,7 +384,7 @@ public class GameView extends SurfaceView {
         gameActivity.accomplishmentBox.achievement_toastification = true;
         gameActivity.handler.sendMessage(Message.obtain(gameActivity.handler, 1, R.string.toast_achievement_toastification, GameActivity.MyHandler.SHOW_TOAST));
 
-        PlayableCharacter tmp = this.player;
+        IPlayableCharacter tmp = this.player;
         this.player = new NyanCat(this, gameActivity, new Rainbow(this, gameActivity));
         this.player.setX(tmp.getX());
         this.player.setY(tmp.getY());
@@ -466,8 +466,8 @@ public class GameView extends SurfaceView {
         /*/ game.getResources().getDisplayMetrics().density)*/
     }
 
-    public PlayableCharacter getPlayer() {
-        return this.player;
+    public IPlayableCharacter getPlayer() {
+        return this.getPlayer();
     }
 
     public GameActivity getGameActivity() {

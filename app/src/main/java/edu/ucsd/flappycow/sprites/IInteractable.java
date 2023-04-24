@@ -1,4 +1,4 @@
-package edu.ucsd.flappycow.sprite;
+package edu.ucsd.flappycow.sprites;
 
 public interface IInteractable {
     boolean isCollidingRadius(Sprite sprite, float factor);

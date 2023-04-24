@@ -1,4 +1,4 @@
-package edu.ucsd.flappycow.sprite;
+package edu.ucsd.flappycow.sprites;
 
 import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
