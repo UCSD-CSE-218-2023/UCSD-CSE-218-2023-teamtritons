@@ -51,8 +51,6 @@ public class Sprite implements IInteractable, IMovable {
     public Sprite(GameView view, GameActivity gameActivity) {
         this.view = view;
         this.gameActivity = gameActivity;
-        this.view = view;
-        this.gameActivity = gameActivity;
         frameTime = 1;
         src = new Rect();
         dst = new Rect();

@@ -467,7 +467,7 @@ public class GameView extends SurfaceView {
     }
 
     public IPlayableCharacter getPlayer() {
-        return this.getPlayer();
+        return player;
     }
 
     public GameActivity getGameActivity() {
