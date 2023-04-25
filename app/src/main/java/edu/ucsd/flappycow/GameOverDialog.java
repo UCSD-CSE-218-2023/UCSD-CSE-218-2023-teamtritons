@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import edu.ucsd.flappycow.consts.ApplicationConstants;
+
 public class GameOverDialog extends Dialog {
     public static final int REVIVE_PRICE = 5;
 
@@ -73,8 +75,8 @@ public class GameOverDialog extends Dialog {
             reviveButton.setClickable(true);
         }
 
-       GameButtonHandlerSub.notify(new GameOverUpdate(this.gameActivity, tvCurrentScoreVal, tvBestScoreVal, "score"));
-       GameButtonHandlerSub.notify(new GameOverUpdate(this.gameActivity, imageView, "medals"));
+       GameButtonHandlerSub.notify(new GameOverUpdate(this.gameActivity, tvCurrentScoreVal, tvBestScoreVal, ApplicationConstants.SCORE));
+       GameButtonHandlerSub.notify(new GameOverUpdate(this.gameActivity, imageView, ApplicationConstants.MEDALS));
 
     }
 
