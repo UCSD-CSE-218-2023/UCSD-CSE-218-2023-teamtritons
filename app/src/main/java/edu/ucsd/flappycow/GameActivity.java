@@ -339,4 +339,12 @@ public class GameActivity extends Activity {
     public void notifyObserver(AchievementBoxUpdate data) {
         gameActivitySub.notify(data);
     }
+
+    public ISubjectImpl<AchievementBoxUpdate> getGameActivitySub() {
+        return gameActivitySub;
+    }
+
+    public void setGameActivitySub(ISubjectImpl<AchievementBoxUpdate> gameActivitySub) {
+        this.gameActivitySub = gameActivitySub;
+    }
 }
