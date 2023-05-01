@@ -3,6 +3,8 @@ package edu.ucsd.flappycow;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 
 public class GameOverDialogObserverImpl<T> extends GameOverDialog implements IObserver<GameActivityHandlerUpdate> {
+
+    GameActivity gameActivity;
     public GameOverDialogObserverImpl(GameActivity gameActivity) {
         super(gameActivity);
     }

@@ -21,7 +21,7 @@ public class GameActivityHandler extends Handler {
         IObserver ToastObserver = new ToastObserverImpl();
         IObserver GameOverDialogObserver = new GameOverDialogObserverImpl(gameActivity);
 
-        GameActivityHandlerSub.register(GameOverDialogObserver);
+//        GameActivityHandlerSub.register(GameOverDialogObserver);
         gameActivityHandlerPresenter = new GameActivityHandlerPresenter(GameActivityHandlerSub);
         GameActivityHandlerSub.register(gameActivityHandlerPresenter);
     }
@@ -34,7 +34,7 @@ public class GameActivityHandler extends Handler {
                 showGameOverDialog(msg);
                 break;
             case ApplicationConstants.SHOW_TOAST:
-                GameActivityHandlerSub.notify(new GameActivityHandlerUpdate(getGameActivity(), msg, ApplicationConstants.SHOW_TOAST));
+                GameActivityHandlerSub.notify(new GameActivityHandlerUpdate(/**getGameActivity(),**/ msg, ApplicationConstants.SHOW_TOAST));
                 break;
             case ApplicationConstants.SHOW_AD:
                 showAdIfAvailable(msg);
@@ -51,6 +51,6 @@ public class GameActivityHandler extends Handler {
     }
 
     private void showGameOverDialog(Message msg) {
-        GameActivityHandlerSub.notify(new GameActivityHandlerUpdate(getGameActivity(), msg, ApplicationConstants.SHOW_GAME_OVER_DIALOG));
+        GameActivityHandlerSub.notify(new GameActivityHandlerUpdate(/**getGameActivity(),**/ msg, ApplicationConstants.SHOW_GAME_OVER_DIALOG));
     }
 }

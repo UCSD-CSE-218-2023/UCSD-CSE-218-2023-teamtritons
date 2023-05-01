@@ -3,23 +3,23 @@ package edu.ucsd.flappycow;
 import android.os.Message;
 
 public class GameActivityHandlerUpdate {
-    GameActivity gameActivity;
+//    GameActivity gameActivity;
     Message msg;
     int msgType;
 
-    public GameActivityHandlerUpdate(GameActivity gameActivity, Message msg, int msgType) {
-        this.gameActivity = gameActivity;
+    public GameActivityHandlerUpdate(/**GameActivity gameActivity,**/ Message msg, int msgType) {
+//        this.gameActivity = gameActivity;
         this.msg = msg;
         this.msgType = msgType;
     }
 
-    public GameActivity getGameActivity() {
-        return gameActivity;
-    }
-
-    public void setGameActivity(GameActivity gameActivity) {
-        this.gameActivity = gameActivity;
-    }
+//    public GameActivity getGameActivity() {
+//        return gameActivity;
+//    }
+//
+//    public void setGameActivity(GameActivity gameActivity) {
+//        this.gameActivity = gameActivity;
+//    }
 
     public Message getMsg() {
         return msg;

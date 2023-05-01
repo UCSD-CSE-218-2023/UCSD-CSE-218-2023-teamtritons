@@ -8,6 +8,6 @@ public class ToastObserverImpl<T> implements IObserver<GameActivityHandlerUpdate
     @Override
     public void onUpdate(GameActivityHandlerUpdate gameActivityHandlerUpdate) {
         if(gameActivityHandlerUpdate.msgType == ApplicationConstants.SHOW_TOAST)
-            Toast.makeText(gameActivityHandlerUpdate.gameActivity, gameActivityHandlerUpdate.msg.arg1, Toast.LENGTH_SHORT).show();
+            Toast.makeText(gameActivity, gameActivityHandlerUpdate.msg.arg1, Toast.LENGTH_SHORT).show();
     }
 }

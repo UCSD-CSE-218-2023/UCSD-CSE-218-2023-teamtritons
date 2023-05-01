@@ -164,9 +164,19 @@ public class GameActivity extends Activity {
 //    private ISubjectImpl<AchievementBoxUpdate> subjImpl = new SubjectImpl();
     private ISubjectImpl<AchievementBoxUpdate> gameActivitySub;
 
-    public GameActivity() {
-        gameActivitySub = new GameActivitySubjectImpl<>();
+    public GameOverDialog getGameOverDialog() {
+        return gameOverDialog;
     }
+
+    public void setGameOverDialog(GameOverDialog gameOverDialog) {
+        this.gameOverDialog = gameOverDialog;
+    }
+
+    public GameActivity() {
+        gameActivitySub = new SubjectImpl<>();
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
