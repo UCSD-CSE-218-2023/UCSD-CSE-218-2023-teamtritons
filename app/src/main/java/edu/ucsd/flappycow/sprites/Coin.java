@@ -15,19 +15,21 @@ public class Coin extends PowerUp{
     public static Bitmap globalBitmap;
     private static int sound = -1;
 
-    public Coin(GameView view, GameActivity gameActivity) {
-        super(view, gameActivity);
-        if (globalBitmap == null) {
-            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.coin);
-        }
+    public Coin(int viewWidth, int viewHeight, int viewSpeedX) {
+        super(viewWidth, viewHeight, viewSpeedX);
+        //TODO:presenter
+//        if (globalBitmap == null) {
+//            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.coin);
+//        }
         this.setBitmap(globalBitmap);
         this.setColNr((byte)12);
         this.setWidth(this.getBitmap().getWidth() / (this.getColNr()));
         this.setHeight(this.getBitmap().getHeight());
         this.setFrameTime((short)1);
-        if (sound == -1) {
-            sound = GameActivity.soundPool.load(gameActivity, R.raw.coin, 1);
-        }
+        //TODO:presenter
+//        if (sound == -1) {
+//            sound = GameActivity.soundPool.load(gameActivity, R.raw.coin, 1);
+//        }
     }
 
     /**
@@ -37,7 +39,8 @@ public class Coin extends PowerUp{
     public void onCollision() {
         super.onCollision();
         playSound();
-        this.getGameActivity().increaseCoin();
+        //TODO:presenter
+//        this.getGameActivity().increaseCoin();
     }
 
     private void playSound() {
@@ -45,8 +48,8 @@ public class Coin extends PowerUp{
     }
 
     @Override
-    public void move() {
+    public void move(int viewHeight, int viewWidth) {
         changeToNextFrame();
-        super.move();
+        super.move(viewHeight, viewWidth);
     }
 }

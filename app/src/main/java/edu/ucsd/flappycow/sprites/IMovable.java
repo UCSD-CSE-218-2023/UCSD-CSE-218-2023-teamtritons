@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 
 public interface IMovable {
     void draw(Canvas canvas);
-    void move();
+    void move(int viewHeight, int viewWidth);
     void changeToNextFrame();
     boolean isOutOfRange();
 }

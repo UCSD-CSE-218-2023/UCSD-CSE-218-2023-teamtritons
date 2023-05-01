@@ -42,15 +42,7 @@ public class Sprite implements IInteractable, IMovable {
      */
     private short frameTimeCounter;
 
-    /** The GameView that holds this Sprite */
-    private GameView view;
-
-    /** The context */
-    private GameActivity gameActivity;
-
-    public Sprite(GameView view, GameActivity gameActivity) {
-        this.view = view;
-        this.gameActivity = gameActivity;
+    public Sprite() {
         frameTime = 1;
         src = new Rect();
         dst = new Rect();
@@ -168,22 +160,6 @@ public class Sprite implements IInteractable, IMovable {
         this.frameTimeCounter = frameTimeCounter;
     }
 
-    public GameView getView() {
-        return view;
-    }
-
-    public void setView(GameView view) {
-        this.view = view;
-    }
-
-    public GameActivity getGameActivity() {
-        return gameActivity;
-    }
-
-    public void setGameActivity(GameActivity gameActivity) {
-        this.gameActivity = gameActivity;
-    }
-
     /**
      * Draws the frame of the bitmap specified by col and row
      * at the position given by x and y
@@ -200,7 +176,7 @@ public class Sprite implements IInteractable, IMovable {
      * Modifies the x and y coordinates according to the speedX and speedY value
      */
     @Override
-    public void move() {
+    public void move(int viewHeight, int viewWidth) {
         // changeToNextFrame();
         // Its more efficient if only the classes that need this implement it in their move method.
 
@@ -259,8 +235,8 @@ public class Sprite implements IInteractable, IMovable {
      * @return
      */
     @Override
-    public boolean isTouchingEdge() {
-        return isTouchingGround() || isTouchingSky();
+    public boolean isTouchingEdge(int viewHeight) {
+        return isTouchingGround(viewHeight) || isTouchingSky();
     }
 
     /**
@@ -268,8 +244,8 @@ public class Sprite implements IInteractable, IMovable {
      * @return
      */
     @Override
-    public boolean isTouchingGround() {
-        return this.y + this.height > this.view.getHeight() - this.view.getHeight() * Frontground.getGroundHeight();
+    public boolean isTouchingGround(int viewHeight) {
+        return this.y + this.height > viewHeight - viewHeight * Frontground.getGroundHeight();
     }
 
     /**
@@ -286,8 +262,8 @@ public class Sprite implements IInteractable, IMovable {
      * @return
      */
     @Override
-    public boolean isPassed() {
-        return this.x + this.width < view.getPlayer().getX();
+    public boolean isPassed(int viewPlayerX) {
+        return this.x + this.width < viewPlayerX;
     }
 
     /**
@@ -335,7 +311,9 @@ public class Sprite implements IInteractable, IMovable {
      */
     @Override
     public int getCollisionTolerance() {
-        return gameActivity.getResources().getDisplayMetrics().heightPixels / 50;
+        //TODO:presenter
+//        return gameActivity.getResources().getDisplayMetrics().heightPixels / 50;
+        return 0;
     }
 
 }

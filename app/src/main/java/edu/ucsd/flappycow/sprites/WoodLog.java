@@ -20,11 +20,12 @@ public class WoodLog extends IGameObstacle{
      * Static bitmap to reduce memory usage.
      */
     private static Bitmap globalBitmap;
-    public WoodLog(GameView view, GameActivity gameActivity) {
-        super(view, gameActivity);
-        if (globalBitmap == null) {
-            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.log_full);
-        }
+    public WoodLog() {
+        super();
+        //TODO: fix and presenter
+//        if (globalBitmap == null) {
+//            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.log_full);
+//        }
         this.setBitmap(globalBitmap);
         this.setWidth(this.getBitmap().getWidth());
         this.setHeight(this.getBitmap().getHeight());

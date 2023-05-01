@@ -70,11 +70,11 @@ public class GameView extends SurfaceView {
         setFocusable(true);
 
         holder = getHolder();
-        player = new Cow(this, gameActivity, new Accessory(this, gameActivity));
-        background = new Background(this, gameActivity);
-        frontground = new Frontground(this, gameActivity);
-        this.pauseButton = new PauseButton(this, gameActivity);
-        tutorial = new Tutorial(this, gameActivity);
+        player = new Cow(new Accessory(), this.getHeight(), this.getWidth(), this.gameActivity.getResources().getDisplayMetrics().heightPixels);
+        background = new Background();
+        frontground = new Frontground();
+        this.pauseButton = new PauseButton();
+        tutorial = new Tutorial();
     }
 
     private void startTimer() {
@@ -118,13 +118,13 @@ public class GameView extends SurfaceView {
                 // dismiss tutorial
                 tutorialIsShown = false;
                 resume();
-                this.player.onTap();
+                this.player.onTap(this.getHeight());
             } else if (paused) {
                 resume();
             } else if (pauseButton.isTouching((int) event.getX(), (int) event.getY()) && !this.paused) {
                 pause();
             } else {
-                this.player.onTap();
+                this.player.onTap(this.getHeight());
             }
         }
         return true;
@@ -159,8 +159,8 @@ public class GameView extends SurfaceView {
      * Draw Tutorial
      */
     public void showTutorial() {
-        player.move();
-        pauseButton.move();
+        player.move(this.getHeight(), this.getWidth());
+        pauseButton.move(this.getHeight(), this.getWidth());
 
         while (!holder.getSurface().isValid()) {
             /*wait*/
@@ -173,7 +173,7 @@ public class GameView extends SurfaceView {
 
         Canvas canvas = getCanvas();
         drawCanvas(canvas, true);
-        tutorial.move();
+        tutorial.move(this.getWidth(), this.getHeight());
         tutorial.draw(canvas);
         holder.unlockCanvasAndPost(canvas);
     }
@@ -253,10 +253,10 @@ public class GameView extends SurfaceView {
     /**
      * Let the player fall to the ground
      */
-    private void playerDeadFall() {
-        player.dead();
+    private void playerDeadFall(int viewHeight) {
+        player.dead(viewHeight);
         do {
-            player.move();
+            player.move(this.getHeight(), this.getWidth());
             draw();
             // sleep
             try {
@@ -264,7 +264,7 @@ public class GameView extends SurfaceView {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        } while (!player.isTouchingGround());
+        } while (!player.isTouchingGround(this.getHeight()));
     }
 
     /**
@@ -272,7 +272,7 @@ public class GameView extends SurfaceView {
      */
     private void checkPasses() {
         for (Obstacle o : obstacles) {
-            if (o.isPassed()) {
+            if (o.isPassed(this.getPlayer().getX())) {
                 if (!o.isAlreadyPassed) {    // probably not needed
                     o.onPass();
                     createPowerUp();
@@ -289,20 +289,20 @@ public class GameView extends SurfaceView {
         if (gameActivity.accomplishmentBox.getPoints() >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(player instanceof NyanCat)) {
             // If no powerUp is present and you have more than / equal 42 points
             if (gameActivity.accomplishmentBox.getPoints() == Toast.POINTS_TO_TOAST) {    // First time 100 % chance
-                powerUps.add(new Toast(this, gameActivity));
+                powerUps.add(new Toast(this.getWidth(), this.getHeight(), this.getSpeedX()));
             } else if (Math.random() * 100 < 33) {    // 33% chance
-                powerUps.add(new Toast(this, gameActivity));
+                powerUps.add(new Toast(this.getWidth(), this.getHeight(), this.getSpeedX()));
             }
         }
 
         if ((powerUps.size() < 1) && (Math.random() * 100 < 20)) {
             // If no powerUp is present and 20% chance
-            powerUps.add(new Coin(this, gameActivity));
+            powerUps.add(new Coin(this.getWidth(), this.getHeight(), this.getSpeedX()));
         }
 
         if ((powerUps.size() < 1) && (Math.random() * 100 < 10)) {
             // If no powerUp is present and 10% chance (if also no coin)
-            powerUps.add(new Virus(this, gameActivity));
+            powerUps.add(new Virus(this.getWidth(), this.getHeight(), this.getSpeedX()));
         }
     }
 
@@ -341,7 +341,7 @@ public class GameView extends SurfaceView {
                 i--;
             }
         }
-        if (player.isTouchingEdge()) {
+        if (player.isTouchingEdge(this.getHeight())) {
             gameOver();
         }
     }
@@ -351,7 +351,7 @@ public class GameView extends SurfaceView {
      */
     private void createObstacle() {
         if (obstacles.size() < 1) {
-            obstacles.add(new Obstacle(this, gameActivity, new Spider(this, gameActivity), new WoodLog(this, gameActivity)));
+            obstacles.add(new Obstacle(new Spider(), new WoodLog(), this.getSpeedX(), this.gameActivity.getResources().getDisplayMetrics().heightPixels, this.gameActivity.getResources().getDisplayMetrics().widthPixels));
         }
     }
 
@@ -361,21 +361,21 @@ public class GameView extends SurfaceView {
     private void move() {
         for (Obstacle o : obstacles) {
             o.setSpeedX(-getSpeedX());
-            o.move();
+            o.move(this.getHeight(), this.getWidth());
         }
         for (PowerUp p : powerUps) {
-            p.move();
+            p.move(this.getHeight(), this.getWidth());
         }
 
         background.setSpeedX(-getSpeedX() / 2);
-        background.move();
+        background.move(this.getHeight(), this.getWidth());
 
         frontground.setSpeedX(-getSpeedX() * 4 / 3);
-        frontground.move();
+        frontground.move(this.getHeight(), this.getWidth());
 
-        pauseButton.move();
+        pauseButton.move(this.getHeight(), this.getWidth());
 
-        player.move();
+        player.move(this.getHeight(), this.getWidth());
     }
 
     /**
@@ -386,7 +386,7 @@ public class GameView extends SurfaceView {
         gameActivity.handler.sendMessage(Message.obtain(gameActivity.handler, 1, R.string.toast_achievement_toastification, ApplicationConstants.SHOW_TOAST));
 
         IPlayableCharacter tmp = this.player;
-        this.player = new NyanCat(this, gameActivity, new Rainbow(this, gameActivity));
+        this.player = new NyanCat(new Rainbow(), this.getHeight(), this.getWidth(), this.gameActivity.getResources().getDisplayMetrics().heightPixels);
         this.player.setX(tmp.getX());
         this.player.setY(tmp.getY());
         this.player.setSpeedX(tmp.getSpeedX());
@@ -421,7 +421,7 @@ public class GameView extends SurfaceView {
      */
     public void gameOver() {
         pause();
-        playerDeadFall();
+        playerDeadFall(this.getHeight());
         gameActivity.gameOver();
     }
 
@@ -443,7 +443,7 @@ public class GameView extends SurfaceView {
         player.setX(this.getWidth() / 6);
         obstacles.clear();
         powerUps.clear();
-        player.revive();
+        player.revive(this.getHeight(), this.getWidth());
         for (int i = 0; i < 6; ++i) {
             while (!holder.getSurface().isValid()) {/*wait*/}
             Canvas canvas = getCanvas();

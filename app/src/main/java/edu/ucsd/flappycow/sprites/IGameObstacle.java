@@ -5,8 +5,8 @@ import edu.ucsd.flappycow.GameView;
 
 public abstract class IGameObstacle extends Sprite{
 
-    public IGameObstacle(GameView view, GameActivity gameActivity) {
-        super(view, gameActivity);
+    public IGameObstacle() {
+        super();
     }
 
     public void init(int x, int y){

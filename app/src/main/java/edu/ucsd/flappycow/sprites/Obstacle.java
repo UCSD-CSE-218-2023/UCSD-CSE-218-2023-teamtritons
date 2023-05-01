@@ -17,19 +17,19 @@ public class Obstacle extends Sprite {
     /** Necessary so the onPass method is just called once */
     public boolean isAlreadyPassed = false;
 
-    public Obstacle(GameView view, GameActivity gameActivity, IGameObstacle spider, IGameObstacle log) {
-        super(view, gameActivity);
+    public Obstacle(IGameObstacle spider, IGameObstacle log, int viewSpeedX, int activityHeightPixels, int activityWidthPixels) {
+        super();
         this.spider = spider;
         this.log = log;
+        //TODO: presenter
+//        if (collideSound == -1) {
+//            collideSound = GameActivity.soundPool.load(gameActivity, R.raw.crash, 1);
+//        }
+//        if (passSound == -1) {
+//            passSound = GameActivity.soundPool.load(gameActivity, R.raw.pass, 1);
+//        }
 
-        if (collideSound == -1) {
-            collideSound = GameActivity.soundPool.load(gameActivity, R.raw.crash, 1);
-        }
-        if (passSound == -1) {
-            passSound = GameActivity.soundPool.load(gameActivity, R.raw.pass, 1);
-        }
-
-        initPos();
+        initPos(viewSpeedX, activityHeightPixels, activityWidthPixels);
     }
 
     /**
@@ -37,9 +37,9 @@ public class Obstacle extends Sprite {
      * With a certain gap between them.
      * The vertical position is in a certain area random.
      */
-    private void initPos() {
-        int height = this.getGameActivity().getResources().getDisplayMetrics().heightPixels;
-        int gab = height / 4 - this.getView().getSpeedX();
+    private void initPos(int speedX, int activityHeightPixels, int activityWidthPixels) {
+        int height = activityHeightPixels;
+        int gab = height / 4 - speedX;
         if (gab < height / 5) {
             gab = height / 5;
         }
@@ -47,8 +47,8 @@ public class Obstacle extends Sprite {
         int y1 = (height / 10) + random - spider.getHeight();
         int y2 = (height / 10) + random + gab;
 
-        spider.init(this.getGameActivity().getResources().getDisplayMetrics().widthPixels, y1);
-        log.init(this.getGameActivity().getResources().getDisplayMetrics().widthPixels, y2);
+        spider.init(activityWidthPixels, y1);
+        log.init(activityWidthPixels, y2);
     }
 
     /**
@@ -80,9 +80,9 @@ public class Obstacle extends Sprite {
      * Moves both, spider and log.
      */
     @Override
-    public void move() {
-        spider.move();
-        log.move();
+    public void move(int viewHeight, int viewWidth) {
+        spider.move(viewHeight, viewWidth);
+        log.move(viewHeight, viewWidth);
     }
 
     /**
@@ -98,8 +98,8 @@ public class Obstacle extends Sprite {
      * Checks whether the spider and the log are passed.
      */
     @Override
-    public boolean isPassed() {
-        return spider.isPassed() && log.isPassed();
+    public boolean isPassed(int viewPlayerX) {
+        return spider.isPassed(viewPlayerX) && log.isPassed(viewPlayerX);
     }
 
     private static final int SOUND_VOLUME_DIVIDER = 3;
@@ -107,10 +107,11 @@ public class Obstacle extends Sprite {
     /**
      * Will call obstaclePassed of the game, if this is the first pass of this obstacle.
      */
+    //Todo: fox and presenter
     public void onPass() {
         if (!isAlreadyPassed) {
             isAlreadyPassed = true;
-            this.getView().getGameActivity().increasePoints();
+//            this.getView().getGameActivity().increasePoints();
             GameActivity.soundPool.play(passSound, MainActivity.volume / SOUND_VOLUME_DIVIDER, MainActivity.volume / SOUND_VOLUME_DIVIDER, 0, 0, 1);
         }
     }

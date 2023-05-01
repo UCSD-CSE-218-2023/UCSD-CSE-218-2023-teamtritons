@@ -10,7 +10,7 @@ public class MovableImpl implements IMovable{
     }
 
     @Override
-    public void move() {
+    public void move(int viewHeight, int viewWidth) {
 
     }
 

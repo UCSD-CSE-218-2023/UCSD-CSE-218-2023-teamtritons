@@ -8,12 +8,12 @@ public interface IInteractable {
     boolean isColliding(Sprite sprite);
 
     void onCollision();
-    boolean isTouchingEdge();
+    boolean isTouchingEdge(int viewHeight);
 
-    boolean isTouchingGround();
+    boolean isTouchingGround(int viewHeight);
 
     boolean isTouchingSky();
-    boolean isPassed();
+    boolean isPassed(int viewPlayerX);
     int getCollisionTolerance();
 
 }

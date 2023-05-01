@@ -3,7 +3,6 @@ package edu.ucsd.flappycow.sprites;
 import android.graphics.Bitmap;
 
 import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
 
@@ -15,11 +14,12 @@ public class Toast extends PowerUp{
 
     public static final int POINTS_TO_TOAST = 42;
 
-    public Toast(GameView view, GameActivity gameActivity) {
-        super(view, gameActivity);
-        if (globalBitmap == null) {
-            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.toast);
-        }
+    public Toast(int viewWidth, int viewHeight, int viewSpeedX) {
+        super(viewWidth, viewHeight, viewSpeedX);
+        //TODO:presenter
+//        if (globalBitmap == null) {
+//            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.toast);
+//        }
         this.setBitmap(globalBitmap);
         this.setWidth(this.getBitmap().getWidth());
         this.setHeight(this.getBitmap().getHeight());
@@ -28,10 +28,11 @@ public class Toast extends PowerUp{
     /**
      * When eaten the player will turn into nyan cat.
      */
+    //TODO: presenter and fix
     @Override
     public void onCollision() {
         super.onCollision();
-        this.getView().changeToNyanCat();
+//        this.getView().changeToNyanCat();
     }
     public static float getPointsToToast() {
         return POINTS_TO_TOAST;

@@ -21,11 +21,12 @@ public class Spider extends IGameObstacle{
         Spider.globalBitmap = globalBitmap;
     }
 
-    public Spider(GameView view, GameActivity gameActivity) {
-        super(view, gameActivity);
-        if (globalBitmap == null) {
-            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.spider_full);
-        }
+    public Spider() {
+        super();
+        //TODO: presenter and fox
+//        if (globalBitmap == null) {
+//            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.spider_full);
+//        }
         this.setBitmap(globalBitmap);
         this.setWidth(this.getBitmap().getWidth());
         this.setHeight(this.getBitmap().getHeight());

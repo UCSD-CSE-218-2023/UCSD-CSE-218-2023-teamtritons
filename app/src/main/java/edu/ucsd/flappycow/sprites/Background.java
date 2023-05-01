@@ -11,12 +11,12 @@ public class Background extends IGround {
     /** Static bitmap to reduce memory usage */
     private static Bitmap globalBitmap;
 
-    public Background(GameView view, GameActivity gameActivity) {
-        super(view, gameActivity);
-
-        if (globalBitmap == null) {
-            globalBitmap = Util.getDownScaledBitmapAlpha8(gameActivity, R.drawable.bg);
-        }
+    public Background() {
+        super();
+        //TODO:presenter
+//        if (globalBitmap == null) {
+//            globalBitmap = Util.getDownScaledBitmapAlpha8(gameActivity, R.drawable.bg);
+//        }
         this.setBitmap(globalBitmap);
     }
 

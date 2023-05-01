@@ -7,8 +7,8 @@ import edu.ucsd.flappycow.GameView;
 
 public abstract class IGround extends Sprite {
 
-    public IGround(GameView view, GameActivity gameActivity) {
-        super(view, gameActivity);
+    public IGround() {
+        super();
     }
 
     /**

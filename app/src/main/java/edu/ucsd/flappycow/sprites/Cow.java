@@ -22,21 +22,23 @@ public class Cow extends IPlayableCharacter{
     /** sunglasses, hats and stuff */
     private IAccessory accessory;
 
-    public Cow(GameView view, GameActivity gameActivity, IAccessory accessory) {
-        super(view, gameActivity);
-        if (globalBitmap == null) {
-            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.cow);
-        }
+    public Cow(IAccessory accessory, int viewHeight, int viewWidth, int activityHeightPixels) {
+        super(viewHeight, viewWidth);
+        //TODO: presenter
+//        if (globalBitmap == null) {
+//            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.cow);
+//        }
         this.setBitmap(globalBitmap);
         this.setColNr(new Integer(8).byteValue());
         this.setWidth(this.getBitmap().getWidth()/(getColNr()));  // The image has 8 frames in a row
         this.setHeight(this.getBitmap().getHeight() / 4);           // and 4 in a column
         this.setFrameTime((short)3);        // the frame will change every 3 runs
-        this.setY(gameActivity.getResources().getDisplayMetrics().heightPixels / 2);    // Startposition in in the middle of the screen
+        this.setY(activityHeightPixels/ 2);    // Startposition in in the middle of the screen
 
-        if (sound == -1) {
-            sound = GameActivity.soundPool.load(gameActivity, R.raw.cow, 1);
-        }
+        //TODO: presenter
+//        if (sound == -1) {
+//            sound = GameActivity.soundPool.load(gameActivity, R.raw.cow, 1);
+//        }
 
         this.accessory = accessory;
     }
@@ -78,8 +80,8 @@ public class Cow extends IPlayableCharacter{
     }
 
     @Override
-    public void onTap() {
-        super.onTap();
+    public void onTap(int viewHeight) {
+        super.onTap(viewHeight);
         playSound();
     }
 
@@ -88,14 +90,14 @@ public class Cow extends IPlayableCharacter{
      * and manages the frames. (flattering cape)
      */
     @Override
-    public void move() {
+    public void move(int viewHeight, int viewWidth) {
         changeToNextFrame();
-        super.move();
+        super.move(viewHeight, viewWidth);
 
         // manage frames
         if (this.getRow() != 3) {
             // not dead
-            if (this.getSpeedY() > getTabSpeed() / 3 && this.getSpeedY() < getMaxSpeed() * 1 / 3) {
+            if (this.getSpeedY() > getTabSpeed(viewHeight) / 3 && this.getSpeedY() < getMaxSpeed(viewHeight) * 1 / 3) {
                 this.setRow((byte) 0);
             } else if (this.getSpeedY() > 0) {
                 this.setRow((byte) 1);
@@ -122,32 +124,36 @@ public class Cow extends IPlayableCharacter{
      * And changes the frame to a dead cow -.-
      */
     @Override
-    public void dead() {
+    public void dead(int viewHeight) {
         this.setRow(new Integer(3).byteValue());
         this.setFrameTime((short) 3);
-        super.dead();
+        super.dead(viewHeight);
     }
 
     @Override
-    public void revive() {
-        super.revive();
-        this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.accessory_scumbag));
+    public void revive(int viewHeight, int viewWidth) {
+        super.revive(viewHeight, viewWidth);
+        //TODO:presenter
+//        this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.accessory_scumbag));
     }
 
     @Override
     public void upgradeBitmap(int points) {
         super.upgradeBitmap(points);
         if (points == POINTS_TO_SIR) {
-            this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.accessory_sir));
+            //TODO:presenter
+//            this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.accessory_sir));
         } else if (points == POINTS_TO_COOL) {
-            this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.accessory_sunglasses));
+            //TODO:presenter
+//            this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.accessory_sunglasses));
         }
     }
 
     @Override
     public void wearMask() {
         super.wearMask();
-        this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.mask));
+        //TODO:presenter
+//        this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.mask));
     }
 
 }

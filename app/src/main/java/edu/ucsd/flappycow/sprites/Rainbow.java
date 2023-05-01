@@ -12,11 +12,12 @@ public class Rainbow extends Sprite{
      * Static bitmap to reduce memory usage.
      */
     private static Bitmap globalBitmap;
-    public Rainbow(GameView view, GameActivity gameActivity) {
-        super(view, gameActivity);
-        if (globalBitmap == null) {
-            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.rainbow);
-        }
+    public Rainbow() {
+        super();
+        //TODO: presenter
+//        if (globalBitmap == null) {
+//            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.rainbow);
+//        }
         this.setBitmap(globalBitmap);
         this.setColNr(new Integer(8).byteValue());
         this.setWidth(this.getBitmap().getWidth() / getColNr());
@@ -24,8 +25,8 @@ public class Rainbow extends Sprite{
     }
 
     @Override
-    public void move() {
+    public void move(int viewHeight, int viewWidth) {
         changeToNextFrame();
-        super.move();
+        super.move(viewHeight, viewWidth);
     }
 }

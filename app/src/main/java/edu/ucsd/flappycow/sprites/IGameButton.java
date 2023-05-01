@@ -4,10 +4,10 @@ import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 
 public abstract class IGameButton extends Sprite {
-    public IGameButton(GameView view, GameActivity gameActivity) {
-        super(view, gameActivity);
+    public IGameButton() {
+        super();
     }
 
     @Override
-    public abstract void move();
+    public abstract void move(int viewHeight, int viewWidth);
 }
