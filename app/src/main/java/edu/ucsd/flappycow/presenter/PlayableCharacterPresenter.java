@@ -33,14 +33,18 @@ public class PlayableCharacterPresenter {
         } else if (type.equals(ApplicationConstants.NYAN_CAT)) {
 //            Rainbow rainbow = new Rainbow();
             Rainbow rainbow = new Rainbow(gameView, gameView.getGameActivity());
+            rainbow.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.rainbow));
+
             NyanCat nyanCat = new NyanCat(gameView, gameView.getGameActivity(), rainbow);
+            nyanCat.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.nyan_cat));
+
 //            NyanCat nyanCat = new NyanCat(rainbow, gameView.getHeight(), gameView.getWidth(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels);
 //            rainbow.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.rainbow));
 //            nyanCat.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.nyan_cat));
 //            rainbow.onInitBitmap();
 //            nyanCat.onInitBitmap();
 //            return nyanCat;
-            nyanCat.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.nyan_cat));
+
             return nyanCat;
         }
         return null;

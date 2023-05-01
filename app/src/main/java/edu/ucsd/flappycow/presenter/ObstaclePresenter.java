@@ -34,14 +34,11 @@ public class ObstaclePresenter {
         Spider spider = new Spider(gameView, gameView.getGameActivity());
         WoodLog woodLog = new WoodLog(gameView, gameView.getGameActivity());
 
+        spider.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.spider_full));
+        woodLog.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.log_full));
+
         //Obstacle obstacle = new Obstacle(spider, woodLog, gameView.getSpeedX(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels, gameView.getGameActivity().getResources().getDisplayMetrics().widthPixels);
         Obstacle obstacle = new Obstacle(gameView, gameView.getGameActivity(), spider, woodLog);
-
-        spider.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.spider_full));
-        woodLog.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.log_full));
-//
-//        spider.onInitBitmap();
-//        woodLog.onInitBitmap();
 //        obstacle.onInitBitmap();
 
         return obstacle;
