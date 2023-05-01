@@ -32,8 +32,8 @@ public class ObstaclePresenter {
         return new Obstacle(new Spider(), new WoodLog(), gameView.getSpeedX(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels, gameView.getGameActivity().getResources().getDisplayMetrics().widthPixels);
     }
 
-    public void draw(Canvas canvas) {
-        obstacleModel.draw(canvas);
+    public void draw() {
+        obstacleModel.draw(gameView.getCanvas());
     }
 
     public boolean isPassed(int viewPlayerX) {

@@ -194,10 +194,10 @@ public class GameView extends SurfaceView{
      *
      * @param drawPlayer
      */
-    private void drawCanvas(Canvas canvas, boolean drawPlayer) {
+    public void drawCanvas(Canvas canvas, boolean drawPlayer) {
         background.draw(canvas);
         for (ObstaclePresenter op : obstaclePresenters) {
-            op.draw(canvas);
+            op.draw();
         }
         powerUpPresenter.draw(canvas);
         if (drawPlayer) {
