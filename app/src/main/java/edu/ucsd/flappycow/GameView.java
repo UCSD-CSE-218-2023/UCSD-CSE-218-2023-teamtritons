@@ -20,10 +20,14 @@ import android.view.SurfaceView;
 
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
+import edu.ucsd.flappycow.presenter.ButtonPresenter;
+import edu.ucsd.flappycow.presenter.GroundPresenter;
 import edu.ucsd.flappycow.sprites.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -53,16 +57,20 @@ public class GameView extends SurfaceView {
 
     private GameActivity gameActivity;
     private IPlayableCharacter player;
-    private Background background;
-    private Frontground frontground;
+//    private Background background;
+//    private Frontground frontground;
     private List<Obstacle> obstacles = new ArrayList<Obstacle>();
     private List<PowerUp> powerUps = new ArrayList<PowerUp>();
 
-    private IGameButton pauseButton;
+//    private IGameButton pauseButton;
     volatile private boolean paused = true;
 
     private Tutorial tutorial;
     private boolean tutorialIsShown = true;
+
+    private ButtonPresenter pauseButton;
+
+    private Map<String, GroundPresenter> groundPresenterMap;
 
     public GameView(Context context) {
         super(context);
@@ -71,9 +79,13 @@ public class GameView extends SurfaceView {
 
         holder = getHolder();
         player = new Cow(this, gameActivity, new Accessory(this, gameActivity));
-        background = new Background(this, gameActivity);
-        frontground = new Frontground(this, gameActivity);
-        this.pauseButton = new PauseButton(this, gameActivity);
+        groundPresenterMap = new HashMap<>();
+        groundPresenterMap.put(ApplicationConstants.BACKGROUND, new GroundPresenter(this, ApplicationConstants.BACKGROUND));
+        groundPresenterMap.put(ApplicationConstants.FRONTGROUND, new GroundPresenter(this, ApplicationConstants.FRONTGROUND));
+//        background = new Background(this, gameActivity);
+//        frontground = new Frontground(this, gameActivity);
+//        this.pauseButton = new PauseButton(this, gameActivity);
+        this.pauseButton = new ButtonPresenter(this);
         tutorial = new Tutorial(this, gameActivity);
     }
 
@@ -228,7 +240,8 @@ public class GameView extends SurfaceView {
      * @param drawPlayer
      */
     private void drawCanvas(Canvas canvas, boolean drawPlayer) {
-        background.draw(canvas);
+//        background.draw(canvas);
+        groundPresenterMap.get(ApplicationConstants.BACKGROUND).draw(canvas);
         for (Obstacle r : obstacles) {
             r.draw(canvas);
         }
@@ -238,7 +251,8 @@ public class GameView extends SurfaceView {
         if (drawPlayer) {
             player.draw(canvas);
         }
-        frontground.draw(canvas);
+//        frontground.draw(canvas);
+        groundPresenterMap.get(ApplicationConstants.FRONTGROUND).draw(canvas);
         pauseButton.draw(canvas);
 
         // Score Text
@@ -367,11 +381,18 @@ public class GameView extends SurfaceView {
             p.move();
         }
 
-        background.setSpeedX(-getSpeedX() / 2);
-        background.move();
 
-        frontground.setSpeedX(-getSpeedX() * 4 / 3);
-        frontground.move();
+        groundPresenterMap.get(ApplicationConstants.BACKGROUND).setSpeedX(-getSpeedX() / 2);
+        groundPresenterMap.get(ApplicationConstants.BACKGROUND).move();
+
+        groundPresenterMap.get(ApplicationConstants.FRONTGROUND).setSpeedX(-getSpeedX() * 4 / 3);
+        groundPresenterMap.get(ApplicationConstants.FRONTGROUND).move();
+
+//        background.setSpeedX(-getSpeedX() / 2);
+//        background.move();
+//
+//        frontground.setSpeedX(-getSpeedX() * 4 / 3);
+//        frontground.move();
 
         pauseButton.move();
 
