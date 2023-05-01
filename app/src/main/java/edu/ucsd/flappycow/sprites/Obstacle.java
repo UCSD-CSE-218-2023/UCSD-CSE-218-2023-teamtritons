@@ -121,4 +121,11 @@ public class Obstacle extends Sprite {
         GameActivity.soundPool.play(collideSound, MainActivity.volume / SOUND_VOLUME_DIVIDER, MainActivity.volume / SOUND_VOLUME_DIVIDER, 0, 0, 1);
     }
 
+    public boolean isAlreadyPassed() {
+        return isAlreadyPassed;
+    }
+
+    public void setAlreadyPassed(boolean alreadyPassed) {
+        isAlreadyPassed = alreadyPassed;
+    }
 }

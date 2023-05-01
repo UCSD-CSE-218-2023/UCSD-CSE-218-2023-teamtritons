@@ -25,6 +25,8 @@ import edu.ucsd.flappycow.presenter.GroundPresenter;
 import edu.ucsd.flappycow.presenter.PlayableCharacterPresenter;
 import edu.ucsd.flappycow.presenter.PowerUpPresenter;
 import edu.ucsd.flappycow.presenter.TutorialPresenter;
+import edu.ucsd.flappycow.presenter.ObstaclePresenter;
+
 import edu.ucsd.flappycow.sprites.*;
 
 import java.util.ArrayList;
@@ -62,8 +64,13 @@ public class GameView extends SurfaceView {
 //    private IPlayableCharacter player;
 //    private Background background;
 //    private Frontground frontground;
+
     private List<Obstacle> obstacles = new ArrayList<Obstacle>();
 //    private List<PowerUp> powerUps = new ArrayList<PowerUp>();
+
+  //  private List<Obstacle> obstacles = new ArrayList<Obstacle>();
+    private List<PowerUp> powerUps = new ArrayList<PowerUp>();
+
 
 //    private IGameButton pauseButton;
     volatile private boolean paused = true;
@@ -78,7 +85,11 @@ public class GameView extends SurfaceView {
 
     private Map<String, GroundPresenter> groundPresenterMap;
 
+
     private PlayableCharacterPresenter playableCharacterPresenter;
+
+    private List<ObstaclePresenter> obstaclePresenters = new ArrayList<ObstaclePresenter>();
+
 
     public GameView(Context context) {
         super(context);
@@ -261,7 +272,7 @@ public class GameView extends SurfaceView {
     public void drawCanvas(Canvas canvas, boolean drawPlayer) {
 //        background.draw(canvas);
         groundPresenterMap.get(ApplicationConstants.BACKGROUND).draw(canvas);
-        for (Obstacle r : obstacles) {
+        for (ObstaclePresenter r : obstaclePresenters) {
             r.draw(canvas);
         }
         powerUpPresenter.draw(canvas);
@@ -309,9 +320,9 @@ public class GameView extends SurfaceView {
      * Checks whether an obstacle is passed.
      */
     private void checkPasses() {
-        for (Obstacle o : obstacles) {
+        for (ObstaclePresenter o : obstaclePresenters) {
             if (o.isPassed()) {
-                if (!o.isAlreadyPassed) {    // probably not needed
+                if (!o.isAlreadyPassed()) {    // probably not needed
                     o.onPass();
                     createPowerUp();
                 }
@@ -349,9 +360,9 @@ public class GameView extends SurfaceView {
      * Checks whether the obstacles or powerUps are out of range and deletes them
      */
     private void checkOutOfRange() {
-        for (int i = 0; i < obstacles.size(); i++) {
-            if (this.obstacles.get(i).isOutOfRange()) {
-                this.obstacles.remove(i);
+        for (int i = 0; i < obstaclePresenters.size(); i++) {
+            if (this.obstaclePresenters.get(i).isOutOfRange()) {
+                this.obstaclePresenters.remove(i);
                 i--;
             }
         }
@@ -368,9 +379,8 @@ public class GameView extends SurfaceView {
      * Checks collisions and performs the action
      */
     private void checkCollision() {
-        for (Obstacle o : obstacles) {
-//            if (o.isColliding(player)) {
-            if (o.isColliding(playableCharacterPresenter.getPlayer())) {
+        for (ObstaclePresenter o : obstaclePresenters) {
+            if (o.isColliding(getPlayer())) {
                 o.onCollision();
                 gameOver();
             }
@@ -392,8 +402,8 @@ public class GameView extends SurfaceView {
      * if no obstacle is present a new one is created
      */
     private void createObstacle() {
-        if (obstacles.size() < 1) {
-            obstacles.add(new Obstacle(this, gameActivity, new Spider(this, gameActivity), new WoodLog(this, gameActivity)));
+        if (obstaclePresenters.size() < 1) {
+            obstaclePresenters.add(new ObstaclePresenter(this));
         }
     }
 
@@ -401,7 +411,7 @@ public class GameView extends SurfaceView {
      * Update sprite movements
      */
     private void move() {
-        for (Obstacle o : obstacles) {
+        for (ObstaclePresenter o : obstaclePresenters) {
             o.setSpeedX(-getSpeedX());
             o.move();
         }
@@ -498,11 +508,9 @@ public class GameView extends SurfaceView {
      */
     private void setupRevive() {
         gameActivity.gameOverDialog.hide();
-//        player.setY(this.getHeight() / 2 - player.getWidth() / 2);
-//        player.setX(this.getWidth() / 6);
         playableCharacterPresenter.setY(this.getHeight() / 2 - playableCharacterPresenter.getPlayer().getWidth() / 2);
         playableCharacterPresenter.setX(this.getWidth() / 6);
-        obstacles.clear();
+        obstaclePresenters.clear();
         powerUpPresenter.clear();
 //        player.revive();
         playableCharacterPresenter.revive();

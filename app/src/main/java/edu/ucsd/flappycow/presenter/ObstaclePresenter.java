@@ -20,65 +20,78 @@ import edu.ucsd.flappycow.sprites.Spider;
 import edu.ucsd.flappycow.sprites.WoodLog;
 
 public class ObstaclePresenter {
-//    private IGameObstacle playableCharacterModel;
-//    private GameView gameView;
-//    private Obstacle obstacleModel;
-//
-//    public ObstaclePresenter(GameView gameView) {
-//        this.gameView = gameView;
-//        this.obstacleModel = createInstance();
-//    }
-//
-//
-//    public Obstacle createInstance() {
-//        Spider spider = new Spider();
-//        WoodLog woodLog = new WoodLog();
-//
-//        Obstacle obstacle = new Obstacle(spider, woodLog, gameView.getSpeedX(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels, gameView.getGameActivity().getResources().getDisplayMetrics().widthPixels);
-//
-//        spider.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.spider_full));
-//        woodLog.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.log_full));
+    private IGameObstacle playableCharacterModel;
+    private GameView gameView;
+    private Obstacle obstacleModel;
+
+    public ObstaclePresenter(GameView gameView) {
+        this.gameView = gameView;
+        this.obstacleModel = createInstance();
+    }
+
+
+    public Obstacle createInstance() {
+        Spider spider = new Spider(gameView, gameView.getGameActivity());
+        WoodLog woodLog = new WoodLog(gameView, gameView.getGameActivity());
+
+        //Obstacle obstacle = new Obstacle(spider, woodLog, gameView.getSpeedX(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels, gameView.getGameActivity().getResources().getDisplayMetrics().widthPixels);
+        Obstacle obstacle = new Obstacle(gameView, gameView.getGameActivity(), spider, woodLog);
+
+        spider.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.spider_full));
+        woodLog.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.log_full));
 //
 //        spider.onInitBitmap();
 //        woodLog.onInitBitmap();
 //        obstacle.onInitBitmap();
-//
-//        return obstacle;
-//    }
-//
-//    public void draw(Canvas canvas) {
-//        obstacleModel.draw(canvas);
-//    }
-//
+
+        return obstacle;
+    }
+
+    public void draw(Canvas canvas) {
+        obstacleModel.draw(canvas);
+    }
+
 //    public boolean isPassed(int viewPlayerX) {
 //        return obstacleModel.isPassed(viewPlayerX);
 //    }
-//
-//    public boolean isAlreadyPassed() {
-//        return obstacleModel.isAlreadyPassed();
-//    }
-//
-//    public void onPass() {
-//        obstacleModel.onPass();
-//    }
-//
-//    public boolean isOutOfRange() {
-//        return obstacleModel.isOutOfRange();
-//    }
-//
+
+
+    public boolean isPassed() {
+       return obstacleModel.isPassed();
+    }
+    public boolean isAlreadyPassed() {
+        return obstacleModel.isAlreadyPassed();
+    }
+
+    public void onPass() {
+        obstacleModel.onPass();
+    }
+
+    public boolean isOutOfRange() {
+        return obstacleModel.isOutOfRange();
+    }
+
 //    public boolean isColliding(IPlayableCharacter playableCharacter, int heightPixels) {
 //        return obstacleModel.isColliding(playableCharacter, heightPixels);
 //    }
-//
-//    public void onCollision() {
-//        obstacleModel.onCollision();
-//    }
-//
-//    public void setSpeedX(float speedX) {
-//        obstacleModel.setSpeedX(speedX);
-//    }
-//
+    public boolean isColliding(IPlayableCharacter playableCharacter) {
+        return obstacleModel.isColliding(playableCharacter);
+    }
+
+    public void onCollision() {
+        obstacleModel.onCollision();
+    }
+
+    public void setSpeedX(float speedX) {
+        obstacleModel.setSpeedX(speedX);
+    }
+
 //    public void move() {
 //        obstacleModel.move(gameView.getHeight(), gameView.getWidth());
 //    }
+
+    public void move(){
+        obstacleModel.move();
+    }
+
 }
