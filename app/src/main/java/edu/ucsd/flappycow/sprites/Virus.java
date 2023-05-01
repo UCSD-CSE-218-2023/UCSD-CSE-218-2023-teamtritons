@@ -5,15 +5,13 @@ import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
 
 public class Virus extends PowerUp{
-    public static Bitmap globalBitmap;
 
     public Virus(int viewWidth, int viewHeight, int viewSpeedX) {
         super(viewWidth, viewHeight, viewSpeedX);
-        //TODO: fox and presenter
-//        if (globalBitmap == null) {
-//            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.virus);
-//        }
-        this.setBitmap(globalBitmap);
+    }
+
+    @Override
+    public void onInitBitmap() {
         this.setWidth(this.getBitmap().getWidth());
         this.setHeight(this.getBitmap().getHeight());
     }

@@ -75,7 +75,7 @@ public class GameView extends SurfaceView{
         playableCharacterPresenter = new PlayableCharacterPresenter(this, ApplicationConstants.COW);
         groundMap.put(ApplicationConstants.BACKGROUND, new GroundPresenter(ApplicationConstants.BACKGROUND));
         groundMap.put(ApplicationConstants.FRONTGROUND, new GroundPresenter(ApplicationConstants.FRONTGROUND));
-        buttonPresenter = new ButtonPresenter();
+        buttonPresenter = new ButtonPresenter(this);
 
         timerHandler = new TimerHandler(UPDATE_INTERVAL);
         powerUpPresenter = new PowerUpPresenter(this);
@@ -267,7 +267,7 @@ public class GameView extends SurfaceView{
      */
     private void checkCollision() {
         for (ObstaclePresenter op : obstaclePresenters) {
-            if (op.isColliding(getPlayer())) {
+            if (op.isColliding(getPlayer(), this.getGameActivity().getResources().getDisplayMetrics().heightPixels)) {
                 op.onCollision();
                 gameOver();
             }

@@ -6,17 +6,15 @@ import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
 
 public class Tutorial extends Sprite {
-    public static Bitmap globalBitmap;
     private boolean tutorialIsShown;
 
     public Tutorial() {
         super();
         tutorialIsShown = true;
-        //TODO: presenter
-//        if (globalBitmap == null) {
-//            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.tutorial);
-//        }
-        this.setBitmap(globalBitmap);
+    }
+
+    @Override
+    public void onInitBitmap() {
         this.setWidth(this.getBitmap().getWidth());
         this.setHeight(this.getBitmap().getHeight());
     }

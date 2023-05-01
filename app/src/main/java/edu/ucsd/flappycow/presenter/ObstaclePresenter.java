@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ucsd.flappycow.GameView;
+import edu.ucsd.flappycow.R;
+import edu.ucsd.flappycow.Util;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 import edu.ucsd.flappycow.sprites.Accessory;
 import edu.ucsd.flappycow.sprites.Cow;
@@ -29,7 +31,19 @@ public class ObstaclePresenter {
 
 
     public Obstacle createInstance() {
-        return new Obstacle(new Spider(), new WoodLog(), gameView.getSpeedX(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels, gameView.getGameActivity().getResources().getDisplayMetrics().widthPixels);
+        Spider spider = new Spider();
+        WoodLog woodLog = new WoodLog();
+
+        Obstacle obstacle = new Obstacle(spider, woodLog, gameView.getSpeedX(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels, gameView.getGameActivity().getResources().getDisplayMetrics().widthPixels);
+
+        spider.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.spider_full));
+        woodLog.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.log_full));
+
+        spider.onInitBitmap();
+        woodLog.onInitBitmap();
+        obstacle.onInitBitmap();
+
+        return obstacle;
     }
 
     public void draw() {
@@ -52,8 +66,8 @@ public class ObstaclePresenter {
         return obstacleModel.isOutOfRange();
     }
 
-    public boolean isColliding(IPlayableCharacter playableCharacter) {
-        return obstacleModel.isColliding(playableCharacter);
+    public boolean isColliding(IPlayableCharacter playableCharacter, int heightPixels) {
+        return obstacleModel.isColliding(playableCharacter, heightPixels);
     }
 
     public void onCollision() {
