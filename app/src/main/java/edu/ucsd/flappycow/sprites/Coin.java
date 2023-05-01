@@ -17,17 +17,18 @@ public class Coin extends PowerUp{
 
     public Coin(GameView view, GameActivity gameActivity) {
         super(view, gameActivity);
-        if (globalBitmap == null) {
-            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.coin);
-        }
-        this.setBitmap(globalBitmap);
-        this.setColNr((byte)12);
-        this.setWidth(this.getBitmap().getWidth() / (this.getColNr()));
-        this.setHeight(this.getBitmap().getHeight());
         this.setFrameTime((short)1);
         if (sound == -1) {
             sound = GameActivity.soundPool.load(gameActivity, R.raw.coin, 1);
         }
+    }
+
+    @Override
+    public void onInitBitmap(Bitmap bitmap) {
+        super.onInitBitmap(bitmap);
+        this.setColNr((byte)12);
+        this.setWidth(this.getBitmap().getWidth() / (this.getColNr()));
+        this.setHeight(this.getBitmap().getHeight());
     }
 
     /**

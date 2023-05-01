@@ -13,8 +13,7 @@ public class TutorialPresenter {
 
     public TutorialPresenter(GameView gameView){
         tutorial= new Tutorial(gameView, gameView.getGameActivity());
-        tutorial.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.tutorial));
-//        tutorial.onInitBitmap();
+        tutorial.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.tutorial));
         this.gameView = gameView;
     }
 

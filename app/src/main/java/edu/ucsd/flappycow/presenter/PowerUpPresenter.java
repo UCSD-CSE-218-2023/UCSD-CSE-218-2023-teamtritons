@@ -26,6 +26,12 @@ public class PowerUpPresenter {
     }
 
     private void add(PowerUp powerUp){
+        if(powerUp instanceof Coin)
+            powerUp.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.coin));
+        else if(powerUp instanceof Toast)
+            powerUp.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.toast));
+        else if(powerUp instanceof Virus)
+            powerUp.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.virus));
         powerUps.add(powerUp);
     }
 

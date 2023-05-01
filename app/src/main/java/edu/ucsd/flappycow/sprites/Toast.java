@@ -17,14 +17,14 @@ public class Toast extends PowerUp{
 
     public Toast(GameView view, GameActivity gameActivity) {
         super(view, gameActivity);
-        if (globalBitmap == null) {
-            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.toast);
-        }
-        this.setBitmap(globalBitmap);
+    }
+
+    @Override
+    public void onInitBitmap(Bitmap bitmap) {
+        super.onInitBitmap(bitmap);
         this.setWidth(this.getBitmap().getWidth());
         this.setHeight(this.getBitmap().getHeight());
     }
-
     /**
      * When eaten the player will turn into nyan cat.
      */

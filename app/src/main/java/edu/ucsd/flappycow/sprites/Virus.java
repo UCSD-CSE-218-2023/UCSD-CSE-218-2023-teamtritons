@@ -12,10 +12,11 @@ public class Virus extends PowerUp{
 
     public Virus(GameView view, GameActivity gameActivity) {
         super(view, gameActivity);
-        if (globalBitmap == null) {
-            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.virus);
-        }
-        this.setBitmap(globalBitmap);
+    }
+
+    @Override
+    public void onInitBitmap(Bitmap bitmap) {
+        super.onInitBitmap(bitmap);
         this.setWidth(this.getBitmap().getWidth());
         this.setHeight(this.getBitmap().getHeight());
     }
