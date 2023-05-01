@@ -43,14 +43,14 @@ public class Sprite implements IInteractable, IMovable {
     private short frameTimeCounter;
 
     /** The GameView that holds this Sprite */
-    private GameView view;
+//    private GameView view;
 
     /** The context */
-    private GameActivity gameActivity;
+//    private GameActivity gameActivity;
 
     public Sprite(GameView view, GameActivity gameActivity) {
-        this.view = view;
-        this.gameActivity = gameActivity;
+//        this.view = view;
+//        this.gameActivity = gameActivity;
         frameTime = 1;
         src = new Rect();
         dst = new Rect();
@@ -168,21 +168,21 @@ public class Sprite implements IInteractable, IMovable {
         this.frameTimeCounter = frameTimeCounter;
     }
 
-    public GameView getView() {
-        return view;
-    }
-
-    public void setView(GameView view) {
-        this.view = view;
-    }
-
-    public GameActivity getGameActivity() {
-        return gameActivity;
-    }
-
-    public void setGameActivity(GameActivity gameActivity) {
-        this.gameActivity = gameActivity;
-    }
+//    public GameView getView() {
+//        return view;
+//    }
+//
+//    public void setView(GameView view) {
+//        this.view = view;
+//    }
+//
+//    public GameActivity getGameActivity() {
+//        return gameActivity;
+//    }
+//
+//    public void setGameActivity(GameActivity gameActivity) {
+//        this.gameActivity = gameActivity;
+//    }
 
     /**
      * Draws the frame of the bitmap specified by col and row
@@ -236,11 +236,11 @@ public class Sprite implements IInteractable, IMovable {
      * @return
      */
     @Override
-    public boolean isColliding(Sprite sprite) {
-        if (this.x + getCollisionTolerance() < sprite.x + sprite.width
-            && this.x + this.width > sprite.x + getCollisionTolerance()
-            && this.y + getCollisionTolerance() < sprite.y + sprite.height
-            && this.y + this.height > sprite.y + getCollisionTolerance()) {
+    public boolean isColliding(Sprite sprite, int heightPixels) {
+        if (this.x + getCollisionTolerance(heightPixels) < sprite.x + sprite.width
+            && this.x + this.width > sprite.x + getCollisionTolerance(heightPixels)
+            && this.y + getCollisionTolerance(heightPixels) < sprite.y + sprite.height
+            && this.y + this.height > sprite.y + getCollisionTolerance(heightPixels)) {
             return true;
         }
         return false;
@@ -268,8 +268,9 @@ public class Sprite implements IInteractable, IMovable {
      * @return
      */
     @Override
-    public boolean isTouchingGround() {
-        return this.y + this.height > this.view.getHeight() - this.view.getHeight() * Frontground.getGroundHeight();
+    public boolean isTouchingGround(int viewHeight) {
+//        return this.y + this.height > this.view.getHeight() - this.view.getHeight() * Frontground.getGroundHeight();
+        return this.y + this.height > viewHeight - viewHeight * Frontground.getGroundHeight();
     }
 
     /**
@@ -286,8 +287,9 @@ public class Sprite implements IInteractable, IMovable {
      * @return
      */
     @Override
-    public boolean isPassed() {
-        return this.x + this.width < view.getPlayer().getX();
+    public boolean isPassed(int viewPlayerX) {
+//        return this.x + this.width < view.getPlayer().getX();
+        return this.x + this.width < viewPlayerX;
     }
 
     /**
@@ -334,8 +336,9 @@ public class Sprite implements IInteractable, IMovable {
      * @return
      */
     @Override
-    public int getCollisionTolerance() {
-        return gameActivity.getResources().getDisplayMetrics().heightPixels / 50;
+    public int getCollisionTolerance(int heightPixels) {
+//        return gameActivity.getResources().getDisplayMetrics().heightPixels / 50;
+        return heightPixels;
     }
 
     public void onInitBitmap(Bitmap bitmap) {
