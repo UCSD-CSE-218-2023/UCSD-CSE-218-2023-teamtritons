@@ -18,7 +18,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 import edu.ucsd.flappycow.presenter.ButtonPresenter;
 import edu.ucsd.flappycow.presenter.GroundPresenter;
@@ -32,14 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ucsd.flappycow.sprites.Background;
-import edu.ucsd.flappycow.sprites.Coin;
 import edu.ucsd.flappycow.sprites.Frontground;
-import edu.ucsd.flappycow.sprites.NyanCat;
-import edu.ucsd.flappycow.sprites.PauseButton;
 import edu.ucsd.flappycow.sprites.IPlayableCharacter;
-import edu.ucsd.flappycow.sprites.Toast;
-import edu.ucsd.flappycow.sprites.Tutorial;
-import edu.ucsd.flappycow.sprites.Virus;
 
 public class GameView extends SurfaceView{
 
