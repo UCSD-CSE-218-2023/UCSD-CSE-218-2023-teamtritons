@@ -20,6 +20,8 @@ import android.view.SurfaceView;
 
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
+import edu.ucsd.flappycow.presenter.ButtonPresenter;
+import edu.ucsd.flappycow.presenter.GroundPresenter;
 import edu.ucsd.flappycow.presenter.PlayableCharacterPresenter;
 import edu.ucsd.flappycow.presenter.PowerUpPresenter;
 import edu.ucsd.flappycow.presenter.TutorialPresenter;
@@ -63,6 +65,11 @@ public class GameView extends SurfaceView{
     private PowerUpPresenter powerUpPresenter;
     private TutorialPresenter tutorialPresenter;
 
+    private GroundPresenter backgroundPresenter;
+    private GroundPresenter frontgroundPresenter;
+
+    private ButtonPresenter buttonPresenter;
+
     public GameView(Context context) {
         super(context);
 
@@ -71,9 +78,10 @@ public class GameView extends SurfaceView{
 
         holder = getHolder();
         playableCharacterPresenter = new PlayableCharacterPresenter(this, ApplicationConstants.COW);
-        background = new Background();
-        frontground = new Frontground();
-        this.pauseButton = new PauseButton();
+        backgroundPresenter = new GroundPresenter(ApplicationConstants.BACKGROUND);
+        frontgroundPresenter = new GroundPresenter(ApplicationConstants.FRONTGROUND);
+        buttonPresenter = new ButtonPresenter();
+
         timerHandler = new TimerHandler(UPDATE_INTERVAL);
         powerUpPresenter = new PowerUpPresenter(this);
         tutorialPresenter = new TutorialPresenter(this);
@@ -97,7 +105,7 @@ public class GameView extends SurfaceView{
                 playableCharacterPresenter.onTap();
             } else if (paused) {
                 resume();
-            } else if (pauseButton.isTouching((int) event.getX(), (int) event.getY()) && !this.paused) {
+            } else if (buttonPresenter.isTouching((int) event.getX(), (int) event.getY()) && !this.paused) {
                 pause();
             } else {
                 playableCharacterPresenter.onTap();
@@ -130,6 +138,11 @@ public class GameView extends SurfaceView{
 
         return canvas;
     }
+
+
+    /**
+     * Draw Tutorial
+     */
 
     public void pause() {
         timerHandler.stopTimer();
@@ -181,7 +194,7 @@ public class GameView extends SurfaceView{
      * @param drawPlayer
      */
     public void drawCanvas(Canvas canvas, boolean drawPlayer) {
-        background.draw(canvas);
+        backgroundPresenter.draw(canvas);
         for (Obstacle r : obstacles) {
             r.draw(canvas);
         }
@@ -189,8 +202,8 @@ public class GameView extends SurfaceView{
         if (drawPlayer) {
             playableCharacterPresenter.draw(canvas);
         }
-        frontground.draw(canvas);
-        pauseButton.draw(canvas);
+        frontgroundPresenter.draw(canvas);
+        buttonPresenter.draw(canvas);
 
         // Score Text
         Paint paint = new Paint();
@@ -289,13 +302,13 @@ public class GameView extends SurfaceView{
         }
         powerUpPresenter.move();
 
-        background.setSpeedX(-getSpeedX() / 2);
-        background.move(this.getHeight(), this.getWidth());
+        backgroundPresenter.setSpeedX(-getSpeedX() / 2);
+        backgroundPresenter.move(this.getHeight(), this.getWidth());
 
-        frontground.setSpeedX(-getSpeedX() * 4 / 3);
-        frontground.move(this.getHeight(), this.getWidth());
+        frontgroundPresenter.setSpeedX(-getSpeedX() * 4 / 3);
+        frontgroundPresenter.move(this.getHeight(), this.getWidth());
 
-        pauseButton.move(this.getHeight(), this.getWidth());
+        buttonPresenter.move(this.getHeight(), this.getWidth());
 
         playableCharacterPresenter.move();
     }
@@ -314,8 +327,8 @@ public class GameView extends SurfaceView{
         this.playableCharacterPresenter.setSpeedX(tmp.getSpeedX());
         this.playableCharacterPresenter.setSpeedY(tmp.getSpeedY());
 
-        gameActivity.musicShouldPlay = true;
-        GameActivity.musicPlayer.start();
+        GameActivity.getMediaPlayerPresenter().musicShouldPlay = true;
+        GameActivity.getMediaPlayerPresenter().getMusicPlayer().start();
     }
 
     public void changeToSick() {

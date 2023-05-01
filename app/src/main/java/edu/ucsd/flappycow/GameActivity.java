@@ -33,6 +33,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import java.util.List;
 
 import edu.ucsd.flappycow.consts.ApplicationConstants;
+import edu.ucsd.flappycow.presenter.MediaPlayerPresenter;
 
 
 public class GameActivity extends Activity {
@@ -90,12 +91,22 @@ public class GameActivity extends Activity {
      * nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan
      * Does someone know the second verse ???
      */
-    public static MediaPlayer musicPlayer = null;
+    //public static MediaPlayer musicPlayer = null;
+
+    public static MediaPlayerPresenter mediaPlayerPresenter;
+
+    public static MediaPlayerPresenter getMediaPlayerPresenter() {
+        return mediaPlayerPresenter;
+    }
+
+    public void setMediaPlayerPresenter(MediaPlayerPresenter mediaPlayerPresenter) {
+        this.mediaPlayerPresenter = mediaPlayerPresenter;
+    }
 
     /**
      * Whether the music should play or not
      */
-    public boolean musicShouldPlay = false;
+//    public boolean musicShouldPlay = false;
 
     /**
      * Time interval (ms) you have to press the backbutton twice in to exit
@@ -121,6 +132,14 @@ public class GameActivity extends Activity {
      * The view that handles all kind of stuff
      */
     GameView view;
+
+    public GameView getView() {
+        return view;
+    }
+
+    public void setView(GameView view) {
+        this.view = view;
+    }
 
     /**
      * The amount of collected coins
@@ -158,7 +177,8 @@ public class GameActivity extends Activity {
         gameOverDialog = new GameOverDialog(this);
         handler = new GameActivityHandler(this);
         setContentView(view);
-        initMusicPlayer();
+        mediaPlayerPresenter = new MediaPlayerPresenter(this);
+        //initMusicPlayer();
         loadCoins();
         if (gameOverCounter % GAMES_PER_AD == 0) {
             setupAd();
@@ -170,18 +190,18 @@ public class GameActivity extends Activity {
      * Initializes the player with the nyan cat song
      * and sets the position to 0.
      */
-    public void initMusicPlayer() {
-        if (musicPlayer == null) {
-            // to avoid unnecessary reinitialisation
-            musicPlayer = MediaPlayer.create(this, R.raw.nyan_cat_theme);
-            if (musicPlayer == null) {
-                return;
-            }
-            musicPlayer.setLooping(true);
-            musicPlayer.setVolume(MainActivity.volume, MainActivity.volume);
-        }
-        musicPlayer.seekTo(0);    // Reset song to position 0
-    }
+//    public void initMusicPlayer() {
+//        if (musicPlayer == null) {
+//            // to avoid unnecessary reinitialisation
+//            musicPlayer = MediaPlayer.create(this, R.raw.nyan_cat_theme);
+//            if (musicPlayer == null) {
+//                return;
+//            }
+//            musicPlayer.setLooping(true);
+//            musicPlayer.setVolume(MainActivity.volume, MainActivity.volume);
+//        }
+//        musicPlayer.seekTo(0);    // Reset song to position 0
+//    }
 
     private void loadCoins() {
         SharedPreferences saves = this.getSharedPreferences(coin_save, 0);
@@ -191,28 +211,28 @@ public class GameActivity extends Activity {
     /**
      * Pauses the view and the music
      */
-    @Override
-    protected void onPause() {
-        view.pause();
-        if (musicPlayer != null && musicPlayer.isPlaying()) {
-            musicPlayer.pause();
-        }
-        super.onPause();
-    }
+//    @Override
+//    protected void onPause() {
+//        view.pause();
+//        if (musicPlayer != null && musicPlayer.isPlaying()) {
+//            musicPlayer.pause();
+//        }
+//        super.onPause();
+//    }
 
     /**
      * Resumes the view (but waits the view waits for a tap)
      * and starts the music if it should be running.
      * Also checks whether the Google Play Services are available.
      */
-    @Override
-    protected void onResume() {
-        view.drawOnce();
-        if (musicPlayer != null && musicShouldPlay) {
-            musicPlayer.start();
-        }
-        super.onResume();
-    }
+//    @Override
+//    protected void onResume() {
+//        view.drawOnce();
+//        if (musicPlayer != null && musicShouldPlay) {
+//            musicPlayer.start();
+//        }
+//        super.onResume();
+//    }
 
     /**
      * Prevent accidental exits by requiring a double press.
