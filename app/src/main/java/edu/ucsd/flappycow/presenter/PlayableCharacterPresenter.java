@@ -26,25 +26,22 @@ public class PlayableCharacterPresenter {
     private IPlayableCharacter createInstance(String type) {
         // depending on parameters create object
         if(type.equals(ApplicationConstants.COW)) {
-//            Accessory accessory = new Accessory();
-//            Cow cow = new Cow(accessory, gameView.getHeight(), gameView.getWidth(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels);
-//            cow.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.cow));
-////            accessory.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.ac));
-//            cow.onInitBitmap();
-////            accessory.onInitBitmap();
-//
-//            return cow;
-
-            return new Cow(gameView, gameView.getGameActivity(), new Accessory(gameView, gameView.getGameActivity()));
+            Accessory accessory = new Accessory(gameView, gameView.getGameActivity());
+            Cow cow = new Cow(gameView, gameView.getGameActivity(), accessory);
+            cow.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.cow));
+            return cow;
         } else if (type.equals(ApplicationConstants.NYAN_CAT)) {
 //            Rainbow rainbow = new Rainbow();
+            Rainbow rainbow = new Rainbow(gameView, gameView.getGameActivity());
+            NyanCat nyanCat = new NyanCat(gameView, gameView.getGameActivity(), rainbow);
 //            NyanCat nyanCat = new NyanCat(rainbow, gameView.getHeight(), gameView.getWidth(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels);
 //            rainbow.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.rainbow));
 //            nyanCat.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.nyan_cat));
 //            rainbow.onInitBitmap();
 //            nyanCat.onInitBitmap();
 //            return nyanCat;
-            return new NyanCat(gameView, gameView.getGameActivity(), new Rainbow(gameView, gameView.getGameActivity()));
+            nyanCat.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.nyan_cat));
+            return nyanCat;
         }
         return null;
     }

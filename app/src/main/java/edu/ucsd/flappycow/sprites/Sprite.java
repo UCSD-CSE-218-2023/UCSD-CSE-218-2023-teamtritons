@@ -338,4 +338,8 @@ public class Sprite implements IInteractable, IMovable {
         return gameActivity.getResources().getDisplayMetrics().heightPixels / 50;
     }
 
+    public void onInitBitmap(Bitmap bitmap) {
+        setBitmap(bitmap);
+    }
+
 }

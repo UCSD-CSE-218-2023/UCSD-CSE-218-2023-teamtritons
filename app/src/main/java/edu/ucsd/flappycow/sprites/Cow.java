@@ -13,9 +13,6 @@ public class Cow extends IPlayableCharacter{
     private static final int POINTS_TO_SIR = 23;
     private static final int POINTS_TO_COOL = 35;
 
-    /** Static bitmap to reduce memory usage. */
-    private static Bitmap globalBitmap;
-
     /** The moo sound */
     private static int sound = -1;
 
@@ -24,16 +21,9 @@ public class Cow extends IPlayableCharacter{
 
     public Cow(GameView view, GameActivity gameActivity, IAccessory accessory) {
         super(view, gameActivity);
-        if (globalBitmap == null) {
-            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.cow);
-        }
-        this.setBitmap(globalBitmap);
         this.setColNr(new Integer(8).byteValue());
-        this.setWidth(this.getBitmap().getWidth()/(getColNr()));  // The image has 8 frames in a row
-        this.setHeight(this.getBitmap().getHeight() / 4);           // and 4 in a column
         this.setFrameTime((short)3);        // the frame will change every 3 runs
         this.setY(gameActivity.getResources().getDisplayMetrics().heightPixels / 2);    // Startposition in in the middle of the screen
-
         if (sound == -1) {
             sound = GameActivity.soundPool.load(gameActivity, R.raw.cow, 1);
         }
@@ -41,13 +31,20 @@ public class Cow extends IPlayableCharacter{
         this.accessory = accessory;
     }
 
-    public static Bitmap getGlobalBitmap() {
-        return globalBitmap;
+    @Override
+    public void onInitBitmap(Bitmap bitmap) {
+        super.onInitBitmap(bitmap);
+        this.setWidth(this.getBitmap().getWidth()/(getColNr()));  // The image has 8 frames in a row
+        this.setHeight(this.getBitmap().getHeight() / 4);           // and 4 in a column
     }
 
-    public static void setGlobalBitmap(Bitmap globalBitmap) {
-        Cow.globalBitmap = globalBitmap;
-    }
+//    public static Bitmap getGlobalBitmap() {
+//        return globalBitmap;
+//    }
+//
+//    public static void setGlobalBitmap(Bitmap globalBitmap) {
+//        Cow.globalBitmap = globalBitmap;
+//    }
 
     public static int getSound() {
         return sound;
