@@ -19,4 +19,8 @@ public class ApplicationConstants {
 
     public static final String COW = "COW";
     public static final String NYAN_CAT = "NYAN_CAT";
+
+    public static final String BACKGROUND = "BACKGROUND";
+
+    public static final String FRONTGROUND = "FRONTGROUND";
 }

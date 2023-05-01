@@ -18,8 +18,10 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
+import edu.ucsd.flappycow.presenter.ButtonPresenter;
+import edu.ucsd.flappycow.presenter.GroundPresenter;
+import edu.ucsd.flappycow.presenter.ObstaclePresenter;
 import edu.ucsd.flappycow.presenter.PlayableCharacterPresenter;
 import edu.ucsd.flappycow.presenter.PowerUpPresenter;
 import edu.ucsd.flappycow.presenter.TutorialPresenter;
@@ -27,20 +29,10 @@ import edu.ucsd.flappycow.sprites.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import edu.ucsd.flappycow.sprites.Background;
-import edu.ucsd.flappycow.sprites.Coin;
-import edu.ucsd.flappycow.sprites.Cow;
 import edu.ucsd.flappycow.sprites.Frontground;
-import edu.ucsd.flappycow.sprites.NyanCat;
-import edu.ucsd.flappycow.sprites.Obstacle;
-import edu.ucsd.flappycow.sprites.PauseButton;
 import edu.ucsd.flappycow.sprites.IPlayableCharacter;
-import edu.ucsd.flappycow.sprites.Toast;
-import edu.ucsd.flappycow.sprites.Tutorial;
-import edu.ucsd.flappycow.sprites.Virus;
 
 public class GameView extends SurfaceView{
 
@@ -53,15 +45,23 @@ public class GameView extends SurfaceView{
     private GameActivity gameActivity;
     private Background background;
     private Frontground frontground;
-    private List<Obstacle> obstacles = new ArrayList<Obstacle>();
+
+    private List<PowerUp> powerUps = new ArrayList<PowerUp>();
 
     private IGameButton pauseButton;
     volatile private boolean paused = true;
 
     private PlayableCharacterPresenter playableCharacterPresenter;
+
+    private List<ObstaclePresenter> obstaclePresenters;
     private TimerHandler timerHandler;
     private PowerUpPresenter powerUpPresenter;
     private TutorialPresenter tutorialPresenter;
+
+    private GroundPresenter backgroundPresenter;
+    private GroundPresenter frontgroundPresenter;
+
+    private ButtonPresenter buttonPresenter;
 
     public GameView(Context context) {
         super(context);
@@ -71,12 +71,14 @@ public class GameView extends SurfaceView{
 
         holder = getHolder();
         playableCharacterPresenter = new PlayableCharacterPresenter(this, ApplicationConstants.COW);
-        background = new Background();
-        frontground = new Frontground();
-        this.pauseButton = new PauseButton();
+        backgroundPresenter = new GroundPresenter(ApplicationConstants.BACKGROUND);
+        frontgroundPresenter = new GroundPresenter(ApplicationConstants.FRONTGROUND);
+        buttonPresenter = new ButtonPresenter();
+
         timerHandler = new TimerHandler(UPDATE_INTERVAL);
         powerUpPresenter = new PowerUpPresenter(this);
         tutorialPresenter = new TutorialPresenter(this);
+        obstaclePresenters = new ArrayList<>();
     }
 
     @Override
@@ -97,7 +99,7 @@ public class GameView extends SurfaceView{
                 playableCharacterPresenter.onTap();
             } else if (paused) {
                 resume();
-            } else if (pauseButton.isTouching((int) event.getX(), (int) event.getY()) && !this.paused) {
+            } else if (buttonPresenter.isTouching((int) event.getX(), (int) event.getY()) && !this.paused) {
                 pause();
             } else {
                 playableCharacterPresenter.onTap();
@@ -130,6 +132,11 @@ public class GameView extends SurfaceView{
 
         return canvas;
     }
+
+
+    /**
+     * Draw Tutorial
+     */
 
     public void pause() {
         timerHandler.stopTimer();
@@ -182,15 +189,15 @@ public class GameView extends SurfaceView{
      */
     public void drawCanvas(Canvas canvas, boolean drawPlayer) {
         background.draw(canvas);
-        for (Obstacle r : obstacles) {
-            r.draw(canvas);
+        for (ObstaclePresenter op : obstaclePresenters) {
+            op.draw();
         }
         powerUpPresenter.draw(canvas);
         if (drawPlayer) {
             playableCharacterPresenter.draw(canvas);
         }
-        frontground.draw(canvas);
-        pauseButton.draw(canvas);
+        frontgroundPresenter.draw(canvas);
+        buttonPresenter.draw(canvas);
 
         // Score Text
         Paint paint = new Paint();
@@ -222,10 +229,10 @@ public class GameView extends SurfaceView{
      * Checks whether an obstacle is passed.
      */
     private void checkPasses() {
-        for (Obstacle o : obstacles) {
-            if (o.isPassed(this.getPlayer().getX())) {
-                if (!o.isAlreadyPassed) {    // probably not needed
-                    o.onPass();
+        for (ObstaclePresenter op : obstaclePresenters) {
+            if (op.isPassed(this.getPlayer().getX())) {
+                if (!op.isAlreadyPassed()) {    // probably not needed
+                    op.onPass();
                     createPowerUp();
                 }
             }
@@ -243,9 +250,9 @@ public class GameView extends SurfaceView{
      * Checks whether the obstacles or powerUps are out of range and deletes them
      */
     private void checkOutOfRange() {
-        for (int i = 0; i < obstacles.size(); i++) {
-            if (this.obstacles.get(i).isOutOfRange()) {
-                this.obstacles.remove(i);
+        for (int i = 0; i < obstaclePresenters.size(); i++) {
+            if (this.obstaclePresenters.get(i).isOutOfRange()) {
+                this.obstaclePresenters.remove(i);
                 i--;
             }
         }
@@ -257,9 +264,9 @@ public class GameView extends SurfaceView{
      * Checks collisions and performs the action
      */
     private void checkCollision() {
-        for (Obstacle o : obstacles) {
-            if (o.isColliding(getPlayer())) {
-                o.onCollision();
+        for (ObstaclePresenter op : obstaclePresenters) {
+            if (op.isColliding(getPlayer())) {
+                op.onCollision();
                 gameOver();
             }
         }
@@ -274,8 +281,8 @@ public class GameView extends SurfaceView{
      * if no obstacle is present a new one is created
      */
     private void createObstacle() {
-        if (obstacles.size() < 1) {
-            obstacles.add(new Obstacle(new Spider(), new WoodLog(), this.getSpeedX(), this.gameActivity.getResources().getDisplayMetrics().heightPixels, this.gameActivity.getResources().getDisplayMetrics().widthPixels));
+        if (obstaclePresenters.size() < 1) {
+            obstaclePresenters.add(new ObstaclePresenter(this));
         }
     }
 
@@ -283,19 +290,19 @@ public class GameView extends SurfaceView{
      * Update sprite movements
      */
     private void move() {
-        for (Obstacle o : obstacles) {
-            o.setSpeedX(-getSpeedX());
-            o.move(this.getHeight(), this.getWidth());
+        for (ObstaclePresenter op : obstaclePresenters) {
+            op.setSpeedX(-getSpeedX());
+            op.move();
         }
         powerUpPresenter.move();
 
-        background.setSpeedX(-getSpeedX() / 2);
-        background.move(this.getHeight(), this.getWidth());
+        backgroundPresenter.setSpeedX(-getSpeedX() / 2);
+        backgroundPresenter.move(this.getHeight(), this.getWidth());
 
-        frontground.setSpeedX(-getSpeedX() * 4 / 3);
-        frontground.move(this.getHeight(), this.getWidth());
+        frontgroundPresenter.setSpeedX(-getSpeedX() * 4 / 3);
+        frontgroundPresenter.move(this.getHeight(), this.getWidth());
 
-        pauseButton.move(this.getHeight(), this.getWidth());
+        buttonPresenter.move(this.getHeight(), this.getWidth());
 
         playableCharacterPresenter.move();
     }
@@ -314,8 +321,8 @@ public class GameView extends SurfaceView{
         this.playableCharacterPresenter.setSpeedX(tmp.getSpeedX());
         this.playableCharacterPresenter.setSpeedY(tmp.getSpeedY());
 
-        gameActivity.musicShouldPlay = true;
-        GameActivity.musicPlayer.start();
+        GameActivity.getMediaPlayerPresenter().musicShouldPlay = true;
+        GameActivity.getMediaPlayerPresenter().getMusicPlayer().start();
     }
 
     public void changeToSick() {
@@ -363,7 +370,7 @@ public class GameView extends SurfaceView{
         gameActivity.gameOverDialog.hide();
         playableCharacterPresenter.setY(this.getHeight() / 2 - getPlayer().getWidth() / 2);
         playableCharacterPresenter.setX(this.getWidth() / 6);
-        obstacles.clear();
+        obstaclePresenters.clear();
         powerUpPresenter.clear();
         playableCharacterPresenter.revive();
         for (int i = 0; i < 6; ++i) {
