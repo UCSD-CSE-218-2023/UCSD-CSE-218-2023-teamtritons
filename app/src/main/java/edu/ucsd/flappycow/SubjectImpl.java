@@ -2,7 +2,7 @@ package edu.ucsd.flappycow;
 
 import java.util.ArrayList;
 
-public class GameActivityHandlerSubjectImpl <T> implements ISubjectImpl<T> {
+public class SubjectImpl <T> implements ISubjectImpl<T> {
     private ArrayList<IObserver> observers;
 
     @Override public void register(IObserver<T> observer) {

@@ -39,7 +39,7 @@ public class GameOverDialog extends Dialog {
 
     private ImageView imageView;
 
-    private ISubjectImpl<GameOverUpdate> GameButtonHandlerSub = new GameActivityHandlerSubjectImpl<>();
+    private ISubjectImpl<GameOverUpdate> GameButtonHandlerSub = new SubjectImpl<>();
 
 
     public GameOverDialog(GameActivity gameActivity) {
