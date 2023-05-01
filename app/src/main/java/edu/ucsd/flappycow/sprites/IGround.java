@@ -2,9 +2,6 @@ package edu.ucsd.flappycow.sprites;
 
 import android.graphics.Canvas;
 
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
-
 public abstract class IGround extends Sprite {
 
     public IGround() {

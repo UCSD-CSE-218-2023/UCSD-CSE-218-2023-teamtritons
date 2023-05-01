@@ -2,9 +2,6 @@ package edu.ucsd.flappycow.sprites;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.MainActivity;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
@@ -75,14 +72,16 @@ public class Cow extends IPlayableCharacter{
         return POINTS_TO_COOL;
     }
 
-    private void playSound() {
-        GameActivity.soundPool.play(sound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
-    }
+    //TODO:presenter
+//    private void playSound() {
+//        GameActivity.soundPool.play(sound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
+//    }
 
     @Override
     public void onTap(int viewHeight) {
         super.onTap(viewHeight);
-        playSound();
+        //TODO:presenter
+//        playSound();
     }
 
     /**

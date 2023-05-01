@@ -1,7 +1,5 @@
 package edu.ucsd.flappycow.sprites;
 
-import edu.ucsd.flappycow.GameActivity;
-
 public abstract class PowerUp extends Sprite {
     public PowerUp(int viewWidth, int viewHeight, int viewSpeedX) {
         super();

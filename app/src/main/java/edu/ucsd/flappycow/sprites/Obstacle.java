@@ -1,9 +1,6 @@
 package edu.ucsd.flappycow.sprites;
 
 import android.graphics.Canvas;
-
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.MainActivity;
 import edu.ucsd.flappycow.R;
 
@@ -112,14 +109,15 @@ public class Obstacle extends Sprite {
         if (!isAlreadyPassed) {
             isAlreadyPassed = true;
 //            this.getView().getGameActivity().increasePoints();
-            GameActivity.soundPool.play(passSound, MainActivity.volume / SOUND_VOLUME_DIVIDER, MainActivity.volume / SOUND_VOLUME_DIVIDER, 0, 0, 1);
+//            GameActivity.soundPool.play(passSound, MainActivity.volume / SOUND_VOLUME_DIVIDER, MainActivity.volume / SOUND_VOLUME_DIVIDER, 0, 0, 1);
         }
     }
 
     @Override
     public void onCollision() {
         super.onCollision();
-        GameActivity.soundPool.play(collideSound, MainActivity.volume / SOUND_VOLUME_DIVIDER, MainActivity.volume / SOUND_VOLUME_DIVIDER, 0, 0, 1);
+        //Todo: fox and presenter
+//        GameActivity.soundPool.play(collideSound, MainActivity.volume / SOUND_VOLUME_DIVIDER, MainActivity.volume / SOUND_VOLUME_DIVIDER, 0, 0, 1);
     }
 
 }

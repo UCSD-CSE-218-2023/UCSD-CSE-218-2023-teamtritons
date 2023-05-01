@@ -4,9 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
-
 public class Sprite implements IInteractable, IMovable {
 
     /** The bitmaps that holds the frames that should be drawn */

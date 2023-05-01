@@ -1,9 +1,6 @@
 package edu.ucsd.flappycow.sprites;
 
 import android.graphics.Bitmap;
-
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.MainActivity;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
@@ -38,14 +35,14 @@ public class Coin extends PowerUp{
     @Override
     public void onCollision() {
         super.onCollision();
-        playSound();
+//        playSound();
         //TODO:presenter
 //        this.getGameActivity().increaseCoin();
     }
-
-    private void playSound() {
-        GameActivity.soundPool.play(sound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
-    }
+//TODO:presenter
+//    private void playSound() {
+//        GameActivity.soundPool.play(sound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
+//    }
 
     @Override
     public void move(int viewHeight, int viewWidth) {
