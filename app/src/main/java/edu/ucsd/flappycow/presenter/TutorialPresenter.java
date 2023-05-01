@@ -2,6 +2,8 @@ package edu.ucsd.flappycow.presenter;
 
 import android.graphics.Canvas;
 import edu.ucsd.flappycow.GameView;
+import edu.ucsd.flappycow.R;
+import edu.ucsd.flappycow.Util;
 import edu.ucsd.flappycow.sprites.Tutorial;
 
 public class TutorialPresenter {
@@ -11,6 +13,8 @@ public class TutorialPresenter {
 
     public TutorialPresenter(GameView gameView){
         tutorial= new Tutorial();
+        tutorial.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.tutorial));
+        tutorial.onInitBitmap();
         this.gameView = gameView;
     }
 

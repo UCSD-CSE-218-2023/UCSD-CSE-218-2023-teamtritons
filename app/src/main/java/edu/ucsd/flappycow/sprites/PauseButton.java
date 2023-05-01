@@ -6,8 +6,10 @@ import edu.ucsd.flappycow.Util;
 public class PauseButton extends IGameButton{
     public PauseButton() {
         super();
-        //TODO: presenter
-//        this.setBitmap(Util.getScaledBitmapAlpha8(gameActivity, R.drawable.pause_button));
+    }
+
+    @Override
+    public void onInitBitmap() {
         this.setWidth(this.getBitmap().getWidth());
         this.setHeight(this.getBitmap().getHeight());
     }

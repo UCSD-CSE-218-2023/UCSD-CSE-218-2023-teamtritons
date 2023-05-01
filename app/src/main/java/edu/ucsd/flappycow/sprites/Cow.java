@@ -10,9 +10,6 @@ public class Cow extends IPlayableCharacter{
     private static final int POINTS_TO_SIR = 23;
     private static final int POINTS_TO_COOL = 35;
 
-    /** Static bitmap to reduce memory usage. */
-    private static Bitmap globalBitmap;
-
     /** The moo sound */
     private static int sound = -1;
 
@@ -21,14 +18,7 @@ public class Cow extends IPlayableCharacter{
 
     public Cow(IAccessory accessory, int viewHeight, int viewWidth, int activityHeightPixels) {
         super(viewHeight, viewWidth);
-        //TODO: presenter
-//        if (globalBitmap == null) {
-//            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.cow);
-//        }
-        this.setBitmap(globalBitmap);
         this.setColNr(new Integer(8).byteValue());
-        this.setWidth(this.getBitmap().getWidth()/(getColNr()));  // The image has 8 frames in a row
-        this.setHeight(this.getBitmap().getHeight() / 4);           // and 4 in a column
         this.setFrameTime((short)3);        // the frame will change every 3 runs
         this.setY(activityHeightPixels/ 2);    // Startposition in in the middle of the screen
 
@@ -40,12 +30,11 @@ public class Cow extends IPlayableCharacter{
         this.accessory = accessory;
     }
 
-    public static Bitmap getGlobalBitmap() {
-        return globalBitmap;
-    }
 
-    public static void setGlobalBitmap(Bitmap globalBitmap) {
-        Cow.globalBitmap = globalBitmap;
+    @Override
+    public void onInitBitmap() {
+        this.setWidth(this.getBitmap().getWidth()/(getColNr()));  // The image has 8 frames in a row
+        this.setHeight(this.getBitmap().getHeight() / 4);           // and 4 in a column
     }
 
     public static int getSound() {

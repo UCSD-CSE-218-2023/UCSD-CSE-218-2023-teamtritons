@@ -45,6 +45,10 @@ public class Sprite implements IInteractable, IMovable {
         dst = new Rect();
     }
 
+    public void onInitBitmap() {
+
+    }
+
     public Bitmap getBitmap() {
         return bitmap;
     }
@@ -209,11 +213,11 @@ public class Sprite implements IInteractable, IMovable {
      * @return
      */
     @Override
-    public boolean isColliding(Sprite sprite) {
-        if (this.x + getCollisionTolerance() < sprite.x + sprite.width
-            && this.x + this.width > sprite.x + getCollisionTolerance()
-            && this.y + getCollisionTolerance() < sprite.y + sprite.height
-            && this.y + this.height > sprite.y + getCollisionTolerance()) {
+    public boolean isColliding(Sprite sprite, int heightPixels) {
+        if (this.x + getCollisionTolerance(heightPixels) < sprite.x + sprite.width
+            && this.x + this.width > sprite.x + getCollisionTolerance(heightPixels)
+            && this.y + getCollisionTolerance(heightPixels) < sprite.y + sprite.height
+            && this.y + this.height > sprite.y + getCollisionTolerance(heightPixels)) {
             return true;
         }
         return false;
@@ -307,10 +311,8 @@ public class Sprite implements IInteractable, IMovable {
      * @return
      */
     @Override
-    public int getCollisionTolerance() {
-        //TODO:presenter
-//        return gameActivity.getResources().getDisplayMetrics().heightPixels / 50;
-        return 0;
+    public int getCollisionTolerance(int heightPixels) {
+        return heightPixels/50;
     }
 
 }

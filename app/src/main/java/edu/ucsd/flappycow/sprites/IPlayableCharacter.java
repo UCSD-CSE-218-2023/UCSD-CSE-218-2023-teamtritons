@@ -110,4 +110,6 @@ public abstract class IPlayableCharacter extends Sprite{
         // Change bitmap to have a mask.
     }
 
+
+
 }

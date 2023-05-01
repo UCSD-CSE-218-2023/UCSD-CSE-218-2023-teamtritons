@@ -29,6 +29,7 @@ import edu.ucsd.flappycow.sprites.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import edu.ucsd.flappycow.sprites.Background;
 import edu.ucsd.flappycow.sprites.Frontground;
@@ -58,8 +59,9 @@ public class GameView extends SurfaceView{
     private PowerUpPresenter powerUpPresenter;
     private TutorialPresenter tutorialPresenter;
 
-    private GroundPresenter backgroundPresenter;
-    private GroundPresenter frontgroundPresenter;
+    private Map<String, GroundPresenter> groundMap;
+
+    private GroundPresenter groundPresenter;
 
     private ButtonPresenter buttonPresenter;
 
@@ -71,9 +73,9 @@ public class GameView extends SurfaceView{
 
         holder = getHolder();
         playableCharacterPresenter = new PlayableCharacterPresenter(this, ApplicationConstants.COW);
-        backgroundPresenter = new GroundPresenter(ApplicationConstants.BACKGROUND);
-        frontgroundPresenter = new GroundPresenter(ApplicationConstants.FRONTGROUND);
-        buttonPresenter = new ButtonPresenter();
+        groundMap.put(ApplicationConstants.BACKGROUND, new GroundPresenter(ApplicationConstants.BACKGROUND));
+        groundMap.put(ApplicationConstants.FRONTGROUND, new GroundPresenter(ApplicationConstants.FRONTGROUND));
+        buttonPresenter = new ButtonPresenter(this);
 
         timerHandler = new TimerHandler(UPDATE_INTERVAL);
         powerUpPresenter = new PowerUpPresenter(this);
@@ -188,7 +190,7 @@ public class GameView extends SurfaceView{
      * @param drawPlayer
      */
     public void drawCanvas(Canvas canvas, boolean drawPlayer) {
-        background.draw(canvas);
+        groundMap.get(ApplicationConstants.BACKGROUND).draw(canvas);
         for (ObstaclePresenter op : obstaclePresenters) {
             op.draw();
         }
@@ -196,7 +198,7 @@ public class GameView extends SurfaceView{
         if (drawPlayer) {
             playableCharacterPresenter.draw(canvas);
         }
-        frontgroundPresenter.draw(canvas);
+        groundMap.get(ApplicationConstants.FRONTGROUND).draw(canvas);
         buttonPresenter.draw(canvas);
 
         // Score Text
@@ -265,7 +267,7 @@ public class GameView extends SurfaceView{
      */
     private void checkCollision() {
         for (ObstaclePresenter op : obstaclePresenters) {
-            if (op.isColliding(getPlayer())) {
+            if (op.isColliding(getPlayer(), this.getGameActivity().getResources().getDisplayMetrics().heightPixels)) {
                 op.onCollision();
                 gameOver();
             }
@@ -296,11 +298,11 @@ public class GameView extends SurfaceView{
         }
         powerUpPresenter.move();
 
-        backgroundPresenter.setSpeedX(-getSpeedX() / 2);
-        backgroundPresenter.move(this.getHeight(), this.getWidth());
+        groundMap.get(ApplicationConstants.BACKGROUND).setSpeedX(-getSpeedX() / 2);
+        groundMap.get(ApplicationConstants.BACKGROUND).move(this.getHeight(), this.getWidth());
 
-        frontgroundPresenter.setSpeedX(-getSpeedX() * 4 / 3);
-        frontgroundPresenter.move(this.getHeight(), this.getWidth());
+        groundMap.get(ApplicationConstants.FRONTGROUND).setSpeedX(-getSpeedX() * 4 / 3);
+        groundMap.get(ApplicationConstants.FRONTGROUND).move(this.getHeight(), this.getWidth());
 
         buttonPresenter.move(this.getHeight(), this.getWidth());
 

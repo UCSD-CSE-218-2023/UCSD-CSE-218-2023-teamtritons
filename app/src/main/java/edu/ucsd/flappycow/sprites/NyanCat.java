@@ -6,23 +6,20 @@ import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
 
 public class NyanCat extends IPlayableCharacter{
-    /** Static bitmap to reduce memory usage */
-    private static Bitmap globalBitmap;
 
     /** The rainbow tail behind the cat */
     private Rainbow rainbow;
 
     public NyanCat(Rainbow rainbow, int viewHeight, int viewWidth, int activityHeightPixels) {
         super(viewHeight, viewWidth);
-        //TODO: presenter
-//        if (globalBitmap == null) {
-//            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.nyan_cat);
-//        }
-        this.setBitmap(globalBitmap);
-        this.setWidth(this.getBitmap().getWidth());
-        this.setHeight(this.getBitmap().getHeight() / 2);
         this.setY(activityHeightPixels/ 2);
         this.rainbow = rainbow;
+    }
+
+    @Override
+    public void onInitBitmap() {
+        this.setWidth(this.getBitmap().getWidth());
+        this.setHeight(this.getBitmap().getHeight() / 2);
     }
 
     /**
@@ -83,5 +80,4 @@ public class NyanCat extends IPlayableCharacter{
         super.revive(viewHeight, viewWidth);
         manageRainbowMovement(viewHeight, viewWidth);
     }
-
 }

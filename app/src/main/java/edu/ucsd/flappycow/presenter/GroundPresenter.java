@@ -2,7 +2,12 @@ package edu.ucsd.flappycow.presenter;
 
 import android.graphics.Canvas;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.ucsd.flappycow.GameView;
+import edu.ucsd.flappycow.R;
+import edu.ucsd.flappycow.Util;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 import edu.ucsd.flappycow.sprites.Background;
 import edu.ucsd.flappycow.sprites.Frontground;
@@ -12,18 +17,27 @@ import edu.ucsd.flappycow.sprites.IGround;
 public class GroundPresenter {
 
     private IGround ground;
+    private GameView gameView;
 
-    public GroundPresenter(String type) {
+    public GroundPresenter(GameView gameView, String type) {
 
+        this.gameView = gameView;
         this.ground = createInstance(type);
     }
+
 
     private IGround createInstance(String type) {
         // depending on parameters create object
         if(type.equals(ApplicationConstants.BACKGROUND)) {
-            return new Background();
+            Background background = new Background();
+            background.setBitmap(Util.getDownScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.bg));
+            background.onInitBitmap();
+            return background;
         } else if (type.equals(ApplicationConstants.FRONTGROUND)) {
-            return new Frontground();
+            Frontground frontground = new Frontground();
+            frontground.setBitmap(Util.getDownScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.fg));
+            frontground.onInitBitmap();
+            return frontground;
         }
         return null;
     }

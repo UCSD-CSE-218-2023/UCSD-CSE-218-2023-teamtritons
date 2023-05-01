@@ -30,13 +30,15 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.ucsd.flappycow.consts.ApplicationConstants;
+import edu.ucsd.flappycow.presenter.GameActivityAchievementBoxPresenter;
 import edu.ucsd.flappycow.presenter.MediaPlayerPresenter;
 
 
-public class GameActivity extends Activity {
+public class GameActivity extends Activity implements Subject<AchievementBoxUpdate> {
     /**
      * Name of the SharedPreference that saves the medals
      */
@@ -162,18 +164,15 @@ public class GameActivity extends Activity {
     private InterstitialAd interstitial;
 
 //    private ISubjectImpl<AchievementBoxUpdate> subjImpl = new SubjectImpl();
-    private ISubjectImpl<AchievementBoxUpdate> gameActivitySub;
+//    private ISubjectImpl<AchievementBoxUpdate> gameActivitySub;
 
-    public GameOverDialog getGameOverDialog() {
-        return gameOverDialog;
-    }
+    private List<IObserver> observers;
 
-    public void setGameOverDialog(GameOverDialog gameOverDialog) {
-        this.gameOverDialog = gameOverDialog;
-    }
+    private GameActivityAchievementBoxPresenter gameActivityAchievementBoxPresenter;
 
     public GameActivity() {
-        gameActivitySub = new SubjectImpl<>();
+//        gameActivitySub = new GameActivitySubjectImpl<>();
+        observers = new ArrayList<>();
     }
 
 
@@ -182,7 +181,9 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         accomplishmentBox = new AchievementBox();
-        gameActivitySub.register(accomplishmentBox);
+        gameActivityAchievementBoxPresenter = new GameActivityAchievementBoxPresenter(this, accomplishmentBox);
+//        gameActivitySub.register(accomplishmentBox);
+//        register(accomplishmentBox);
         view = new GameView(this);
         gameOverDialog = new GameOverDialog(this);
         handler = new GameActivityHandler(this);
@@ -274,7 +275,8 @@ public class GameActivity extends Activity {
         this.coins++;
         if (coins >= 50 && !accomplishmentBox.isAchievement_50_coins()) {
 //            accomplishmentBox.setAchievement_50_coins(true);
-            notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_50_COINS, "true"));
+//            notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_50_COINS, "true"));
+            setData(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_50_COINS, "true"));
             handler.sendMessage(Message.obtain(handler, 1, R.string.toast_achievement_50_coins, ApplicationConstants.SHOW_TOAST));
         }
     }
@@ -288,28 +290,32 @@ public class GameActivity extends Activity {
      */
     public void increasePoints() {
 //        accomplishmentBox.setPoints(accomplishmentBox.getPoints()+1);
-        notifyObserver(new AchievementBoxUpdate(ApplicationConstants.POINTS, Integer.toString(accomplishmentBox.getPoints()+1)));
+//        notifyObserver(new AchievementBoxUpdate(ApplicationConstants.POINTS, Integer.toString(accomplishmentBox.getPoints()+1)));
 
+        setData(new AchievementBoxUpdate(ApplicationConstants.POINTS, Integer.toString(accomplishmentBox.getPoints()+1)));
         this.view.getPlayer().upgradeBitmap(accomplishmentBox.getPoints());
 
         if (accomplishmentBox.getPoints() >= AchievementBox.getBronzePoints()) {
             if (!accomplishmentBox.isAchievement_bronze()) {
 //                accomplishmentBox.setAchievement_bronze(true);
-                notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_BRONZE, "true"));
+//                notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_BRONZE, "true"));
+                setData(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_BRONZE, "true"));
                 handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_TOAST, R.string.toast_achievement_bronze, ApplicationConstants.SHOW_TOAST));
             }
 
             if (accomplishmentBox.getPoints() >= AchievementBox.getSilverPoints()) {
                 if (!accomplishmentBox.isAchievement_silver()) {
 //                    accomplishmentBox.setAchievement_silver(true);
-                    notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_SILVER, "true"));
+//                    notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_SILVER, "true"));
+                    setData(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_SILVER, "true"));
                     handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_TOAST, R.string.toast_achievement_silver, ApplicationConstants.SHOW_TOAST));
                 }
 
                 if (accomplishmentBox.getPoints() >= AchievementBox.getGoldPoints()) {
                     if (!accomplishmentBox.isAchievement_gold()) {
 //                        accomplishmentBox.setAchievement_gold(true);
-                        notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_GOLD, "true"));
+//                        notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_GOLD, "true"));
+                        setData(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_GOLD, "true"));
                         handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_TOAST, R.string.toast_achievement_gold, ApplicationConstants.SHOW_TOAST));
                     }
                 }
@@ -319,7 +325,8 @@ public class GameActivity extends Activity {
 
     public void decreasePoints() {
 //        accomplishmentBox.setPoints(accomplishmentBox.getPoints()-1);
-        notifyObserver(new AchievementBoxUpdate(ApplicationConstants.POINTS, Integer.toString(accomplishmentBox.getPoints()-1)));
+//        notifyObserver(new AchievementBoxUpdate(ApplicationConstants.POINTS, Integer.toString(accomplishmentBox.getPoints()-1)));
+        setData(new AchievementBoxUpdate(ApplicationConstants.POINTS, Integer.toString(accomplishmentBox.getPoints()-1)));
     }
 
     /**
@@ -366,15 +373,25 @@ public class GameActivity extends Activity {
         });
     }
 
-    public void notifyObserver(AchievementBoxUpdate data) {
-        gameActivitySub.notify(data);
+
+    @Override
+    public void register(IObserver<AchievementBoxUpdate> o) {
+        observers.add(o);
     }
 
-    public ISubjectImpl<AchievementBoxUpdate> getGameActivitySub() {
-        return gameActivitySub;
+    @Override
+    public void unregister(IObserver<AchievementBoxUpdate> o) {
+        observers.remove(o);
     }
 
-    public void setGameActivitySub(ISubjectImpl<AchievementBoxUpdate> gameActivitySub) {
-        this.gameActivitySub = gameActivitySub;
+    public void setData(AchievementBoxUpdate data) {
+        notifyObservers(data);
+    }
+
+    @Override
+    public void notifyObservers(AchievementBoxUpdate data) {
+        for(IObserver o: observers) {
+            o.onUpdate(data);
+        }
     }
 }

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ucsd.flappycow.GameView;
+import edu.ucsd.flappycow.R;
+import edu.ucsd.flappycow.Util;
 import edu.ucsd.flappycow.sprites.Coin;
 import edu.ucsd.flappycow.sprites.NyanCat;
 import edu.ucsd.flappycow.sprites.PowerUp;
@@ -56,7 +58,7 @@ public class PowerUpPresenter {
 
     public void checkCollision(){
         for (int i = 0; i < powerUps.size(); i++) {
-            if (powerUps.get(i).isColliding(gameView.getPlayer())) {
+            if (powerUps.get(i).isColliding(gameView.getPlayer(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels)) {
                 powerUps.get(i).onCollision();
                 powerUps.remove(i);
                 i--;
@@ -77,21 +79,28 @@ public class PowerUpPresenter {
         // Toast
         if (accomplishmentBoxPoints >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(gameView.getPlayer() instanceof NyanCat)) {
             // If no powerUp is present and you have more than / equal 42 points
-            if (accomplishmentBoxPoints == Toast.POINTS_TO_TOAST) {    // First time 100 % chance
-                this.add(new Toast(gameView.getWidth(), gameView.getHeight(), gameView.getSpeedX()));
-            } else if (Math.random() * 100 < 33) {    // 33% chance
-                this.add(new Toast(gameView.getWidth(), gameView.getHeight(), gameView.getSpeedX()));
+            if (accomplishmentBoxPoints == Toast.POINTS_TO_TOAST || Math.random() * 100 < 33) {    // First time 100 % chance
+                Toast toast = new Toast(gameView.getWidth(), gameView.getHeight(), gameView.getSpeedX());
+                this.add(toast);
+                toast.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.toast));
+                toast.onInitBitmap();
             }
         }
 
         if ((this.getSize() < 1) && (Math.random() * 100 < 20)) {
             // If no powerUp is present and 20% chance
-            this.add(new Coin(gameView.getWidth(), gameView.getHeight(), gameView.getSpeedX()));
+            Coin coin = new Coin(gameView.getWidth(), gameView.getHeight(), gameView.getSpeedX());
+            this.add(coin);
+            coin.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.coin));
+            coin.onInitBitmap();
         }
 
         if ((this.getSize() < 1) && (Math.random() * 100 < 10)) {
             // If no powerUp is present and 10% chance (if also no coin)
-            this.add(new Virus(gameView.getWidth(), gameView.getHeight(), gameView.getSpeedX()));
+            Virus virus = new Virus(gameView.getWidth(), gameView.getHeight(), gameView.getSpeedX());
+            this.add(virus);
+            virus.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.virus));
+            virus.onInitBitmap();
         }
     }
 
