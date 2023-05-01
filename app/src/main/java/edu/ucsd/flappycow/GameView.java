@@ -20,6 +20,7 @@ import android.view.SurfaceView;
 
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
+import edu.ucsd.flappycow.presenter.PlayableCharacterPresenter;
 import edu.ucsd.flappycow.sprites.*;
 
 import java.util.ArrayList;
@@ -40,13 +41,13 @@ import edu.ucsd.flappycow.sprites.Toast;
 import edu.ucsd.flappycow.sprites.Tutorial;
 import edu.ucsd.flappycow.sprites.Virus;
 
-public class GameView extends SurfaceView {
+public class GameView extends SurfaceView{
 
     /** Milliseconds for game timer tick */
     public static final long UPDATE_INTERVAL = 50;        // = 20 FPS
 
-    private Timer timer = new Timer();
-    private TimerTask timerTask;
+//    private Timer timer = new Timer();
+//    private TimerTask timerTask;
 
     /** The surfaceholder needed for the canvas drawing */
     private SurfaceHolder holder;
@@ -64,43 +65,23 @@ public class GameView extends SurfaceView {
     private Tutorial tutorial;
     private boolean tutorialIsShown = true;
 
+    private PlayableCharacterPresenter playableCharacterPresenter;
+    private TimerHandler timerHandler;
+
     public GameView(Context context) {
         super(context);
+
         this.gameActivity = (GameActivity) context;
         setFocusable(true);
 
         holder = getHolder();
-        player = new Cow(new Accessory(), this.getHeight(), this.getWidth(), this.gameActivity.getResources().getDisplayMetrics().heightPixels);
+//        playableCharacterPresenter = new PlayableCharacterPresenter(this);
+//        player = new Cow(new Accessory(), this.getHeight(), this.getWidth(), this.gameActivity.getResources().getDisplayMetrics().heightPixels);
         background = new Background();
         frontground = new Frontground();
         this.pauseButton = new PauseButton();
         tutorial = new Tutorial();
-    }
-
-    private void startTimer() {
-        setUpTimerTask();
-        timer = new Timer();
-        timer.schedule(timerTask, UPDATE_INTERVAL, UPDATE_INTERVAL);
-    }
-
-    private void stopTimer() {
-        if (timer != null) {
-            timer.cancel();
-            timer.purge();
-        }
-        if (timerTask != null) {
-            timerTask.cancel();
-        }
-    }
-
-    private void setUpTimerTask() {
-        stopTimer();
-        timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                GameView.this.run();
-            }
-        };
+        timerHandler = new TimerHandler(UPDATE_INTERVAL);
     }
 
     @Override
@@ -159,7 +140,8 @@ public class GameView extends SurfaceView {
      * Draw Tutorial
      */
     public void showTutorial() {
-        player.move(this.getHeight(), this.getWidth());
+//        player.move(this.getHeight(), this.getWidth());
+//        playableCharacterPresenter.move();
         pauseButton.move(this.getHeight(), this.getWidth());
 
         while (!holder.getSurface().isValid()) {
@@ -179,7 +161,7 @@ public class GameView extends SurfaceView {
     }
 
     public void pause() {
-        stopTimer();
+        timerHandler.stopTimer();
         paused = true;
     }
 
@@ -198,7 +180,7 @@ public class GameView extends SurfaceView {
 
     public void resume() {
         paused = false;
-        startTimer();
+        timerHandler.startTimer(this);
     }
 
     /**
@@ -256,7 +238,8 @@ public class GameView extends SurfaceView {
     private void playerDeadFall(int viewHeight) {
         player.dead(viewHeight);
         do {
-            player.move(this.getHeight(), this.getWidth());
+//            player.move(this.getHeight(), this.getWidth());
+//            playableCharacterPresenter.move();
             draw();
             // sleep
             try {
