@@ -24,6 +24,7 @@ import edu.ucsd.flappycow.presenter.ButtonPresenter;
 import edu.ucsd.flappycow.presenter.GroundPresenter;
 import edu.ucsd.flappycow.presenter.PlayableCharacterPresenter;
 import edu.ucsd.flappycow.presenter.PowerUpPresenter;
+import edu.ucsd.flappycow.presenter.TutorialPresenter;
 import edu.ucsd.flappycow.sprites.*;
 
 import java.util.ArrayList;
@@ -67,8 +68,9 @@ public class GameView extends SurfaceView {
 //    private IGameButton pauseButton;
     volatile private boolean paused = true;
 
-    private Tutorial tutorial;
-    private boolean tutorialIsShown = true;
+//    private Tutorial tutorial;
+    private TutorialPresenter tutorialPresenter;
+
 
     private ButtonPresenter pauseButton;
 
@@ -94,7 +96,7 @@ public class GameView extends SurfaceView {
 //        this.pauseButton = new PauseButton(this, gameActivity);
         this.pauseButton = new ButtonPresenter(this);
         this.powerUpPresenter = new PowerUpPresenter(this);
-        tutorial = new Tutorial(this, gameActivity);
+        tutorialPresenter = new TutorialPresenter(this);
     }
 
     private void startTimer() {
@@ -136,9 +138,11 @@ public class GameView extends SurfaceView {
 //            && !this.player.isDead()) { // No support for dead players
         if (event.getAction() == MotionEvent.ACTION_DOWN  // Only for "touchdowns"
                 && !this.playableCharacterPresenter.isDead()) { // No support for dead players
-            if (tutorialIsShown) {
+
+            if (tutorialPresenter.isTutorialIsShown()) {
                 // dismiss tutorial
-                tutorialIsShown = false;
+                tutorialPresenter.setTutorialIsShown(false);
+//                tutorialIsShown = false;
                 resume();
 //                this.player.onTap();
                 this.playableCharacterPresenter.onTap();
@@ -167,7 +171,7 @@ public class GameView extends SurfaceView {
     }
 
 
-    private Canvas getCanvas() {
+    public Canvas getCanvas() {
         Canvas canvas;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -183,24 +187,26 @@ public class GameView extends SurfaceView {
      * Draw Tutorial
      */
     public void showTutorial() {
+        tutorialPresenter.showTutorial();
 //        player.move();
-        playableCharacterPresenter.move();
-        pauseButton.move();
-
-        while (!holder.getSurface().isValid()) {
-            /*wait*/
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        Canvas canvas = getCanvas();
-        drawCanvas(canvas, true);
-        tutorial.move();
-        tutorial.draw(canvas);
-        holder.unlockCanvasAndPost(canvas);
+//        playableCharacterPresenter.move();
+//        pauseButton.move();
+//
+//        while (!holder.getSurface().isValid()) {
+//            /*wait*/
+//            try {
+//                Thread.sleep(10);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        Canvas canvas = getCanvas();
+//        drawCanvas(canvas, true);
+//        tutorialPresenter.move();
+//        tutorial.move();
+//        tutorial.draw(canvas);
+//        holder.unlockCanvasAndPost(canvas);
     }
 
     public void pause() {
@@ -212,7 +218,7 @@ public class GameView extends SurfaceView {
         (new Thread(new Runnable() {
             @Override
             public void run() {
-                if (tutorialIsShown) {
+                if (tutorialPresenter.isTutorialIsShown()) {
                     showTutorial();
                 } else {
                     draw();
@@ -252,7 +258,7 @@ public class GameView extends SurfaceView {
      *
      * @param drawPlayer
      */
-    private void drawCanvas(Canvas canvas, boolean drawPlayer) {
+    public void drawCanvas(Canvas canvas, boolean drawPlayer) {
 //        background.draw(canvas);
         groundPresenterMap.get(ApplicationConstants.BACKGROUND).draw(canvas);
         for (Obstacle r : obstacles) {
@@ -525,6 +531,10 @@ public class GameView extends SurfaceView {
 
     public IPlayableCharacter getPlayer() {
         return playableCharacterPresenter.getPlayer();
+    }
+
+    public ButtonPresenter getPauseButton() {
+        return pauseButton;
     }
 
     public GameActivity getGameActivity() {
