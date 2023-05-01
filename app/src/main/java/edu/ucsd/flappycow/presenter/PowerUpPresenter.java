@@ -14,8 +14,8 @@ import edu.ucsd.flappycow.sprites.Virus;
 
 public class PowerUpPresenter {
     // draw, move, add to list, remove from list, clear list, isOutOfRange, get powerup at specific index from list, isColliding, onCollision,
-    private List<PowerUp> powerUps;
-    GameView gameView;
+    private List<PowerUp> powerUps; //MODEL
+    GameView gameView;  // VIEW
 
     public PowerUpPresenter(GameView gameView){
         powerUps = new ArrayList<PowerUp>();

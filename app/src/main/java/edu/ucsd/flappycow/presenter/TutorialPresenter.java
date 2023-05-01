@@ -6,8 +6,8 @@ import edu.ucsd.flappycow.sprites.Tutorial;
 
 public class TutorialPresenter {
 
-    private Tutorial tutorial;
-    private GameView gameView;
+    private Tutorial tutorial;  // MODEL
+    private GameView gameView;  // VIEW
 
     public TutorialPresenter(GameView gameView){
         tutorial= new Tutorial();
