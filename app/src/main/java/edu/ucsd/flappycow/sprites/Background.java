@@ -14,17 +14,23 @@ public class Background extends IGround {
     public Background(GameView view, GameActivity gameActivity) {
         super(view, gameActivity);
 
-        if (globalBitmap == null) {
-            globalBitmap = Util.getDownScaledBitmapAlpha8(gameActivity, R.drawable.bg);
-        }
-        this.setBitmap(globalBitmap);
+//        if (globalBitmap == null) {
+//            globalBitmap = Util.getDownScaledBitmapAlpha8(gameActivity, R.drawable.bg);
+//        }
+//        this.setBitmap(globalBitmap);
     }
 
-    public static Bitmap getGlobalBitmap() {
-        return globalBitmap;
-    }
-
-    public static void setGlobalBitmap(Bitmap globalBitmap) {
-        Background.globalBitmap = globalBitmap;
+//    public static Bitmap getGlobalBitmap() {
+//        return globalBitmap;
+//    }
+//
+//    public static void setGlobalBitmap(Bitmap globalBitmap) {
+//        Background.globalBitmap = globalBitmap;
+//    }
+    @Override
+    public void onInitBitmap(Bitmap bitmap) {
+        super.onInitBitmap(bitmap);
+        this.setWidth(this.getBitmap().getWidth());
+        this.setHeight(this.getBitmap().getHeight());
     }
 }

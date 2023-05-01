@@ -29,16 +29,12 @@ public class GroundPresenter {
     private IGround createInstance(String type) {
         // depending on parameters create object
         if(type.equals(ApplicationConstants.BACKGROUND)) {
-//            Background background = new Background();
             Background background = new Background(gameView, gameView.getGameActivity());
-//            background.setBitmap(Util.getDownScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.bg));
-//            background.onInitBitmap();
+            background.onInitBitmap(Util.getDownScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.bg));
             return background;
         } else if (type.equals(ApplicationConstants.FRONTGROUND)) {
-//            Frontground frontground = new Frontground();
             Frontground frontground = new Frontground(gameView, gameView.getGameActivity());
-//            frontground.setBitmap(Util.getDownScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.fg));
-//            frontground.onInitBitmap();
+            frontground.onInitBitmap(Util.getDownScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.fg));
             return frontground;
         }
         return null;

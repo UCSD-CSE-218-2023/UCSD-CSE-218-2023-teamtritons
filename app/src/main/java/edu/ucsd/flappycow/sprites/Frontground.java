@@ -18,19 +18,19 @@ public class Frontground extends IGround {
 
     public Frontground(GameView view, GameActivity gameActivity) {
         super(view, gameActivity);
-        if (globalBitmap == null) {
-            globalBitmap = Util.getDownScaledBitmapAlpha8(gameActivity, R.drawable.fg);
-        }
-        this.setBitmap(globalBitmap);
+//        if (globalBitmap == null) {
+//            globalBitmap = Util.getDownScaledBitmapAlpha8(gameActivity, R.drawable.fg);
+//        }
+//        this.setBitmap(globalBitmap);
     }
 
-    public static Bitmap getGlobalBitmap() {
-        return globalBitmap;
-    }
-
-    public static void setGlobalBitmap(Bitmap globalBitmap) {
-        Frontground.globalBitmap = globalBitmap;
-    }
+//    public static Bitmap getGlobalBitmap() {
+//        return globalBitmap;
+//    }
+//
+//    public static void setGlobalBitmap(Bitmap globalBitmap) {
+//        Frontground.globalBitmap = globalBitmap;
+//    }
 
     public static float getGroundHeight() {
         return GROUND_HEIGHT;

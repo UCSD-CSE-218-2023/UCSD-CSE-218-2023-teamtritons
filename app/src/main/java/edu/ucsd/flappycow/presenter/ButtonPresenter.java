@@ -14,13 +14,10 @@ public class ButtonPresenter {
     GameView gameView;
 
     public ButtonPresenter(GameView gameView) {
-
-//        PauseButton pauseButton = new PauseButton();
         PauseButton pauseButton = new PauseButton(gameView, gameView.getGameActivity());
         this.gameButton = pauseButton;
         this.gameView = gameView;
-//        pauseButton.setBitmap(Util.getDownScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.pause_button));
-//        pauseButton.onInitBitmap();
+        pauseButton.onInitBitmap(Util.getDownScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.pause_button));
     }
     // isTouching, move, draw
 
