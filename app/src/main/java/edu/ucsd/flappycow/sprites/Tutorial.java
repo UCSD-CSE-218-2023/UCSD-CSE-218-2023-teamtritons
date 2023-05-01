@@ -1,18 +1,11 @@
-/**
- * The tutorial that says you should tap
- *
- * @author Lars Harmsen
- * Copyright (c) <2014> <Lars Harmsen - Quchen>
- */
-
 package edu.ucsd.flappycow.sprites;
+
 
 import android.graphics.Bitmap;
 
-import edu.ucsd.flappycow.R;
-
 import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
+import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
 
 public class Tutorial extends Sprite {
@@ -23,9 +16,9 @@ public class Tutorial extends Sprite {
         if (globalBitmap == null) {
             globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.tutorial);
         }
-        this.bitmap = globalBitmap;
-        this.width = this.bitmap.getWidth();
-        this.height = this.bitmap.getHeight();
+        this.setBitmap(globalBitmap);
+        this.setWidth(this.getBitmap().getWidth());
+        this.setHeight(this.getBitmap().getHeight());
     }
 
     /**
@@ -33,8 +26,9 @@ public class Tutorial extends Sprite {
      */
     @Override
     public void move() {
-        this.x = view.getWidth() / 2 - this.width / 2;
-        this.y = view.getHeight() / 2 - this.height / 2;
+        this.setX(this.getView().getWidth() / 2 - this.getWidth() / 2);
+        this.setY(this.getView().getHeight() / 2 - this.getHeight() / 2);
     }
 
 }
+

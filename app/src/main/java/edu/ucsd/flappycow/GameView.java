@@ -19,6 +19,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import edu.ucsd.flappycow.R;
+import edu.ucsd.flappycow.consts.ApplicationConstants;
 import edu.ucsd.flappycow.sprites.*;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ import edu.ucsd.flappycow.sprites.Frontground;
 import edu.ucsd.flappycow.sprites.NyanCat;
 import edu.ucsd.flappycow.sprites.Obstacle;
 import edu.ucsd.flappycow.sprites.PauseButton;
-import edu.ucsd.flappycow.sprites.PlayableCharacter;
+import edu.ucsd.flappycow.sprites.IPlayableCharacter;
 import edu.ucsd.flappycow.sprites.PowerUp;
 import edu.ucsd.flappycow.sprites.Toast;
 import edu.ucsd.flappycow.sprites.Tutorial;
@@ -51,7 +52,7 @@ public class GameView extends SurfaceView {
     private SurfaceHolder holder;
 
     private GameActivity gameActivity;
-    private PlayableCharacter player;
+    private IPlayableCharacter player;
     private Background background;
     private Frontground frontground;
     private List<Obstacle> obstacles = new ArrayList<Obstacle>();
@@ -244,7 +245,7 @@ public class GameView extends SurfaceView {
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(getScoreTextMetrics());
-        canvas.drawText(gameActivity.getResources().getString(R.string.onscreen_score_text) + " " + gameActivity.accomplishmentBox.points
+        canvas.drawText(gameActivity.getResources().getString(R.string.onscreen_score_text) + " " + gameActivity.accomplishmentBox.getPoints()
                 + " / " + gameActivity.getResources().getString(R.string.onscreen_coin_text) + " " + gameActivity.coins,
             0, getScoreTextMetrics(), paint);
     }
@@ -285,9 +286,9 @@ public class GameView extends SurfaceView {
      */
     private void createPowerUp() {
         // Toast
-        if (gameActivity.accomplishmentBox.points >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(player instanceof NyanCat)) {
+        if (gameActivity.accomplishmentBox.getPoints() >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(player instanceof NyanCat)) {
             // If no powerUp is present and you have more than / equal 42 points
-            if (gameActivity.accomplishmentBox.points == Toast.POINTS_TO_TOAST) {    // First time 100 % chance
+            if (gameActivity.accomplishmentBox.getPoints() == Toast.POINTS_TO_TOAST) {    // First time 100 % chance
                 powerUps.add(new Toast(this, gameActivity));
             } else if (Math.random() * 100 < 33) {    // 33% chance
                 powerUps.add(new Toast(this, gameActivity));
@@ -381,10 +382,10 @@ public class GameView extends SurfaceView {
      * Changes the player to Nyan Cat
      */
     public void changeToNyanCat() {
-        gameActivity.accomplishmentBox.achievement_toastification = true;
-        gameActivity.handler.sendMessage(Message.obtain(gameActivity.handler, 1, R.string.toast_achievement_toastification, GameActivity.MyHandler.SHOW_TOAST));
+        gameActivity.accomplishmentBox.setAchievement_toastification(true);
+        gameActivity.handler.sendMessage(Message.obtain(gameActivity.handler, 1, R.string.toast_achievement_toastification, ApplicationConstants.SHOW_TOAST));
 
-        PlayableCharacter tmp = this.player;
+        IPlayableCharacter tmp = this.player;
         this.player = new NyanCat(this, gameActivity, new Rainbow(this, gameActivity));
         this.player.setX(tmp.getX());
         this.player.setY(tmp.getY());
@@ -407,7 +408,7 @@ public class GameView extends SurfaceView {
         int speedDefault = this.getWidth() / 45;
 
         // 1,2 every 4 points @ 720x1280 px
-        int speedIncrease = (int) (this.getWidth() / 600f * (gameActivity.accomplishmentBox.points / 4));
+        int speedIncrease = (int) (this.getWidth() / 600f * (gameActivity.accomplishmentBox.getPoints() / 4));
 
         int speed = speedDefault + speedIncrease;
 
@@ -466,8 +467,8 @@ public class GameView extends SurfaceView {
         /*/ game.getResources().getDisplayMetrics().density)*/
     }
 
-    public PlayableCharacter getPlayer() {
-        return this.player;
+    public IPlayableCharacter getPlayer() {
+        return player;
     }
 
     public GameActivity getGameActivity() {

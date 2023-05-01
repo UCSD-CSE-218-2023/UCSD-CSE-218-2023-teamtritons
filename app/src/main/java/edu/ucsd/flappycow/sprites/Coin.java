@@ -1,22 +1,14 @@
-/**
- * A Coin
- *
- * @author Lars Harmsen
- * Copyright (c) <2014> <Lars Harmsen - Quchen>
- */
-
 package edu.ucsd.flappycow.sprites;
 
 import android.graphics.Bitmap;
 
-import edu.ucsd.flappycow.*;
-
 import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.MainActivity;
+import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
 
-public class Coin extends PowerUp {
+public class Coin extends PowerUp{
     /**
      * Static bitmap to reduce memory usage.
      */
@@ -28,10 +20,11 @@ public class Coin extends PowerUp {
         if (globalBitmap == null) {
             globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.coin);
         }
-        this.bitmap = globalBitmap;
-        this.width = this.bitmap.getWidth() / (colNr = 12);
-        this.height = this.bitmap.getHeight();
-        this.frameTime = 1;
+        this.setBitmap(globalBitmap);
+        this.setColNr((byte)12);
+        this.setWidth(this.getBitmap().getWidth() / (this.getColNr()));
+        this.setHeight(this.getBitmap().getHeight());
+        this.setFrameTime((short)1);
         if (sound == -1) {
             sound = GameActivity.soundPool.load(gameActivity, R.raw.coin, 1);
         }
@@ -44,7 +37,7 @@ public class Coin extends PowerUp {
     public void onCollision() {
         super.onCollision();
         playSound();
-        gameActivity.increaseCoin();
+        this.getGameActivity().increaseCoin();
     }
 
     private void playSound() {

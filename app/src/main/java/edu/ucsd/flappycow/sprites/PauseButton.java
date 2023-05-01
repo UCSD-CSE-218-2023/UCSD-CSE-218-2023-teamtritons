@@ -1,24 +1,16 @@
-/**
- * The pauseButton
- *
- * @author Lars Harmsen
- * Copyright (c) <2014> <Lars Harmsen - Quchen>
- */
-
 package edu.ucsd.flappycow.sprites;
-
-import edu.ucsd.flappycow.R;
 
 import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
+import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
 
-public class PauseButton extends IGameButton {
+public class PauseButton extends IGameButton{
     public PauseButton(GameView view, GameActivity gameActivity) {
         super(view, gameActivity);
-        this.bitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.pause_button);
-        this.width = this.bitmap.getWidth();
-        this.height = this.bitmap.getHeight();
+        this.setBitmap(Util.getScaledBitmapAlpha8(gameActivity, R.drawable.pause_button));
+        this.setWidth(this.getBitmap().getWidth());
+        this.setHeight(this.getBitmap().getHeight());
     }
 
     /**
@@ -26,7 +18,7 @@ public class PauseButton extends IGameButton {
      */
     @Override
     public void move() {
-        this.x = this.view.getWidth() - this.width;
-        this.y = 0;
+        this.setX(this.getView().getWidth() - this.getWidth());
+        this.setY(0);
     }
 }

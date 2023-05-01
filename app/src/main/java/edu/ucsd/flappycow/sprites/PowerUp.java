@@ -1,10 +1,3 @@
-/**
- * The abstract spriteclass for power-ups
- *
- * @author Lars Harmsen
- * Copyright (c) <2014> <Lars Harmsen - Quchen>
- */
-
 package edu.ucsd.flappycow.sprites;
 
 import edu.ucsd.flappycow.GameActivity;
@@ -16,15 +9,20 @@ public abstract class PowerUp extends Sprite {
         init();
     }
 
+    public void onCollision() {
+        // Every subclass has to specify this itself
+    }
+
     /**
      * Sets this sprite above the visible screen.
      * At x = 4/5 of the screen.
      * Uses the speed of the GameView to let the power-up fall slowly down.
      */
     private void init() {
-        this.x = view.getWidth() * 4 / 5;
-        this.y = 0 - this.height;
-        this.speedX = -view.getSpeedX();
-        this.speedY = (int) (view.getSpeedX() * (Math.random() + 0.5));
+        this.setX(this.getView().getWidth() * 4 / 5);
+        this.setY( 0 - this.getHeight());
+        this.setSpeedX(this.getSpeedX()-this.getView().getSpeedX());
+        this.setSpeedY ( (int) (this.getView().getSpeedX() * (Math.random() + 0.5)));
     }
 }
+

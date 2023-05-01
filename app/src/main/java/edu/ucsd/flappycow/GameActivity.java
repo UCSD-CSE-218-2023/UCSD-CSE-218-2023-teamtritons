@@ -30,6 +30,10 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
+import java.util.List;
+
+import edu.ucsd.flappycow.consts.ApplicationConstants;
+
 
 public class GameActivity extends Activity {
     /**
@@ -48,6 +52,31 @@ public class GameActivity extends Activity {
     public static SoundPool soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
 
     private static final int GAMES_PER_AD = 3;
+
+    public static int getGameOverCounter() {
+        return gameOverCounter;
+    }
+
+    public static void setGameOverCounter(int gameOverCounter) {
+        GameActivity.gameOverCounter = gameOverCounter;
+    }
+
+    public long getBackPressed() {
+        return backPressed;
+    }
+
+    public void setBackPressed(long backPressed) {
+        this.backPressed = backPressed;
+    }
+
+    public InterstitialAd getInterstitial() {
+        return interstitial;
+    }
+
+    public void setInterstitial(InterstitialAd interstitial) {
+        this.interstitial = interstitial;
+    }
+
     /**
      * Counts number of played games
      */
@@ -81,7 +110,7 @@ public class GameActivity extends Activity {
     /**
      * To do UI things from different threads
      */
-    public MyHandler handler;
+    public GameActivityHandler handler;
 
     /**
      * Hold all accomplishments
@@ -113,13 +142,21 @@ public class GameActivity extends Activity {
      */
     private InterstitialAd interstitial;
 
+//    private ISubjectImpl<AchievementBoxUpdate> subjImpl = new SubjectImpl();
+    private ISubjectImpl<AchievementBoxUpdate> gameActivitySub;
+
+    public GameActivity() {
+        gameActivitySub = new GameActivitySubjectImpl<>();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         accomplishmentBox = new AchievementBox();
+        gameActivitySub.register(accomplishmentBox);
         view = new GameView(this);
         gameOverDialog = new GameOverDialog(this);
-        handler = new MyHandler(this);
+        handler = new GameActivityHandler(this);
         setContentView(view);
         initMusicPlayer();
         loadCoins();
@@ -196,18 +233,19 @@ public class GameActivity extends Activity {
      */
     public void gameOver() {
         if (gameOverCounter % GAMES_PER_AD == 0) {
-            handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_AD));
+            handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_AD));
         } else {
-            handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_GAME_OVER_DIALOG));
+            handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_GAME_OVER_DIALOG));
         }
 
     }
 
     public void increaseCoin() {
         this.coins++;
-        if (coins >= 50 && !accomplishmentBox.achievement_50_coins) {
-            accomplishmentBox.achievement_50_coins = true;
-            handler.sendMessage(Message.obtain(handler, 1, R.string.toast_achievement_50_coins, MyHandler.SHOW_TOAST));
+        if (coins >= 50 && !accomplishmentBox.isAchievement_50_coins()) {
+//            accomplishmentBox.setAchievement_50_coins(true);
+            notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_50_COINS, "true"));
+            handler.sendMessage(Message.obtain(handler, 1, R.string.toast_achievement_50_coins, ApplicationConstants.SHOW_TOAST));
         }
     }
 
@@ -219,26 +257,30 @@ public class GameActivity extends Activity {
      * What should happen, when an obstacle is passed?
      */
     public void increasePoints() {
-        accomplishmentBox.points++;
+//        accomplishmentBox.setPoints(accomplishmentBox.getPoints()+1);
+        notifyObserver(new AchievementBoxUpdate(ApplicationConstants.POINTS, Integer.toString(accomplishmentBox.getPoints()+1)));
 
-        this.view.getPlayer().upgradeBitmap(accomplishmentBox.points);
+        this.view.getPlayer().upgradeBitmap(accomplishmentBox.getPoints());
 
-        if (accomplishmentBox.points >= AchievementBox.BRONZE_POINTS) {
-            if (!accomplishmentBox.achievement_bronze) {
-                accomplishmentBox.achievement_bronze = true;
-                handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_bronze, MyHandler.SHOW_TOAST));
+        if (accomplishmentBox.getPoints() >= AchievementBox.getBronzePoints()) {
+            if (!accomplishmentBox.isAchievement_bronze()) {
+//                accomplishmentBox.setAchievement_bronze(true);
+                notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_BRONZE, "true"));
+                handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_TOAST, R.string.toast_achievement_bronze, ApplicationConstants.SHOW_TOAST));
             }
 
-            if (accomplishmentBox.points >= AchievementBox.SILVER_POINTS) {
-                if (!accomplishmentBox.achievement_silver) {
-                    accomplishmentBox.achievement_silver = true;
-                    handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_silver, MyHandler.SHOW_TOAST));
+            if (accomplishmentBox.getPoints() >= AchievementBox.getSilverPoints()) {
+                if (!accomplishmentBox.isAchievement_silver()) {
+//                    accomplishmentBox.setAchievement_silver(true);
+                    notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_SILVER, "true"));
+                    handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_TOAST, R.string.toast_achievement_silver, ApplicationConstants.SHOW_TOAST));
                 }
 
-                if (accomplishmentBox.points >= AchievementBox.GOLD_POINTS) {
-                    if (!accomplishmentBox.achievement_gold) {
-                        accomplishmentBox.achievement_gold = true;
-                        handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_TOAST, R.string.toast_achievement_gold, MyHandler.SHOW_TOAST));
+                if (accomplishmentBox.getPoints() >= AchievementBox.getGoldPoints()) {
+                    if (!accomplishmentBox.isAchievement_gold()) {
+//                        accomplishmentBox.setAchievement_gold(true);
+                        notifyObserver(new AchievementBoxUpdate(ApplicationConstants.ACHIEVEMENT_GOLD, "true"));
+                        handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_TOAST, R.string.toast_achievement_gold, ApplicationConstants.SHOW_TOAST));
                     }
                 }
             }
@@ -246,52 +288,14 @@ public class GameActivity extends Activity {
     }
 
     public void decreasePoints() {
-        accomplishmentBox.points--;
+//        accomplishmentBox.setPoints(accomplishmentBox.getPoints()-1);
+        notifyObserver(new AchievementBoxUpdate(ApplicationConstants.POINTS, Integer.toString(accomplishmentBox.getPoints()-1)));
     }
 
     /**
      * Shows the GameOverDialog when a message with code 0 is received.
      */
-    class MyHandler extends Handler {
-        public static final int SHOW_GAME_OVER_DIALOG = 0;
-        public static final int SHOW_TOAST = 1;
-        public static final int SHOW_AD = 2;
-
-        private final GameActivity gameActivity;
-
-        public MyHandler(GameActivity gameActivity) {
-            this.gameActivity = gameActivity;
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case SHOW_GAME_OVER_DIALOG:
-                    showGameOverDialog();
-                    break;
-                case SHOW_TOAST:
-                    Toast.makeText(gameActivity, msg.arg1, Toast.LENGTH_SHORT).show();
-                    break;
-                case SHOW_AD:
-                    showAdIfAvailable();
-                    break;
-            }
-        }
-
-        private void showAdIfAvailable() {
-            if (gameActivity.interstitial == null) {
-                showGameOverDialog();
-            } else {
-                gameActivity.interstitial.show(GameActivity.this);
-            }
-        }
-
-        private void showGameOverDialog() {
-            ++GameActivity.gameOverCounter;
-            gameActivity.gameOverDialog.init();
-            gameActivity.gameOverDialog.show();
-        }
-    }
+    
 
     private void setupAd() {
         MobileAds.initialize(this, initializationStatus -> { /* no-op */ });
@@ -313,7 +317,7 @@ public class GameActivity extends Activity {
                 interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                     @Override
                     public void onAdDismissedFullScreenContent() {
-                        handler.sendMessage(Message.obtain(handler, MyHandler.SHOW_GAME_OVER_DIALOG));
+                        handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_GAME_OVER_DIALOG));
                     }
                 });
                 GameActivity.this.interstitial = interstitialAd;
@@ -330,5 +334,17 @@ public class GameActivity extends Activity {
                 GameActivity.this.interstitial = null;
             }
         });
+    }
+
+    public void notifyObserver(AchievementBoxUpdate data) {
+        gameActivitySub.notify(data);
+    }
+
+    public ISubjectImpl<AchievementBoxUpdate> getGameActivitySub() {
+        return gameActivitySub;
+    }
+
+    public void setGameActivitySub(ISubjectImpl<AchievementBoxUpdate> gameActivitySub) {
+        this.gameActivitySub = gameActivitySub;
     }
 }

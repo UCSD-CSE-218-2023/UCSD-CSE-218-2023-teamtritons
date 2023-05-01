@@ -17,6 +17,7 @@ import org.robolectric.Robolectric;
 
 import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
+import edu.ucsd.flappycow.sprites.PauseButton;
 
 @RunWith(AndroidJUnit4.class)
 public class PauseButtonTest {

@@ -9,13 +9,12 @@ package edu.ucsd.flappycow;
 
 import android.app.Dialog;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import edu.ucsd.flappycow.R;
+import edu.ucsd.flappycow.consts.ApplicationConstants;
 
 public class GameOverDialog extends Dialog {
     public static final int REVIVE_PRICE = 5;
@@ -38,6 +37,11 @@ public class GameOverDialog extends Dialog {
     private TextView tvCurrentScoreVal;
     private TextView tvBestScoreVal;
 
+    private ImageView imageView;
+
+    private ISubjectImpl<GameOverUpdate> GameButtonHandlerSub = new GameActivityHandlerSubjectImpl<>();
+
+
     public GameOverDialog(GameActivity gameActivity) {
         super(gameActivity);
         this.gameActivity = gameActivity;
@@ -46,83 +50,76 @@ public class GameOverDialog extends Dialog {
 
         tvCurrentScoreVal = (TextView) findViewById(R.id.tv_current_score_value);
         tvBestScoreVal = (TextView) findViewById(R.id.tv_best_score_value);
+        imageView = (ImageView) findViewById(R.id.medal);
+
+        IObserver score = new Score();
+        GameButtonHandlerSub.register(score);
+        IObserver medals = new Medals(this.gameActivity);
+        GameButtonHandlerSub.register(medals);
     }
 
     public void init() {
         Button okButton = (Button) findViewById(R.id.b_ok);
-        okButton.setOnClickListener(view -> {
-            saveCoins();
-            if (gameActivity.numberOfRevive <= 1) {
-                gameActivity.accomplishmentBox.save(gameActivity);
-            }
 
-            dismiss();
-            gameActivity.finish();
-        });
+        okButton.setOnClickListener(this::onOKClick);
 
         Button reviveButton = (Button) findViewById(R.id.b_revive);
+
         reviveButton.setText(gameActivity.getResources().getString(R.string.revive_button)
             + " " + REVIVE_PRICE * gameActivity.numberOfRevive + " "
             + gameActivity.getResources().getString(R.string.coins));
-        reviveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-                gameActivity.coins -= REVIVE_PRICE * gameActivity.numberOfRevive;
-                saveCoins();
-                gameActivity.view.revive();
-            }
-        });
+        reviveButton.setOnClickListener(this::onReviveClick);
         if (gameActivity.coins < REVIVE_PRICE * gameActivity.numberOfRevive) {
             reviveButton.setClickable(false);
         } else {
             reviveButton.setClickable(true);
         }
 
-        manageScore();
-        manageMedals();
+       GameButtonHandlerSub.notify(new GameOverUpdate(this.gameActivity, tvCurrentScoreVal, tvBestScoreVal, ApplicationConstants.SCORE));
+       GameButtonHandlerSub.notify(new GameOverUpdate(this.gameActivity, imageView, ApplicationConstants.MEDALS));
+
     }
 
-    private void manageScore() {
-        SharedPreferences saves = gameActivity.getSharedPreferences(score_save_name, 0);
-        int oldPoints = saves.getInt(best_score_key, 0);
-        if (gameActivity.accomplishmentBox.points > oldPoints) {
-            // Save new highscore
-            SharedPreferences.Editor editor = saves.edit();
-            editor.putInt(best_score_key, gameActivity.accomplishmentBox.points);
-            tvBestScoreVal.setTextColor(Color.RED);
-            editor.apply();
-        }
-        tvCurrentScoreVal.setText("" + gameActivity.accomplishmentBox.points);
-        tvBestScoreVal.setText("" + oldPoints);
-    }
+//    private void manageScore() {
+//        SharedPreferences saves = gameActivity.getSharedPreferences(score_save_name, 0);
+//        int oldPoints = saves.getInt(best_score_key, 0);
+//        if (gameActivity.accomplishmentBox.points > oldPoints) {
+//            // Save new highscore
+//            SharedPreferences.Editor editor = saves.edit();
+//            editor.putInt(best_score_key, gameActivity.accomplishmentBox.points);
+//            tvBestScoreVal.setTextColor(Color.RED);
+//            editor.apply();
+//        }
+//        tvCurrentScoreVal.setText("" + gameActivity.accomplishmentBox.points);
+//        tvBestScoreVal.setText("" + oldPoints);
+//    }
 
-    private void manageMedals() {
-        SharedPreferences MEDAL_SAVE = gameActivity.getSharedPreferences(MainActivity.MEDAL_SAVE, 0);
-        int medal = MEDAL_SAVE.getInt(MainActivity.MEDAL_KEY, 0);
-
-        SharedPreferences.Editor editor = MEDAL_SAVE.edit();
-
-        if (gameActivity.accomplishmentBox.achievement_gold) {
-            ((ImageView) findViewById(R.id.medal)).setImageBitmap(Util.getScaledBitmapAlpha8(gameActivity, R.drawable.gold));
-            if (medal < 3) {
-                editor.putInt(MainActivity.MEDAL_KEY, 3);
-            }
-        } else if (gameActivity.accomplishmentBox.achievement_silver) {
-            ((ImageView) findViewById(R.id.medal)).setImageBitmap(Util.getScaledBitmapAlpha8(gameActivity, R.drawable.silver));
-            if (medal < 2) {
-                editor.putInt(MainActivity.MEDAL_KEY, 2);
-            }
-        } else if (gameActivity.accomplishmentBox.achievement_bronze) {
-            ((ImageView) findViewById(R.id.medal)).setImageBitmap(Util.getScaledBitmapAlpha8(gameActivity, R.drawable.bronce));
-            if (medal < 1) {
-                editor.putInt(MainActivity.MEDAL_KEY, 1);
-            }
-        } else {
-            ((ImageView) findViewById(R.id.medal)).setVisibility(View.INVISIBLE);
-        }
-        editor.apply();
-    }
+//    private void manageMedals() {
+//        SharedPreferences MEDAL_SAVE = gameActivity.getSharedPreferences(MainActivity.MEDAL_SAVE, 0);
+//        int medal = MEDAL_SAVE.getInt(MainActivity.MEDAL_KEY, 0);
+//
+//        SharedPreferences.Editor editor = MEDAL_SAVE.edit();
+//
+//        if (gameActivity.accomplishmentBox.achievement_gold) {
+//            ((ImageView) findViewById(R.id.medal)).setImageBitmap(Util.getScaledBitmapAlpha8(gameActivity, R.drawable.gold));
+//            if (medal < 3) {
+//                editor.putInt(MainActivity.MEDAL_KEY, 3);
+//            }
+//        } else if (gameActivity.accomplishmentBox.achievement_silver) {
+//            ((ImageView) findViewById(R.id.medal)).setImageBitmap(Util.getScaledBitmapAlpha8(gameActivity, R.drawable.silver));
+//            if (medal < 2) {
+//                editor.putInt(MainActivity.MEDAL_KEY, 2);
+//            }
+//        } else if (gameActivity.accomplishmentBox.achievement_bronze) {
+//            ((ImageView) findViewById(R.id.medal)).setImageBitmap(Util.getScaledBitmapAlpha8(gameActivity, R.drawable.bronce));
+//            if (medal < 1) {
+//                editor.putInt(MainActivity.MEDAL_KEY, 1);
+//            }
+//        } else {
+//            ((ImageView) findViewById(R.id.medal)).setVisibility(View.INVISIBLE);
+//        }
+//        editor.apply();
+//    }
 
     private void saveCoins() {
         SharedPreferences coin_save = gameActivity.getSharedPreferences(GameActivity.coin_save, 0);
@@ -132,4 +129,21 @@ public class GameOverDialog extends Dialog {
         editor.apply();
     }
 
+    private void onOKClick(View view) {
+        saveCoins();
+        if (gameActivity.numberOfRevive <= 1) {
+            gameActivity.accomplishmentBox.save(gameActivity);
+        }
+
+        dismiss();
+        gameActivity.finish();
+    }
+
+    private void onReviveClick(View view) {
+        dismiss();
+        gameActivity.coins -= REVIVE_PRICE * gameActivity.numberOfRevive;
+        saveCoins();
+        gameActivity.view.revive();
+
+    }
 }

@@ -1,22 +1,22 @@
-/**
- * The SuperClass of every character that is controlled by the player
- *
- * @author Lars Harmsen
- * Copyright (c) <2014> <Lars Harmsen - Quchen>
- */
-
 package edu.ucsd.flappycow.sprites;
 
 import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 
-public abstract class PlayableCharacter extends Sprite {
+public abstract class IPlayableCharacter extends Sprite{
+    private boolean isDead = false;
 
-    protected boolean isDead = false;
-
-    public PlayableCharacter(GameView view, GameActivity gameActivity) {
+    public IPlayableCharacter(GameView view, GameActivity gameActivity) {
         super(view, gameActivity);
         move();
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
     }
 
     /**
@@ -26,38 +26,37 @@ public abstract class PlayableCharacter extends Sprite {
      */
     @Override
     public void move() {
-        this.x = this.view.getWidth() / 6;
+        this.setX(this.getView().getWidth() / 6);
 
-        if (speedY < 0) {
+        if (this.getSpeedY() < 0) {
             // The character is moving up
-            speedY = speedY * 2 / 3 + getSpeedTimeDecrease() / 2;
+            this.setSpeedY(this.getSpeedY()  * 2 / 3 + getSpeedTimeDecrease() / 2);
         } else {
             // the character is moving down
-            this.speedY += getSpeedTimeDecrease();
+            this.setSpeedY(this.getSpeedY()  + getSpeedTimeDecrease());
         }
 
-        if (this.speedY > getMaxSpeed()) {
+        if (this.getSpeedY() > getMaxSpeed()) {
             // speed limit
-            this.speedY = getMaxSpeed();
+            this.setSpeedY(getMaxSpeed());
         }
 
         super.move();
     }
-
     /**
      * A dead character falls slowly to the ground.
      */
     public void dead() {
         this.isDead = true;
-        this.speedY = getMaxSpeed() / 2;
+        this.setSpeedY(getMaxSpeed()/2);
     }
 
     /**
      * Let the character flap up.
      */
     public void onTap() {
-        this.speedY = getTabSpeed();
-        this.y += getPosTabIncrease();
+        this.setSpeedY(getTabSpeed());
+        this.setY(this.getY() + getPosTabIncrease());
     }
 
     /**
@@ -67,7 +66,7 @@ public abstract class PlayableCharacter extends Sprite {
      */
     protected float getMaxSpeed() {
         // 25 @ 720x1280 px
-        return view.getHeight() / 51.2f;
+        return this.getView().getHeight() / 51.2f;
     }
 
     /**
@@ -77,7 +76,7 @@ public abstract class PlayableCharacter extends Sprite {
      */
     protected float getSpeedTimeDecrease() {
         // 4 @ 720x1280 px
-        return view.getHeight() / 320;
+        return this.getView().getHeight() / 320;
     }
 
     /**
@@ -87,7 +86,7 @@ public abstract class PlayableCharacter extends Sprite {
      */
     protected float getTabSpeed() {
         // -80 @ 720x1280 px
-        return -view.getHeight() / 16f;
+        return -this.getView().getHeight() / 16f;
     }
 
     /**
@@ -97,12 +96,12 @@ public abstract class PlayableCharacter extends Sprite {
      */
     protected int getPosTabIncrease() {
         // -12 @ 720x1280 px
-        return -view.getHeight() / 100;
+        return -this.getView().getHeight() / 100;
     }
 
     public void revive() {
         this.isDead = false;
-        this.row = 0;
+        this.setRow(new Integer(0).byteValue());
     }
 
     public void upgradeBitmap(int points) {
@@ -113,7 +112,4 @@ public abstract class PlayableCharacter extends Sprite {
         // Change bitmap to have a mask.
     }
 
-    public boolean isDead() {
-        return this.isDead;
-    }
 }
