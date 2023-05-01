@@ -377,7 +377,7 @@ public class GameView extends SurfaceView {
 //                i--;
 //            }
 //        }
-        if (player.isTouchingEdge()) {
+        if (playableCharacterPresenter.isTouchingEdge()) {
             gameOver();
         }
     }
