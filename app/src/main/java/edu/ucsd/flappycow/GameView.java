@@ -28,8 +28,11 @@ import edu.ucsd.flappycow.presenter.TutorialPresenter;
 import edu.ucsd.flappycow.sprites.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import edu.ucsd.flappycow.sprites.Background;
 import edu.ucsd.flappycow.sprites.Frontground;
@@ -55,7 +58,7 @@ public class GameView extends SurfaceView{
     private PlayableCharacterPresenter playableCharacterPresenter;
 
     private List<ObstaclePresenter> obstaclePresenters;
-    private TimerHandler timerHandler;
+//    private TimerHandler timerHandler;
     private PowerUpPresenter powerUpPresenter;
     private TutorialPresenter tutorialPresenter;
 
@@ -65,6 +68,9 @@ public class GameView extends SurfaceView{
 
     private ButtonPresenter buttonPresenter;
 
+    private Timer timer = new Timer();
+    private TimerTask timerTask;
+
     public GameView(Context context) {
         super(context);
 
@@ -73,14 +79,41 @@ public class GameView extends SurfaceView{
 
         holder = getHolder();
         playableCharacterPresenter = new PlayableCharacterPresenter(this, ApplicationConstants.COW);
-        groundMap.put(ApplicationConstants.BACKGROUND, new GroundPresenter(ApplicationConstants.BACKGROUND));
-        groundMap.put(ApplicationConstants.FRONTGROUND, new GroundPresenter(ApplicationConstants.FRONTGROUND));
+        groundMap = new HashMap<>();
+        groundMap.put(ApplicationConstants.BACKGROUND, new GroundPresenter(this, ApplicationConstants.BACKGROUND));
+        groundMap.put(ApplicationConstants.FRONTGROUND, new GroundPresenter(this, ApplicationConstants.FRONTGROUND));
         buttonPresenter = new ButtonPresenter(this);
 
-        timerHandler = new TimerHandler(UPDATE_INTERVAL);
+//        timerHandler = new TimerHandler(UPDATE_INTERVAL);
         powerUpPresenter = new PowerUpPresenter(this);
         tutorialPresenter = new TutorialPresenter(this);
         obstaclePresenters = new ArrayList<>();
+    }
+
+    private void startTimer() {
+        setUpTimerTask();
+        timer = new Timer();
+        timer.schedule(timerTask, UPDATE_INTERVAL, UPDATE_INTERVAL);
+    }
+
+    private void stopTimer() {
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
+        }
+        if (timerTask != null) {
+            timerTask.cancel();
+        }
+    }
+
+    private void setUpTimerTask() {
+        stopTimer();
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                GameView.this.run();
+            }
+        };
     }
 
     @Override
@@ -141,7 +174,7 @@ public class GameView extends SurfaceView{
      */
 
     public void pause() {
-        timerHandler.stopTimer();
+        stopTimer();
         paused = true;
     }
 
@@ -160,7 +193,7 @@ public class GameView extends SurfaceView{
 
     public void resume() {
         paused = false;
-        timerHandler.startTimer(this);
+        startTimer();
     }
 
     /**
@@ -192,7 +225,7 @@ public class GameView extends SurfaceView{
     public void drawCanvas(Canvas canvas, boolean drawPlayer) {
         groundMap.get(ApplicationConstants.BACKGROUND).draw(canvas);
         for (ObstaclePresenter op : obstaclePresenters) {
-            op.draw();
+            op.draw(canvas);
         }
         powerUpPresenter.draw(canvas);
         if (drawPlayer) {
@@ -413,10 +446,5 @@ public class GameView extends SurfaceView{
 
     public PlayableCharacterPresenter getPlayableCharacterPresenter() {
         return playableCharacterPresenter;
-    }
-
-    @Override
-    public SurfaceHolder getHolder() {
-        return holder;
     }
 }

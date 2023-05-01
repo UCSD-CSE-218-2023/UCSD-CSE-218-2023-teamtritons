@@ -31,7 +31,7 @@ public class PlayableCharacterPresenter {
             cow.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.cow));
 //            accessory.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.ac));
             cow.onInitBitmap();
-            accessory.onInitBitmap();
+//            accessory.onInitBitmap();
 
             return cow;
         } else if (type.equals(ApplicationConstants.NYAN_CAT)) {

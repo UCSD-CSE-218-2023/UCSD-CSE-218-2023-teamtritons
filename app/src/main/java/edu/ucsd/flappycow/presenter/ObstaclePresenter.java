@@ -46,8 +46,8 @@ public class ObstaclePresenter {
         return obstacle;
     }
 
-    public void draw() {
-        obstacleModel.draw(gameView.getCanvas());
+    public void draw(Canvas canvas) {
+        obstacleModel.draw(canvas);
     }
 
     public boolean isPassed(int viewPlayerX) {
