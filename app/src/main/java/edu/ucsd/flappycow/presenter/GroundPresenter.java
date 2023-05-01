@@ -2,6 +2,9 @@ package edu.ucsd.flappycow.presenter;
 
 import android.graphics.Canvas;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 import edu.ucsd.flappycow.sprites.Background;
@@ -11,12 +14,13 @@ import edu.ucsd.flappycow.sprites.IGround;
 
 public class GroundPresenter {
 
-    private IGround ground;
+    private  IGround ground;
+
 
     public GroundPresenter(String type) {
-
-        this.ground = createInstance(type);
+        ground = createInstance(type);
     }
+
 
     private IGround createInstance(String type) {
         // depending on parameters create object
