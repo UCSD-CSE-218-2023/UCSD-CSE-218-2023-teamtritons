@@ -22,6 +22,7 @@ import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 import edu.ucsd.flappycow.presenter.ButtonPresenter;
 import edu.ucsd.flappycow.presenter.GroundPresenter;
+import edu.ucsd.flappycow.presenter.PowerUpPresenter;
 import edu.ucsd.flappycow.sprites.*;
 
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class GameView extends SurfaceView {
 //    private Background background;
 //    private Frontground frontground;
     private List<Obstacle> obstacles = new ArrayList<Obstacle>();
-    private List<PowerUp> powerUps = new ArrayList<PowerUp>();
+//    private List<PowerUp> powerUps = new ArrayList<PowerUp>();
 
 //    private IGameButton pauseButton;
     volatile private boolean paused = true;
@@ -69,6 +70,8 @@ public class GameView extends SurfaceView {
     private boolean tutorialIsShown = true;
 
     private ButtonPresenter pauseButton;
+
+    private PowerUpPresenter powerUpPresenter;
 
     private Map<String, GroundPresenter> groundPresenterMap;
 
@@ -86,6 +89,7 @@ public class GameView extends SurfaceView {
 //        frontground = new Frontground(this, gameActivity);
 //        this.pauseButton = new PauseButton(this, gameActivity);
         this.pauseButton = new ButtonPresenter(this);
+        this.powerUpPresenter = new PowerUpPresenter(this);
         tutorial = new Tutorial(this, gameActivity);
     }
 
@@ -245,9 +249,10 @@ public class GameView extends SurfaceView {
         for (Obstacle r : obstacles) {
             r.draw(canvas);
         }
-        for (PowerUp p : powerUps) {
-            p.draw(canvas);
-        }
+        powerUpPresenter.draw(canvas);
+//        for (PowerUp p : powerUps) {
+//            p.draw(canvas);
+//        }
         if (drawPlayer) {
             player.draw(canvas);
         }
@@ -299,25 +304,26 @@ public class GameView extends SurfaceView {
      * Creates a toast with a certain chance
      */
     private void createPowerUp() {
-        // Toast
-        if (gameActivity.accomplishmentBox.getPoints() >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(player instanceof NyanCat)) {
-            // If no powerUp is present and you have more than / equal 42 points
-            if (gameActivity.accomplishmentBox.getPoints() == Toast.POINTS_TO_TOAST) {    // First time 100 % chance
-                powerUps.add(new Toast(this, gameActivity));
-            } else if (Math.random() * 100 < 33) {    // 33% chance
-                powerUps.add(new Toast(this, gameActivity));
-            }
-        }
-
-        if ((powerUps.size() < 1) && (Math.random() * 100 < 20)) {
-            // If no powerUp is present and 20% chance
-            powerUps.add(new Coin(this, gameActivity));
-        }
-
-        if ((powerUps.size() < 1) && (Math.random() * 100 < 10)) {
-            // If no powerUp is present and 10% chance (if also no coin)
-            powerUps.add(new Virus(this, gameActivity));
-        }
+        powerUpPresenter.createPowerUp(gameActivity.accomplishmentBox.getPoints());
+//        // Toast
+//        if (gameActivity.accomplishmentBox.getPoints() >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(player instanceof NyanCat)) {
+//            // If no powerUp is present and you have more than / equal 42 points
+//            if (gameActivity.accomplishmentBox.getPoints() == Toast.POINTS_TO_TOAST) {    // First time 100 % chance
+//                powerUps.add(new Toast(this, gameActivity));
+//            } else if (Math.random() * 100 < 33) {    // 33% chance
+//                powerUps.add(new Toast(this, gameActivity));
+//            }
+//        }
+//
+//        if ((powerUps.size() < 1) && (Math.random() * 100 < 20)) {
+//            // If no powerUp is present and 20% chance
+//            powerUps.add(new Coin(this, gameActivity));
+//        }
+//
+//        if ((powerUps.size() < 1) && (Math.random() * 100 < 10)) {
+//            // If no powerUp is present and 10% chance (if also no coin)
+//            powerUps.add(new Virus(this, gameActivity));
+//        }
     }
 
     /**
@@ -330,12 +336,13 @@ public class GameView extends SurfaceView {
                 i--;
             }
         }
-        for (int i = 0; i < powerUps.size(); i++) {
-            if (this.powerUps.get(i).isOutOfRange()) {
-                this.powerUps.remove(i);
-                i--;
-            }
-        }
+        powerUpPresenter.checkOutOfRange();
+//        for (int i = 0; i < powerUps.size(); i++) {
+//            if (this.powerUps.get(i).isOutOfRange()) {
+//                this.powerUps.remove(i);
+//                i--;
+//            }
+//        }
     }
 
     /**
@@ -348,13 +355,14 @@ public class GameView extends SurfaceView {
                 gameOver();
             }
         }
-        for (int i = 0; i < powerUps.size(); i++) {
-            if (this.powerUps.get(i).isColliding(player)) {
-                this.powerUps.get(i).onCollision();
-                this.powerUps.remove(i);
-                i--;
-            }
-        }
+        powerUpPresenter.checkCollision();
+//        for (int i = 0; i < powerUps.size(); i++) {
+//            if (this.powerUps.get(i).isColliding(player)) {
+//                this.powerUps.get(i).onCollision();
+//                this.powerUps.remove(i);
+//                i--;
+//            }
+//        }
         if (player.isTouchingEdge()) {
             gameOver();
         }
@@ -377,9 +385,10 @@ public class GameView extends SurfaceView {
             o.setSpeedX(-getSpeedX());
             o.move();
         }
-        for (PowerUp p : powerUps) {
-            p.move();
-        }
+        powerUpPresenter.move();
+//        for (PowerUp p : powerUps) {
+//            p.move();
+//        }
 
 
         groundPresenterMap.get(ApplicationConstants.BACKGROUND).setSpeedX(-getSpeedX() / 2);
@@ -463,7 +472,7 @@ public class GameView extends SurfaceView {
         player.setY(this.getHeight() / 2 - player.getWidth() / 2);
         player.setX(this.getWidth() / 6);
         obstacles.clear();
-        powerUps.clear();
+        powerUpPresenter.clear();
         player.revive();
         for (int i = 0; i < 6; ++i) {
             while (!holder.getSurface().isValid()) {/*wait*/}
