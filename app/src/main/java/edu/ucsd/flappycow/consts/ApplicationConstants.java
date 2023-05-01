@@ -16,4 +16,7 @@ public class ApplicationConstants {
     public static final int SHOW_TOAST = 1;
 
     public static final int SHOW_AD = 2;
+
+    public static final String COW = "COW";
+    public static final String NYAN_CAT = "NYAN_CAT";
 }

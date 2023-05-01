@@ -44,16 +44,12 @@ import edu.ucsd.flappycow.sprites.Virus;
 public class GameView extends SurfaceView{
 
     /** Milliseconds for game timer tick */
-    public static final long UPDATE_INTERVAL = 50;        // = 20 FPS
-
-//    private Timer timer = new Timer();
-//    private TimerTask timerTask;
+    public static final long UPDATE_INTERVAL = 50;        // = 20 FPSa
 
     /** The surfaceholder needed for the canvas drawing */
     private SurfaceHolder holder;
 
     private GameActivity gameActivity;
-    private IPlayableCharacter player;
     private Background background;
     private Frontground frontground;
     private List<Obstacle> obstacles = new ArrayList<Obstacle>();
@@ -75,8 +71,7 @@ public class GameView extends SurfaceView{
         setFocusable(true);
 
         holder = getHolder();
-//        playableCharacterPresenter = new PlayableCharacterPresenter(this);
-//        player = new Cow(new Accessory(), this.getHeight(), this.getWidth(), this.gameActivity.getResources().getDisplayMetrics().heightPixels);
+        playableCharacterPresenter = new PlayableCharacterPresenter(this, ApplicationConstants.COW);
         background = new Background();
         frontground = new Frontground();
         this.pauseButton = new PauseButton();
@@ -94,18 +89,18 @@ public class GameView extends SurfaceView{
     public boolean onTouchEvent(MotionEvent event) {
         performClick();
         if (event.getAction() == MotionEvent.ACTION_DOWN  // Only for "touchdowns"
-            && !this.player.isDead()) { // No support for dead players
+            && !playableCharacterPresenter.isDead()) { // No support for dead players
             if (tutorialIsShown) {
                 // dismiss tutorial
                 tutorialIsShown = false;
                 resume();
-                this.player.onTap(this.getHeight());
+                playableCharacterPresenter.onTap();
             } else if (paused) {
                 resume();
             } else if (pauseButton.isTouching((int) event.getX(), (int) event.getY()) && !this.paused) {
                 pause();
             } else {
-                this.player.onTap(this.getHeight());
+                playableCharacterPresenter.onTap();
             }
         }
         return true;
@@ -140,8 +135,7 @@ public class GameView extends SurfaceView{
      * Draw Tutorial
      */
     public void showTutorial() {
-//        player.move(this.getHeight(), this.getWidth());
-//        playableCharacterPresenter.move();
+        playableCharacterPresenter.move();
         pauseButton.move(this.getHeight(), this.getWidth());
 
         while (!holder.getSurface().isValid()) {
@@ -218,7 +212,7 @@ public class GameView extends SurfaceView{
             p.draw(canvas);
         }
         if (drawPlayer) {
-            player.draw(canvas);
+            playableCharacterPresenter.draw(canvas);
         }
         frontground.draw(canvas);
         pauseButton.draw(canvas);
@@ -236,10 +230,9 @@ public class GameView extends SurfaceView{
      * Let the player fall to the ground
      */
     private void playerDeadFall(int viewHeight) {
-        player.dead(viewHeight);
+        playableCharacterPresenter.dead();
         do {
-//            player.move(this.getHeight(), this.getWidth());
-//            playableCharacterPresenter.move();
+            playableCharacterPresenter.move();
             draw();
             // sleep
             try {
@@ -247,7 +240,7 @@ public class GameView extends SurfaceView{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        } while (!player.isTouchingGround(this.getHeight()));
+        } while (!playableCharacterPresenter.isTouchingGround());
     }
 
     /**
@@ -269,7 +262,7 @@ public class GameView extends SurfaceView{
      */
     private void createPowerUp() {
         // Toast
-        if (gameActivity.accomplishmentBox.getPoints() >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(player instanceof NyanCat)) {
+        if (gameActivity.accomplishmentBox.getPoints() >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(getPlayer() instanceof NyanCat)) {
             // If no powerUp is present and you have more than / equal 42 points
             if (gameActivity.accomplishmentBox.getPoints() == Toast.POINTS_TO_TOAST) {    // First time 100 % chance
                 powerUps.add(new Toast(this.getWidth(), this.getHeight(), this.getSpeedX()));
@@ -312,19 +305,19 @@ public class GameView extends SurfaceView{
      */
     private void checkCollision() {
         for (Obstacle o : obstacles) {
-            if (o.isColliding(player)) {
+            if (o.isColliding(getPlayer())) {
                 o.onCollision();
                 gameOver();
             }
         }
         for (int i = 0; i < powerUps.size(); i++) {
-            if (this.powerUps.get(i).isColliding(player)) {
+            if (this.powerUps.get(i).isColliding(getPlayer())) {
                 this.powerUps.get(i).onCollision();
                 this.powerUps.remove(i);
                 i--;
             }
         }
-        if (player.isTouchingEdge(this.getHeight())) {
+        if (playableCharacterPresenter.isTouchingEdge()) {
             gameOver();
         }
     }
@@ -358,7 +351,7 @@ public class GameView extends SurfaceView{
 
         pauseButton.move(this.getHeight(), this.getWidth());
 
-        player.move(this.getHeight(), this.getWidth());
+        playableCharacterPresenter.move();
     }
 
     /**
@@ -368,19 +361,19 @@ public class GameView extends SurfaceView{
         gameActivity.accomplishmentBox.setAchievement_toastification(true);
         gameActivity.handler.sendMessage(Message.obtain(gameActivity.handler, 1, R.string.toast_achievement_toastification, ApplicationConstants.SHOW_TOAST));
 
-        IPlayableCharacter tmp = this.player;
-        this.player = new NyanCat(new Rainbow(), this.getHeight(), this.getWidth(), this.gameActivity.getResources().getDisplayMetrics().heightPixels);
-        this.player.setX(tmp.getX());
-        this.player.setY(tmp.getY());
-        this.player.setSpeedX(tmp.getSpeedX());
-        this.player.setSpeedY(tmp.getSpeedY());
+        IPlayableCharacter tmp = getPlayer();
+        this.playableCharacterPresenter = new PlayableCharacterPresenter(this, ApplicationConstants.NYAN_CAT);
+        this.playableCharacterPresenter.setX(tmp.getX());
+        this.playableCharacterPresenter.setY(tmp.getY());
+        this.playableCharacterPresenter.setSpeedX(tmp.getSpeedX());
+        this.playableCharacterPresenter.setSpeedY(tmp.getSpeedY());
 
         gameActivity.musicShouldPlay = true;
         GameActivity.musicPlayer.start();
     }
 
     public void changeToSick() {
-        this.player.wearMask();
+        this.playableCharacterPresenter.wearMask();
     }
 
     /**
@@ -422,11 +415,11 @@ public class GameView extends SurfaceView{
      */
     private void setupRevive() {
         gameActivity.gameOverDialog.hide();
-        player.setY(this.getHeight() / 2 - player.getWidth() / 2);
-        player.setX(this.getWidth() / 6);
+        playableCharacterPresenter.setY(this.getHeight() / 2 - getPlayer().getWidth() / 2);
+        playableCharacterPresenter.setX(this.getWidth() / 6);
         obstacles.clear();
         powerUps.clear();
-        player.revive(this.getHeight(), this.getWidth());
+        playableCharacterPresenter.revive();
         for (int i = 0; i < 6; ++i) {
             while (!holder.getSurface().isValid()) {/*wait*/}
             Canvas canvas = getCanvas();
@@ -451,7 +444,7 @@ public class GameView extends SurfaceView{
     }
 
     public IPlayableCharacter getPlayer() {
-        return player;
+        return playableCharacterPresenter.getPlayer();
     }
 
     public GameActivity getGameActivity() {
