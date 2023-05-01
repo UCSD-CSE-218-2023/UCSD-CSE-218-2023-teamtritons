@@ -22,6 +22,7 @@ import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 import edu.ucsd.flappycow.presenter.ButtonPresenter;
 import edu.ucsd.flappycow.presenter.GroundPresenter;
+import edu.ucsd.flappycow.presenter.PlayableCharacterPresenter;
 import edu.ucsd.flappycow.presenter.PowerUpPresenter;
 import edu.ucsd.flappycow.sprites.*;
 
@@ -57,7 +58,7 @@ public class GameView extends SurfaceView {
     private SurfaceHolder holder;
 
     private GameActivity gameActivity;
-    private IPlayableCharacter player;
+//    private IPlayableCharacter player;
 //    private Background background;
 //    private Frontground frontground;
     private List<Obstacle> obstacles = new ArrayList<Obstacle>();
@@ -75,13 +76,16 @@ public class GameView extends SurfaceView {
 
     private Map<String, GroundPresenter> groundPresenterMap;
 
+    private PlayableCharacterPresenter playableCharacterPresenter;
+
     public GameView(Context context) {
         super(context);
         this.gameActivity = (GameActivity) context;
         setFocusable(true);
 
         holder = getHolder();
-        player = new Cow(this, gameActivity, new Accessory(this, gameActivity));
+//        player = new Cow(this, gameActivity, new Accessory(this, gameActivity));
+        playableCharacterPresenter = new PlayableCharacterPresenter(this, ApplicationConstants.COW);
         groundPresenterMap = new HashMap<>();
         groundPresenterMap.put(ApplicationConstants.BACKGROUND, new GroundPresenter(this, ApplicationConstants.BACKGROUND));
         groundPresenterMap.put(ApplicationConstants.FRONTGROUND, new GroundPresenter(this, ApplicationConstants.FRONTGROUND));
@@ -128,19 +132,23 @@ public class GameView extends SurfaceView {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         performClick();
+//        if (event.getAction() == MotionEvent.ACTION_DOWN  // Only for "touchdowns"
+//            && !this.player.isDead()) { // No support for dead players
         if (event.getAction() == MotionEvent.ACTION_DOWN  // Only for "touchdowns"
-            && !this.player.isDead()) { // No support for dead players
+                && !this.playableCharacterPresenter.isDead()) { // No support for dead players
             if (tutorialIsShown) {
                 // dismiss tutorial
                 tutorialIsShown = false;
                 resume();
-                this.player.onTap();
+//                this.player.onTap();
+                this.playableCharacterPresenter.onTap();
             } else if (paused) {
                 resume();
             } else if (pauseButton.isTouching((int) event.getX(), (int) event.getY()) && !this.paused) {
                 pause();
             } else {
-                this.player.onTap();
+//                this.player.onTap();
+                this.playableCharacterPresenter.onTap();
             }
         }
         return true;
@@ -175,7 +183,8 @@ public class GameView extends SurfaceView {
      * Draw Tutorial
      */
     public void showTutorial() {
-        player.move();
+//        player.move();
+        playableCharacterPresenter.move();
         pauseButton.move();
 
         while (!holder.getSurface().isValid()) {
@@ -254,7 +263,8 @@ public class GameView extends SurfaceView {
 //            p.draw(canvas);
 //        }
         if (drawPlayer) {
-            player.draw(canvas);
+//            player.draw(canvas);
+            playableCharacterPresenter.draw(canvas);
         }
 //        frontground.draw(canvas);
         groundPresenterMap.get(ApplicationConstants.FRONTGROUND).draw(canvas);
@@ -273,9 +283,11 @@ public class GameView extends SurfaceView {
      * Let the player fall to the ground
      */
     private void playerDeadFall() {
-        player.dead();
+//        player.dead();
+        playableCharacterPresenter.dead();
         do {
-            player.move();
+//            player.move();
+            playableCharacterPresenter.move();
             draw();
             // sleep
             try {
@@ -283,7 +295,8 @@ public class GameView extends SurfaceView {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        } while (!player.isTouchingGround());
+//        } while (!player.isTouchingGround());
+        } while (!playableCharacterPresenter.isTouchingGround());
     }
 
     /**
@@ -350,7 +363,8 @@ public class GameView extends SurfaceView {
      */
     private void checkCollision() {
         for (Obstacle o : obstacles) {
-            if (o.isColliding(player)) {
+//            if (o.isColliding(player)) {
+            if (o.isColliding(playableCharacterPresenter.getPlayer())) {
                 o.onCollision();
                 gameOver();
             }
@@ -405,7 +419,8 @@ public class GameView extends SurfaceView {
 
         pauseButton.move();
 
-        player.move();
+//        player.move();
+        playableCharacterPresenter.move();
     }
 
     /**
@@ -415,19 +430,27 @@ public class GameView extends SurfaceView {
         gameActivity.accomplishmentBox.setAchievement_toastification(true);
         gameActivity.handler.sendMessage(Message.obtain(gameActivity.handler, 1, R.string.toast_achievement_toastification, ApplicationConstants.SHOW_TOAST));
 
-        IPlayableCharacter tmp = this.player;
-        this.player = new NyanCat(this, gameActivity, new Rainbow(this, gameActivity));
-        this.player.setX(tmp.getX());
-        this.player.setY(tmp.getY());
-        this.player.setSpeedX(tmp.getSpeedX());
-        this.player.setSpeedY(tmp.getSpeedY());
+//        IPlayableCharacter tmp = this.player;
+//        this.player = new NyanCat(this, gameActivity, new Rainbow(this, gameActivity));
+//        this.player.setX(tmp.getX());
+//        this.player.setY(tmp.getY());
+//        this.player.setSpeedX(tmp.getSpeedX());
+//        this.player.setSpeedY(tmp.getSpeedY());
+
+        IPlayableCharacter tmp = this.playableCharacterPresenter.getPlayer();
+        this.playableCharacterPresenter = new PlayableCharacterPresenter(this, ApplicationConstants.NYAN_CAT);
+        this.playableCharacterPresenter.setX(tmp.getX());
+        this.playableCharacterPresenter.setY(tmp.getY());
+        this.playableCharacterPresenter.setSpeedX(tmp.getSpeedX());
+        this.playableCharacterPresenter.setSpeedY(tmp.getSpeedY());
 
         gameActivity.musicShouldPlay = true;
         GameActivity.musicPlayer.start();
     }
 
     public void changeToSick() {
-        this.player.wearMask();
+//        this.player.wearMask();
+        this.playableCharacterPresenter.wearMask();
     }
 
     /**
@@ -469,11 +492,14 @@ public class GameView extends SurfaceView {
      */
     private void setupRevive() {
         gameActivity.gameOverDialog.hide();
-        player.setY(this.getHeight() / 2 - player.getWidth() / 2);
-        player.setX(this.getWidth() / 6);
+//        player.setY(this.getHeight() / 2 - player.getWidth() / 2);
+//        player.setX(this.getWidth() / 6);
+        playableCharacterPresenter.setY(this.getHeight() / 2 - playableCharacterPresenter.getPlayer().getWidth() / 2);
+        playableCharacterPresenter.setX(this.getWidth() / 6);
         obstacles.clear();
         powerUpPresenter.clear();
-        player.revive();
+//        player.revive();
+        playableCharacterPresenter.revive();
         for (int i = 0; i < 6; ++i) {
             while (!holder.getSurface().isValid()) {/*wait*/}
             Canvas canvas = getCanvas();
@@ -498,7 +524,7 @@ public class GameView extends SurfaceView {
     }
 
     public IPlayableCharacter getPlayer() {
-        return player;
+        return playableCharacterPresenter.getPlayer();
     }
 
     public GameActivity getGameActivity() {
