@@ -12,12 +12,13 @@ public class Obstacle extends Sprite {
     private static int passSound = -1;
 
     /** Necessary so the onPass method is just called once */
-    public boolean isAlreadyPassed = false;
+    private boolean isAlreadyPassed;
 
     public Obstacle(IGameObstacle spider, IGameObstacle log, int viewSpeedX, int activityHeightPixels, int activityWidthPixels) {
         super();
         this.spider = spider;
         this.log = log;
+        isAlreadyPassed = false;
         //TODO: presenter
 //        if (collideSound == -1) {
 //            collideSound = GameActivity.soundPool.load(gameActivity, R.raw.crash, 1);
@@ -120,4 +121,11 @@ public class Obstacle extends Sprite {
 //        GameActivity.soundPool.play(collideSound, MainActivity.volume / SOUND_VOLUME_DIVIDER, MainActivity.volume / SOUND_VOLUME_DIVIDER, 0, 0, 1);
     }
 
+    public boolean isAlreadyPassed() {
+        return isAlreadyPassed;
+    }
+
+    public void setAlreadyPassed(boolean alreadyPassed) {
+        isAlreadyPassed = alreadyPassed;
+    }
 }
