@@ -2,9 +2,9 @@ name: Android CI
 
 on:
   push:
-    branches: [ "lab2" ]
+    branches: [ "lab4-reverse-dependency" ]
   pull_request:
-    branches: [ "lab2" ]
+    branches: [ "lab4-reverse-dependency" ]
 
 jobs:
   build:
