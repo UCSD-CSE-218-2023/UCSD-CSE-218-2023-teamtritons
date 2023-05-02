@@ -17,14 +17,14 @@ public class PauseButtonTest {
 
     @Test
     public void move() {
-//        GameActivity gameActivity = Robolectric.setupActivity(GameActivity.class);
-//        GameView gameView = new GameView(gameActivity);
-//
-//        PauseButton pauseButton = new PauseButton(gameView, gameActivity);
-//        pauseButton.move();
-//        //if it reaches here, move executed with no errors
-//        boolean move = true;
-//        assertTrue("move succeessful", move);
+        int width = 2;
+        int height = 2;
+
+        PauseButton pauseButton = new PauseButton();
+        pauseButton.move(width, height);
+        //if it reaches here, move executed with no errors
+        boolean move = true;
+        assertTrue("move succeessful", move);
 
     }
 }

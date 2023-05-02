@@ -14,26 +14,9 @@ public class SpiderTest {
 
     @Test
     public void initSpiderObject(){
-//        GameActivity gameActivity = Robolectric.setupActivity(GameActivity.class);
-//        GameView gameView = new GameView(gameActivity);
-//
-//        Spider tSpider = new Spider(gameView, gameActivity);
-//
-//        tSpider.init(3, 4);
-//
-////        assertFalse(tSpider.getX() == 0 && tSpider.getY() == 0);
-//        assertTrue(tSpider.getX() == 3 && tSpider.getY() == 4);
-    }
-
-    @Test
-    public void checkTouchingSpider(){
-
-//        GameActivity gameActivity = Robolectric.setupActivity(GameActivity.class);
-//        GameView gameView = new GameView(gameActivity);
-//
-//        Spider tSpider = new Spider(gameView, gameActivity);
-//
-//        assertTrue(tSpider.isTouching(1, 1));
+        Spider tSpider = new Spider();
+        tSpider.init(3, 4);
+        assertTrue(tSpider.getX() == 3 && tSpider.getY() == 4);
     }
 
 }

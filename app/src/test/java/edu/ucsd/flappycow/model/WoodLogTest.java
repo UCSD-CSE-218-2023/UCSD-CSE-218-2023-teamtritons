@@ -15,7 +15,7 @@ public class WoodLogTest {
         GameActivity gameActivity = Robolectric.setupActivity(GameActivity.class);
         GameView gameView = new GameView(gameActivity);
 
-        WoodLog woodLogT = new WoodLog(gameView, gameActivity);
+        WoodLog woodLogT = new WoodLog();
         woodLogT.init(3,4);
         assertTrue(woodLogT.getX() == 3 && woodLogT.getY() == 4);
     }

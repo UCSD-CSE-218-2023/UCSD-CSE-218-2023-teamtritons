@@ -14,9 +14,7 @@ public class AccessoryTest {
 
     @Test
     public void initAccessoryObject(){
-        GameActivity gameActivity = Robolectric.setupActivity(GameActivity.class);
-        GameView gameView = new GameView(gameActivity);
-        Accessory tAccessory = new Accessory(gameView, gameActivity);
+        Accessory tAccessory = new Accessory();
         tAccessory.moveTo(3,4);
         assertFalse(tAccessory.getX() == 0 && tAccessory.getY() == 0);
         assertTrue(tAccessory.getX() == 3 && tAccessory.getY() == 4);
@@ -24,9 +22,7 @@ public class AccessoryTest {
 
     @Test
     public void checkMoveAccessory(){
-        GameActivity gameActivity = Robolectric.setupActivity(GameActivity.class);
-        GameView gameView = new GameView(gameActivity);
-        Accessory tAccessory = new Accessory(gameView, gameActivity);
+        Accessory tAccessory = new Accessory();
         tAccessory.moveTo(10, 11);
         assertFalse(tAccessory.getX() == 3 && tAccessory.getY() == 4);
         assertTrue(tAccessory.getX() == 10 && tAccessory.getY() == 11);
