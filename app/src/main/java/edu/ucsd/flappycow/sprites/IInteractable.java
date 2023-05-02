@@ -10,10 +10,10 @@ public interface IInteractable {
     void onCollision();
     boolean isTouchingEdge();
 
-    boolean isTouchingGround(int viewHeight);
+    boolean isTouchingGround();
 
     boolean isTouchingSky();
-    boolean isPassed(int viewPlayerX);
+    boolean isPassed();
     int getCollisionTolerance(int heightPixels);
 
 }

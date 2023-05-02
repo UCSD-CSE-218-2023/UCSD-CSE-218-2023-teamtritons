@@ -72,8 +72,8 @@ public class Obstacle extends Sprite {
      * Checks whether the spider or the log is colliding with the sprite.
      */
     @Override
-    public boolean isColliding(Sprite sprite) {
-        return spider.isColliding(sprite) || log.isColliding(sprite);
+    public boolean isColliding(Sprite sprite, int heightPixels) {
+        return spider.isColliding(sprite, heightPixels) || log.isColliding(sprite, heightPixels);
     }
 
     /**

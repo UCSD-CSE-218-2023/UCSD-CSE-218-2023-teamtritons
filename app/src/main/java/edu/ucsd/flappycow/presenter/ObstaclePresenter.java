@@ -71,8 +71,8 @@ public class ObstaclePresenter {
 //    public boolean isColliding(IPlayableCharacter playableCharacter, int heightPixels) {
 //        return obstacleModel.isColliding(playableCharacter, heightPixels);
 //    }
-    public boolean isColliding(IPlayableCharacter playableCharacter) {
-        return obstacleModel.isColliding(playableCharacter);
+    public boolean isColliding(IPlayableCharacter playableCharacter, int heightPixels) {
+        return obstacleModel.isColliding(playableCharacter, heightPixels);
     }
 
     public void onCollision() {
