@@ -21,13 +21,16 @@ import android.view.SurfaceView;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 import edu.ucsd.flappycow.presenter.ButtonPresenter;
+import edu.ucsd.flappycow.presenter.CoinPresenter;
 import edu.ucsd.flappycow.presenter.CowPresenter;
 import edu.ucsd.flappycow.presenter.GroundPresenter;
 import edu.ucsd.flappycow.presenter.PlayableCharacterPresenter;
 import edu.ucsd.flappycow.presenter.PowerUpPresenter;
+import edu.ucsd.flappycow.presenter.ToastPresenter;
 import edu.ucsd.flappycow.presenter.TutorialPresenter;
 import edu.ucsd.flappycow.presenter.ObstaclePresenter;
 
+import edu.ucsd.flappycow.presenter.VirusPresenter;
 import edu.ucsd.flappycow.sprites.*;
 
 import java.util.ArrayList;
@@ -70,7 +73,7 @@ public class GameView extends SurfaceView {
 //    private List<PowerUp> powerUps = new ArrayList<PowerUp>();
 
   //  private List<Obstacle> obstacles = new ArrayList<Obstacle>();
-    private List<PowerUp> powerUps = new ArrayList<PowerUp>();
+//    private List<PowerUp> powerUps = new ArrayList<PowerUp>();
 
 
 //    private IGameButton pauseButton;
@@ -82,7 +85,7 @@ public class GameView extends SurfaceView {
 
     private ButtonPresenter pauseButton;
 
-    private PowerUpPresenter powerUpPresenter;
+//    private PowerUpPresenter powerUpPresenter;
 
     private Map<String, GroundPresenter> groundPresenterMap;
 
@@ -90,6 +93,8 @@ public class GameView extends SurfaceView {
     private PlayableCharacterPresenter playableCharacterPresenter;
 
     private List<ObstaclePresenter> obstaclePresenters = new ArrayList<ObstaclePresenter>();
+
+    private List<PowerUpPresenter> powerUpPresenters = new ArrayList<>();
 
 
     public GameView(Context context) {
@@ -107,7 +112,7 @@ public class GameView extends SurfaceView {
 //        frontground = new Frontground(this, gameActivity);
 //        this.pauseButton = new PauseButton(this, gameActivity);
         this.pauseButton = new ButtonPresenter(this);
-        this.powerUpPresenter = new PowerUpPresenter(this);
+//        this.powerUpPresenter = new PowerUpPresenter(this);
         tutorialPresenter = new TutorialPresenter(this);
     }
 
@@ -276,10 +281,9 @@ public class GameView extends SurfaceView {
         for (ObstaclePresenter r : obstaclePresenters) {
             r.draw(canvas);
         }
-        powerUpPresenter.draw(canvas);
-//        for (PowerUp p : powerUps) {
-//            p.draw(canvas);
-//        }
+        for (PowerUpPresenter p : powerUpPresenters) {
+            p.draw(canvas);
+        }
         if (drawPlayer) {
 //            player.draw(canvas);
             playableCharacterPresenter.draw(canvas);
@@ -335,26 +339,26 @@ public class GameView extends SurfaceView {
      * Creates a toast with a certain chance
      */
     private void createPowerUp() {
-        powerUpPresenter.createPowerUp(gameActivity.accomplishmentBox.getPoints());
+//        powerUpPresenter.createPowerUp(gameActivity.accomplishmentBox.getPoints());
 //        // Toast
-//        if (gameActivity.accomplishmentBox.getPoints() >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(player instanceof NyanCat)) {
-//            // If no powerUp is present and you have more than / equal 42 points
-//            if (gameActivity.accomplishmentBox.getPoints() == Toast.POINTS_TO_TOAST) {    // First time 100 % chance
-//                powerUps.add(new Toast(this, gameActivity));
-//            } else if (Math.random() * 100 < 33) {    // 33% chance
-//                powerUps.add(new Toast(this, gameActivity));
-//            }
-//        }
-//
-//        if ((powerUps.size() < 1) && (Math.random() * 100 < 20)) {
-//            // If no powerUp is present and 20% chance
-//            powerUps.add(new Coin(this, gameActivity));
-//        }
-//
-//        if ((powerUps.size() < 1) && (Math.random() * 100 < 10)) {
-//            // If no powerUp is present and 10% chance (if also no coin)
-//            powerUps.add(new Virus(this, gameActivity));
-//        }
+        if (gameActivity.accomplishmentBox.getPoints() >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(playableCharacterPresenter.getPlayer() instanceof NyanCat)) {
+            // If no powerUp is present and you have more than / equal 42 points
+            if (gameActivity.accomplishmentBox.getPoints() == Toast.POINTS_TO_TOAST) {    // First time 100 % chance
+                powerUpPresenters.add(new ToastPresenter(this));
+            } else if (Math.random() * 100 < 33) {    // 33% chance
+                powerUpPresenters.add(new ToastPresenter(this));
+            }
+        }
+
+        if ((powerUpPresenters.size() < 1) && (Math.random() * 100 < 20)) {
+            // If no powerUp is present and 20% chance
+            powerUpPresenters.add(new CoinPresenter(this));
+        }
+
+        if ((powerUpPresenters.size() < 1) && (Math.random() * 100 < 10)) {
+            // If no powerUp is present and 10% chance (if also no coin)
+            powerUpPresenters.add(new VirusPresenter(this));
+        }
     }
 
     /**
@@ -367,13 +371,13 @@ public class GameView extends SurfaceView {
                 i--;
             }
         }
-        powerUpPresenter.checkOutOfRange();
-//        for (int i = 0; i < powerUps.size(); i++) {
-//            if (this.powerUps.get(i).isOutOfRange()) {
-//                this.powerUps.remove(i);
-//                i--;
-//            }
-//        }
+//        powerUpPresenter.checkOutOfRange();
+        for (int i = 0; i < powerUpPresenters.size(); i++) {
+            if (this.powerUpPresenters.get(i).isOutOfRange()) {
+                this.powerUpPresenters.remove(i);
+                i--;
+            }
+        }
     }
 
     /**
@@ -387,15 +391,15 @@ public class GameView extends SurfaceView {
             }
         }
 //        powerUpPresenter.checkCollision();
-        powerUpPresenter.checkCollision();
+//        powerUpPresenter.checkCollision();
 
-//        for (int i = 0; i < powerUps.size(); i++) {
-//            if (this.powerUps.get(i).isColliding(player)) {
-//                this.powerUps.get(i).onCollision();
-//                this.powerUps.remove(i);
-//                i--;
-//            }
-//        }
+        for (int i = 0; i < powerUpPresenters.size(); i++) {
+            if (this.powerUpPresenters.get(i).isColliding()) {
+                this.powerUpPresenters.get(i).onCollision();
+                this.powerUpPresenters.remove(i);
+                i--;
+            }
+        }
         if (playableCharacterPresenter.isTouchingEdge()) {
             gameOver();
         }
@@ -418,10 +422,9 @@ public class GameView extends SurfaceView {
             o.setSpeedX(-getSpeedX());
             o.move();
         }
-        powerUpPresenter.move();
-//        for (PowerUp p : powerUps) {
-//            p.move();
-//        }
+        for (PowerUpPresenter p : powerUpPresenters) {
+            p.move();
+        }
 
 
         groundPresenterMap.get(ApplicationConstants.BACKGROUND).setSpeedX(-getSpeedX() / 2);
@@ -514,7 +517,7 @@ public class GameView extends SurfaceView {
         playableCharacterPresenter.setY(this.getHeight() / 2 - playableCharacterPresenter.getPlayer().getWidth() / 2);
         playableCharacterPresenter.setX(this.getWidth() / 6);
         obstaclePresenters.clear();
-        powerUpPresenter.clear();
+        powerUpPresenters.clear();
 //        player.revive();
         playableCharacterPresenter.revive();
         for (int i = 0; i < 6; ++i) {

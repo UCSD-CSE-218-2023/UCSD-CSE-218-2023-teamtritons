@@ -14,9 +14,9 @@ public class Coin extends PowerUp{
         super(view, gameActivity, speedX);
         this.setColNr((byte)12);
         this.setFrameTime((short)1);
-        if (sound == -1) {
-            sound = GameActivity.soundPool.load(gameActivity, R.raw.coin, 1);
-        }
+//        if (sound == -1) {
+//            sound = GameActivity.soundPool.load(gameActivity, R.raw.coin, 1);
+//        }
     }
 
     @Override
@@ -32,18 +32,26 @@ public class Coin extends PowerUp{
     @Override
     public void onCollision() {
         super.onCollision();
-        playSound();
-        this.getGameActivity().increaseCoin();
+//        playSound();
+//        this.getGameActivity().increaseCoin();
     }
 
     // TODO: presenter
-    private void playSound() {
-        GameActivity.soundPool.play(sound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
-    }
+//    private void playSound() {
+//        GameActivity.soundPool.play(sound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
+//    }
 
     @Override
     public void move(int viewWidth, int viewHeight) {
         changeToNextFrame();
         super.move(viewWidth, viewHeight);
+    }
+
+    public static int getSound() {
+        return sound;
+    }
+
+    public static void setSound(int sound) {
+        Coin.sound = sound;
     }
 }

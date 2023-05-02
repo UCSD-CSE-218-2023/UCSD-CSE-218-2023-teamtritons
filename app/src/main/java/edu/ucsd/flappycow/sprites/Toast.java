@@ -8,10 +8,6 @@ import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
 
 public class Toast extends PowerUp{
-    /**
-     * Static bitmap to reduce memory usage.
-     */
-    public static Bitmap globalBitmap;
 
     public static final int POINTS_TO_TOAST = 42;
 
@@ -31,7 +27,7 @@ public class Toast extends PowerUp{
     @Override
     public void onCollision() {
         super.onCollision();
-        this.getView().changeToNyanCat();
+//        this.getView().changeToNyanCat();
     }
     public static float getPointsToToast() {
         return POINTS_TO_TOAST;
