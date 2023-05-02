@@ -19,8 +19,8 @@ public class Cow extends IPlayableCharacter{
     /** sunglasses, hats and stuff */
     private IAccessory accessory;
 
-    public Cow(GameView view, GameActivity gameActivity, IAccessory accessory) {
-        super(view, gameActivity);
+    public Cow(GameView view, GameActivity gameActivity, int viewWidth, int viewHeight, IAccessory accessory) {
+        super(view, gameActivity, viewWidth, viewHeight);
         this.setColNr(new Integer(8).byteValue());
         this.setFrameTime((short)3);        // the frame will change every 3 runs
         this.setY(gameActivity.getResources().getDisplayMetrics().heightPixels / 2);    // Startposition in in the middle of the screen
@@ -77,9 +77,9 @@ public class Cow extends IPlayableCharacter{
      * and manages the frames. (flattering cape)
      */
     @Override
-    public void move() {
+    public void move(int viewWidth, int viewHeight) {
         changeToNextFrame();
-        super.move();
+        super.move(viewWidth, viewHeight);
 
         // manage frames
         if (this.getRow() != 3) {
@@ -118,8 +118,8 @@ public class Cow extends IPlayableCharacter{
     }
 
     @Override
-    public void revive() {
-        super.revive();
+    public void revive(int viewWidth, int viewHeight) {
+        super.revive(viewWidth, viewHeight);
         this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.accessory_scumbag));
     }
 

@@ -41,8 +41,8 @@ public class Coin extends PowerUp{
     }
 
     @Override
-    public void move() {
+    public void move(int viewWidth, int viewHeight) {
         changeToNextFrame();
-        super.move();
+        super.move(viewWidth, viewHeight);
     }
 }

@@ -5,11 +5,8 @@ import android.graphics.Bitmap;
 
 import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
-import edu.ucsd.flappycow.R;
-import edu.ucsd.flappycow.Util;
 
 public class Tutorial extends Sprite {
-    public static Bitmap globalBitmap;
     private boolean tutorialIsShown ;
 
     public Tutorial(GameView view, GameActivity gameActivity) {
@@ -28,9 +25,9 @@ public class Tutorial extends Sprite {
      * Sets the position to the center of the view.
      */
     @Override
-    public void move() {
-        this.setX(this.getView().getWidth() / 2 - this.getWidth() / 2);
-        this.setY(this.getView().getHeight() / 2 - this.getHeight() / 2);
+    public void move(int viewWidth, int viewHeight) {
+        this.setX(viewWidth / 2 - this.getWidth() / 2);
+        this.setY(viewHeight / 2 - this.getHeight() / 2);
     }
 
     public boolean isTutorialIsShown() {

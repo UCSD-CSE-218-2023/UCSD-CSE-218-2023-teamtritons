@@ -27,7 +27,7 @@ public class PlayableCharacterPresenter {
         // depending on parameters create object
         if(type.equals(ApplicationConstants.COW)) {
             Accessory accessory = new Accessory(gameView, gameView.getGameActivity());
-            Cow cow = new Cow(gameView, gameView.getGameActivity(), accessory);
+            Cow cow = new Cow(gameView, gameView.getGameActivity(), gameView.getWidth(), gameView.getHeight(), accessory);
             cow.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.cow));
             return cow;
         } else if (type.equals(ApplicationConstants.NYAN_CAT)) {
@@ -35,7 +35,7 @@ public class PlayableCharacterPresenter {
             Rainbow rainbow = new Rainbow(gameView, gameView.getGameActivity());
             rainbow.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.rainbow));
 
-            NyanCat nyanCat = new NyanCat(gameView, gameView.getGameActivity(), rainbow);
+            NyanCat nyanCat = new NyanCat(gameView, gameView.getGameActivity(), gameView.getWidth(), gameView.getHeight(), rainbow);
             nyanCat.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.nyan_cat));
 
 //            NyanCat nyanCat = new NyanCat(rainbow, gameView.getHeight(), gameView.getWidth(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels);
@@ -51,8 +51,7 @@ public class PlayableCharacterPresenter {
     }
 
     public void move() {
-//        playableCharacterModel.move(gameView.getHeight(), gameView.getWidth());
-        playableCharacterModel.move();
+        playableCharacterModel.move(gameView.getWidth(), gameView.getHeight());
     }
 
     public void setX(int x){
@@ -64,8 +63,7 @@ public class PlayableCharacterPresenter {
     }
 
     public void revive() {
-//        playableCharacterModel.revive(gameView.getHeight(), gameView.getWidth());
-        playableCharacterModel.revive();
+        playableCharacterModel.revive(gameView.getWidth(), gameView.getHeight());
     }
     public boolean isDead() {
         return playableCharacterModel.isDead();
@@ -85,14 +83,14 @@ public class PlayableCharacterPresenter {
         playableCharacterModel.dead();
     }
 
-    public boolean isTouchingGround(int viewHeight) {
+    public boolean isTouchingGround() {
 //        return playableCharacterModel.isTouchingGround(gameView.getHeight());
-        return playableCharacterModel.isTouchingGround(viewHeight);
+        return playableCharacterModel.isTouchingGround(gameView.getHeight());
     }
 
-    public boolean isTouchingEdge(int viewHeight) {
+    public boolean isTouchingEdge() {
 //        return playableCharacterModel.isTouchingEdge(gameView.getHeight());
-        return playableCharacterModel.isTouchingEdge(viewHeight);
+        return playableCharacterModel.isTouchingEdge(gameView.getHeight());
     }
 
     public void setSpeedX(float speedX) {

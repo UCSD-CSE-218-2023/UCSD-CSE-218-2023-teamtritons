@@ -6,9 +6,9 @@ import edu.ucsd.flappycow.GameView;
 public abstract class IPlayableCharacter extends Sprite{
     private boolean isDead = false;
 
-    public IPlayableCharacter(GameView view, GameActivity gameActivity) {
+    public IPlayableCharacter(GameView view, GameActivity gameActivity, int viewWidth, int viewHeight) {
         super(view, gameActivity);
-        move();
+        move(viewWidth, viewHeight);
     }
 
     public boolean isDead() {
@@ -25,8 +25,8 @@ public abstract class IPlayableCharacter extends Sprite{
      * Manages the speed changes -> Falling
      */
     @Override
-    public void move() {
-        this.setX(this.getView().getWidth() / 6);
+    public void move(int viewWidth, int viewHeight) {
+        this.setX(viewWidth / 6);
 
         if (this.getSpeedY() < 0) {
             // The character is moving up
@@ -41,7 +41,7 @@ public abstract class IPlayableCharacter extends Sprite{
             this.setSpeedY(getMaxSpeed());
         }
 
-        super.move();
+        super.move(viewWidth, viewHeight);
     }
     /**
      * A dead character falls slowly to the ground.
@@ -99,7 +99,7 @@ public abstract class IPlayableCharacter extends Sprite{
         return -this.getView().getHeight() / 100;
     }
 
-    public void revive() {
+    public void revive(int viewWidth, int viewHeight) {
         this.isDead = false;
         this.setRow(new Integer(0).byteValue());
     }

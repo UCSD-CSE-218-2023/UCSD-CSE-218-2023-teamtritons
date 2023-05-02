@@ -313,7 +313,7 @@ public class GameView extends SurfaceView {
                 e.printStackTrace();
             }
 //        } while (!player.isTouchingGround());
-        } while (!playableCharacterPresenter.isTouchingGround(this.getHeight()));
+        } while (!playableCharacterPresenter.isTouchingGround());
     }
 
     /**
@@ -380,13 +380,13 @@ public class GameView extends SurfaceView {
      */
     private void checkCollision(int heightPixels) {
         for (ObstaclePresenter o : obstaclePresenters) {
-            if (o.isColliding(getPlayer(), heightPixels)) {
+            if (o.isColliding(getPlayer())) {
                 o.onCollision();
                 gameOver();
             }
         }
 //        powerUpPresenter.checkCollision();
-        powerUpPresenter.checkCollision(this.getGameActivity().getResources().getDisplayMetrics().heightPixels);
+        powerUpPresenter.checkCollision();
 
 //        for (int i = 0; i < powerUps.size(); i++) {
 //            if (this.powerUps.get(i).isColliding(player)) {
@@ -395,7 +395,7 @@ public class GameView extends SurfaceView {
 //                i--;
 //            }
 //        }
-        if (playableCharacterPresenter.isTouchingEdge(this.getHeight())) {
+        if (playableCharacterPresenter.isTouchingEdge()) {
             gameOver();
         }
     }

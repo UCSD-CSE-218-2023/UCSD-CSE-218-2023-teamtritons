@@ -200,7 +200,7 @@ public class Sprite implements IInteractable, IMovable {
      * Modifies the x and y coordinates according to the speedX and speedY value
      */
     @Override
-    public void move() {
+    public void move(int viewWidth, int viewHeight) {
         // changeToNextFrame();
         // Its more efficient if only the classes that need this implement it in their move method.
 
@@ -336,7 +336,7 @@ public class Sprite implements IInteractable, IMovable {
     @Override
     public int getCollisionTolerance(int heightPixels) {
 //        return gameActivity.getResources().getDisplayMetrics().heightPixels / 50;
-        return heightPixels;
+        return heightPixels / 50;
     }
 
     public void onInitBitmap(Bitmap bitmap) {

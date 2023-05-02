@@ -46,7 +46,7 @@ public class GroundPresenter {
 //    }
 
     public void move(){
-        ground.move();
+        ground.move(gameView.getWidth(), gameView.getHeight());
     }
 
     public void setSpeedX(int speedX){

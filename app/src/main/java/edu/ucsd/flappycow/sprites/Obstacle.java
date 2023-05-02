@@ -80,9 +80,9 @@ public class Obstacle extends Sprite {
      * Moves both, spider and log.
      */
     @Override
-    public void move() {
-        spider.move();
-        log.move();
+    public void move(int viewWidth, int viewHeight) {
+        spider.move(viewWidth, viewHeight);
+        log.move(viewWidth, viewHeight);
     }
 
     /**

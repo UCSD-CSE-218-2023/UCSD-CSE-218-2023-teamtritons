@@ -28,7 +28,7 @@ public class ButtonPresenter {
 //    public void move(int height, int width){
     public void move(){
 //        gameButton.move(height, width);
-        gameButton.move();
+        gameButton.move(gameView.getWidth(), gameView.getHeight());
     }
 
     public void draw(Canvas canvas){

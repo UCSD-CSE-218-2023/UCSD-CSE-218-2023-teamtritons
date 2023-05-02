@@ -14,9 +14,9 @@ public class Rainbow extends Sprite{
     }
 
     @Override
-    public void move() {
+    public void move(int viewWidth, int viewHeight) {
         changeToNextFrame();
-        super.move();
+        super.move(viewWidth, viewHeight);
     }
 
     @Override

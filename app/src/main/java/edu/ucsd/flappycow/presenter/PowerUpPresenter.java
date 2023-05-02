@@ -55,8 +55,7 @@ public class PowerUpPresenter {
 
     public void move(){
         for (PowerUp p : powerUps) {
-//            p.move(gameView.getHeight(), gameView.getWidth());
-            p.move();
+            p.move(gameView.getWidth(), gameView.getHeight());
         }
     }
 
@@ -64,10 +63,10 @@ public class PowerUpPresenter {
         powerUps.clear();
     }
 
-    public void checkCollision(int heightPixels){
+    public void checkCollision(){
         for (int i = 0; i < powerUps.size(); i++) {
 //            if (powerUps.get(i).isColliding(gameView.getPlayer(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels)) {
-            if (powerUps.get(i).isColliding(gameView.getPlayer(), heightPixels)) {
+            if (powerUps.get(i).isColliding(gameView.getPlayer(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels)) {
                 powerUps.get(i).onCollision();
                 powerUps.remove(i);
                 i--;

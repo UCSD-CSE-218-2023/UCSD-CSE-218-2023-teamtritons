@@ -12,8 +12,8 @@ public class NyanCat extends IPlayableCharacter{
     /** The rainbow tail behind the cat */
     private Rainbow rainbow;
 
-    public NyanCat(GameView view, GameActivity gameActivity, Rainbow rainbow) {
-        super(view, gameActivity);
+    public NyanCat(GameView view, GameActivity gameActivity, int viewWidth, int viewHeight, Rainbow rainbow) {
+        super(view, gameActivity, viewWidth, viewHeight);
         this.setY(gameActivity.getResources().getDisplayMetrics().heightPixels / 2);
         this.rainbow = rainbow;
     }
@@ -30,17 +30,17 @@ public class NyanCat extends IPlayableCharacter{
      * and moves the rainbow and manages its frames
      */
     @Override
-    public void move() {
-        super.move();
+    public void move(int viewWidth, int viewHeight) {
+        super.move(viewWidth, viewHeight);
         if (rainbow != null) {
-            manageRainbowMovement();
+            manageRainbowMovement(viewWidth, viewHeight);
         }
     }
 
-    private void manageRainbowMovement() {
+    private void manageRainbowMovement(int viewWidth, int viewHeight) {
         rainbow.setY(this.getY());       // nyan cat and rainbow bitmap have the same height
         rainbow.setX(this.getX() - rainbow.getWidth());
-        rainbow.move();
+        rainbow.move(viewWidth, viewHeight);
 
         // manage frames of the rainbow
         if (this.getSpeedY() > getTabSpeed() / 3 && this.getSpeedY() < getMaxSpeed() * 1 / 3) {
@@ -78,8 +78,8 @@ public class NyanCat extends IPlayableCharacter{
     }
 
     @Override
-    public void revive() {
-        super.revive();
-        manageRainbowMovement();
+    public void revive(int viewWidth, int viewHeight) {
+        super.revive(viewWidth, viewHeight);
+        manageRainbowMovement(viewWidth, viewHeight);
     }
 }

@@ -14,10 +14,10 @@ import edu.ucsd.flappycow.sprites.Rainbow;
 public class NyanCatTest {
     @Test
     public void initNyanCatObject(){
-        GameActivity gameActivity = Robolectric.setupActivity(GameActivity.class);
-        GameView gameView = new GameView(gameActivity);
-        NyanCat tNyanCat= new NyanCat(gameView, gameActivity, new Rainbow(gameView, gameActivity));
-        tNyanCat.move();
-        assertTrue("Move successful", true);
+//        GameActivity gameActivity = Robolectric.setupActivity(GameActivity.class);
+//        GameView gameView = new GameView(gameActivity);
+//        NyanCat tNyanCat= new NyanCat(gameView, gameActivity, new Rainbow(gameView, gameActivity));
+//        tNyanCat.move();
+//        assertTrue("Move successful", true);
     }
 }

@@ -71,8 +71,8 @@ public class ObstaclePresenter {
 //    public boolean isColliding(IPlayableCharacter playableCharacter, int heightPixels) {
 //        return obstacleModel.isColliding(playableCharacter, heightPixels);
 //    }
-    public boolean isColliding(IPlayableCharacter playableCharacter, int heightPixels) {
-        return obstacleModel.isColliding(playableCharacter, heightPixels);
+    public boolean isColliding(IPlayableCharacter playableCharacter) {
+        return obstacleModel.isColliding(playableCharacter, gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels);
     }
 
     public void onCollision() {
@@ -88,7 +88,7 @@ public class ObstaclePresenter {
 //    }
 
     public void move(){
-        obstacleModel.move();
+        obstacleModel.move(gameView.getWidth(), gameView.getHeight());
     }
 
 }

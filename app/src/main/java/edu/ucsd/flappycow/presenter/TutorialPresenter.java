@@ -27,8 +27,7 @@ public class TutorialPresenter {
 
     public void showTutorial() {
 //        gameView.getPlayableCharacterPresenter().move();
-        gameView.getPlayer().move();
-//        gameView.getPauseButton().move(gameView.getHeight(), gameView.getWidth());
+        gameView.getPlayer().move(gameView.getWidth(), gameView.getHeight());
         gameView.getPauseButton().move();
         while (!gameView.getHolder().getSurface().isValid()) {
             /*wait*/
@@ -42,7 +41,7 @@ public class TutorialPresenter {
         gameView.drawCanvas(canvas, true);
 
 //        tutorial.move(gameView.getWidth(), gameView.getHeight());
-        tutorial.move();
+        tutorial.move(gameView.getWidth(), gameView.getHeight());
         tutorial.draw(canvas);
         gameView.getHolder().unlockCanvasAndPost(canvas);
     }
