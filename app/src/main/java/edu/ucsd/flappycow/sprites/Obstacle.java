@@ -22,12 +22,14 @@ public class Obstacle extends Sprite {
         this.spider = spider;
         this.log = log;
 
-        if (collideSound == -1) {
-            collideSound = GameActivity.soundPool.load(gameActivity, R.raw.crash, 1);
-        }
-        if (passSound == -1) {
-            passSound = GameActivity.soundPool.load(gameActivity, R.raw.pass, 1);
-        }
+        // TODO: presenter
+//        if (collideSound == -1) {
+//            collideSound = GameActivity.soundPool.load(gameActivity, R.raw.crash, 1);
+//        }
+//        // TODO: presenter
+//        if (passSound == -1) {
+//            passSound = GameActivity.soundPool.load(gameActivity, R.raw.pass, 1);
+//        }
 
         initPos(widthPixels, heightPixels, speedX);
     }
@@ -104,6 +106,19 @@ public class Obstacle extends Sprite {
 
     private static final int SOUND_VOLUME_DIVIDER = 3;
 
+    public static int getSoundVolumeDivider() {
+        return SOUND_VOLUME_DIVIDER;
+    }
+
+    public static int getPassSound() {
+        return passSound;
+    }
+
+    public static void setPassSound(int ps) {
+        passSound = ps;
+    }
+
+
     /**
      * Will call obstaclePassed of the game, if this is the first pass of this obstacle.
      */
@@ -112,8 +127,8 @@ public class Obstacle extends Sprite {
         if (!isAlreadyPassed) {
             isAlreadyPassed = true;
             // TODO: presenter
-            this.getView().getGameActivity().increasePoints();
-            GameActivity.soundPool.play(passSound, MainActivity.volume / SOUND_VOLUME_DIVIDER, MainActivity.volume / SOUND_VOLUME_DIVIDER, 0, 0, 1);
+//            this.getView().getGameActivity().increasePoints();
+//            GameActivity.soundPool.play(passSound, MainActivity.volume / SOUND_VOLUME_DIVIDER, MainActivity.volume / SOUND_VOLUME_DIVIDER, 0, 0, 1);
         }
     }
 
@@ -121,7 +136,7 @@ public class Obstacle extends Sprite {
     @Override
     public void onCollision() {
         super.onCollision();
-        GameActivity.soundPool.play(collideSound, MainActivity.volume / SOUND_VOLUME_DIVIDER, MainActivity.volume / SOUND_VOLUME_DIVIDER, 0, 0, 1);
+//        GameActivity.soundPool.play(collideSound, MainActivity.volume / SOUND_VOLUME_DIVIDER, MainActivity.volume / SOUND_VOLUME_DIVIDER, 0, 0, 1);
     }
 
     public boolean isAlreadyPassed() {
@@ -130,5 +145,13 @@ public class Obstacle extends Sprite {
 
     public void setAlreadyPassed(boolean alreadyPassed) {
         isAlreadyPassed = alreadyPassed;
+    }
+
+    public static int getCollideSound() {
+        return collideSound;
+    }
+
+    public static void setCollideSound(int cs) {
+        collideSound = cs;
     }
 }
