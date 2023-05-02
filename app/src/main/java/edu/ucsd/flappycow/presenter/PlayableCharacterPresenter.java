@@ -2,16 +2,16 @@ package edu.ucsd.flappycow.presenter;
 
 import android.graphics.Canvas;
 
-import edu.ucsd.flappycow.GameView;
+import edu.ucsd.flappycow.view.GameView;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
-import edu.ucsd.flappycow.sprites.Accessory;
-import edu.ucsd.flappycow.sprites.Cow;
-import edu.ucsd.flappycow.sprites.IAccessory;
-import edu.ucsd.flappycow.sprites.IPlayableCharacter;
-import edu.ucsd.flappycow.sprites.NyanCat;
-import edu.ucsd.flappycow.sprites.Rainbow;
+import edu.ucsd.flappycow.model.Accessory;
+import edu.ucsd.flappycow.model.Cow;
+import edu.ucsd.flappycow.model.IAccessory;
+import edu.ucsd.flappycow.model.IPlayableCharacter;
+import edu.ucsd.flappycow.model.NyanCat;
+import edu.ucsd.flappycow.model.Rainbow;
 
 public class PlayableCharacterPresenter {
     private IPlayableCharacter playableCharacterModel;

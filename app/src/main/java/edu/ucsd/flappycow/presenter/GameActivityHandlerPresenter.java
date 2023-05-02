@@ -1,19 +1,9 @@
 package edu.ucsd.flappycow.presenter;
 
-import edu.ucsd.flappycow.GameActivity;
 //import edu.ucsd.flappycow.GameActivityHandler;
-import edu.ucsd.flappycow.GameOverDialog;
 //import edu.ucsd.flappycow.SubjectImpl;
-import edu.ucsd.flappycow.GameActivityHandlerUpdate;
-import edu.ucsd.flappycow.GameOverDialogObserverImpl;
-import edu.ucsd.flappycow.IObserver;
-import edu.ucsd.flappycow.ISubjectImpl;
-import edu.ucsd.flappycow.ToastObserverImpl;
-import edu.ucsd.flappycow.consts.ApplicationConstants;
-
-import android.widget.Toast;
-
-import java.util.ArrayList;
+import edu.ucsd.flappycow.view.GameActivityHandlerUpdate;
+        import edu.ucsd.flappycow.view.IObserver;
 
 public class GameActivityHandlerPresenter implements IObserver<GameActivityHandlerUpdate> {
 //    ISubjectImpl gameActivityHandlerSub; //MODEL

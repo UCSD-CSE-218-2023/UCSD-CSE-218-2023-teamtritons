@@ -24,7 +24,7 @@
         <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="@string/ad_app_id" />
 
         <activity
-            android:name="edu.ucsd.flappycow.MainActivity"
+            android:name="edu.ucsd.flappycow.view.MainActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
@@ -34,7 +34,7 @@
         </activity>
 
         <activity
-            android:name="edu.ucsd.flappycow.GameActivity"
+            android:name="edu.ucsd.flappycow.view.GameActivity"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|screenLayout|fontScale|uiMode|orientation|screenSize|smallestScreenSize|layoutDirection"
             android:screenOrientation="portrait"
             android:exported="true">
@@ -45,7 +45,7 @@
         </activity>
 
         <activity
-            android:name="edu.ucsd.flappycow.About"
+            android:name="edu.ucsd.flappycow.view.About"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>

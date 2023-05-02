@@ -1,10 +1,7 @@
-package edu.ucsd.flappycow.sprites;
+package edu.ucsd.flappycow.model;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
 
 public class Accessory extends Sprite implements IAccessory{
 

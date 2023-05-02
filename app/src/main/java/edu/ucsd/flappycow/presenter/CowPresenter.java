@@ -1,11 +1,11 @@
 package edu.ucsd.flappycow.presenter;
 
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
-import edu.ucsd.flappycow.MainActivity;
+import edu.ucsd.flappycow.view.GameActivity;
+import edu.ucsd.flappycow.view.GameView;
+import edu.ucsd.flappycow.view.MainActivity;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
-import edu.ucsd.flappycow.sprites.Cow;
+import edu.ucsd.flappycow.model.Cow;
 
 public class CowPresenter extends PlayableCharacterPresenter{
     public CowPresenter(GameView gameView, String type) {

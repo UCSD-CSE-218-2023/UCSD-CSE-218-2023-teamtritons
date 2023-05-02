@@ -2,18 +2,8 @@ package edu.ucsd.flappycow.presenter;
 
 import android.graphics.Canvas;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
-import edu.ucsd.flappycow.R;
-import edu.ucsd.flappycow.Util;
-import edu.ucsd.flappycow.sprites.Coin;
-import edu.ucsd.flappycow.sprites.NyanCat;
-import edu.ucsd.flappycow.sprites.PowerUp;
-import edu.ucsd.flappycow.sprites.Toast;
-import edu.ucsd.flappycow.sprites.Virus;
+import edu.ucsd.flappycow.view.GameView;
+import edu.ucsd.flappycow.model.PowerUp;
 
 public class PowerUpPresenter {
     private PowerUp powerUpModel;

@@ -1,7 +1,4 @@
-package edu.ucsd.flappycow.sprites;
-
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
+package edu.ucsd.flappycow.model;
 
 public abstract class PowerUp extends Sprite {
     public PowerUp(int speedX, int viewWidth) {

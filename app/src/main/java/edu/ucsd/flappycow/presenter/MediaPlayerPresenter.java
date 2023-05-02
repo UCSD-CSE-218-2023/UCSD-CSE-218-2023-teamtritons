@@ -1,11 +1,6 @@
 package edu.ucsd.flappycow.presenter;
 
 import android.app.Activity;
-import android.media.MediaPlayer;
-
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.MainActivity;
-import edu.ucsd.flappycow.R;
 
 public class MediaPlayerPresenter extends Activity {
 

@@ -1,9 +1,4 @@
-package edu.ucsd.flappycow.sprites;
-
-import android.graphics.Bitmap;
-
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
+package edu.ucsd.flappycow.model;
 
 public class Frontground extends IGround {
     /**

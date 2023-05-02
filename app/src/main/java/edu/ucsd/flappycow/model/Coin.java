@@ -1,11 +1,6 @@
-package edu.ucsd.flappycow.sprites;
+package edu.ucsd.flappycow.model;
 
 import android.graphics.Bitmap;
-
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
-import edu.ucsd.flappycow.MainActivity;
-import edu.ucsd.flappycow.R;
 
 public class Coin extends PowerUp{
     private static int sound = -1;

@@ -1,10 +1,10 @@
 package edu.ucsd.flappycow.presenter;
 
 import android.graphics.Canvas;
-import edu.ucsd.flappycow.GameView;
+import edu.ucsd.flappycow.view.GameView;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
-import edu.ucsd.flappycow.sprites.Tutorial;
+import edu.ucsd.flappycow.model.Tutorial;
 
 public class TutorialPresenter {
 

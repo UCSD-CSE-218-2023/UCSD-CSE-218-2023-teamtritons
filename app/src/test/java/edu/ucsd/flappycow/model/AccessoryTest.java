@@ -1,4 +1,4 @@
-package edu.ucsd.flappycow.sprites;
+package edu.ucsd.flappycow.model;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -6,9 +6,8 @@ import org.robolectric.Robolectric;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
-import edu.ucsd.flappycow.sprites.Accessory;
+import edu.ucsd.flappycow.view.GameActivity;
+import edu.ucsd.flappycow.view.GameView;
 
 @RunWith(AndroidJUnit4.class)
 public class AccessoryTest {

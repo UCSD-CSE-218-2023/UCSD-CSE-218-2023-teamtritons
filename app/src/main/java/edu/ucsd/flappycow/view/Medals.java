@@ -1,10 +1,11 @@
-package edu.ucsd.flappycow;
+package edu.ucsd.flappycow.view;
 
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.view.View;
-import android.widget.ImageView;
 
+import edu.ucsd.flappycow.R;
+import edu.ucsd.flappycow.Util;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 
 public class Medals extends Dialog implements IObserver<GameOverUpdate>{

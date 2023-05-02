@@ -2,16 +2,13 @@ package edu.ucsd.flappycow.presenter;
 
 import android.graphics.Canvas;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import edu.ucsd.flappycow.GameView;
+import edu.ucsd.flappycow.view.GameView;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
-import edu.ucsd.flappycow.sprites.Background;
-import edu.ucsd.flappycow.sprites.Frontground;
-import edu.ucsd.flappycow.sprites.IGround;
+import edu.ucsd.flappycow.model.Background;
+import edu.ucsd.flappycow.model.Frontground;
+import edu.ucsd.flappycow.model.IGround;
 
 
 public class GroundPresenter {

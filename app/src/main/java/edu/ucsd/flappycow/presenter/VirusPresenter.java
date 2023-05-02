@@ -1,11 +1,9 @@
 package edu.ucsd.flappycow.presenter;
 
-import edu.ucsd.flappycow.GameView;
+import edu.ucsd.flappycow.view.GameView;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
-import edu.ucsd.flappycow.sprites.Coin;
-import edu.ucsd.flappycow.sprites.Toast;
-import edu.ucsd.flappycow.sprites.Virus;
+import edu.ucsd.flappycow.model.Virus;
 
 public class VirusPresenter extends PowerUpPresenter{
     public VirusPresenter(GameView gameView) {

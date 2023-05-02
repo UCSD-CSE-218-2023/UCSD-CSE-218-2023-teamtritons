@@ -1,13 +1,7 @@
-package edu.ucsd.flappycow.sprites;
+package edu.ucsd.flappycow.model;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
-import edu.ucsd.flappycow.MainActivity;
-import edu.ucsd.flappycow.R;
-import edu.ucsd.flappycow.Util;
 
 public class Cow extends IPlayableCharacter{
     private static final int POINTS_TO_SIR = 23;

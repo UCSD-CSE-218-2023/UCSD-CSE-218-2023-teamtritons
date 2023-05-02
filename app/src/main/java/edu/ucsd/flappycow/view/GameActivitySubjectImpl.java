@@ -1,4 +1,4 @@
-package edu.ucsd.flappycow;
+package edu.ucsd.flappycow.view;
 
 import java.util.ArrayList;
 

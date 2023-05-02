@@ -1,4 +1,4 @@
-package edu.ucsd.flappycow;
+package edu.ucsd.flappycow.view;
 
 public interface ISubject<T> {
     void register(IObserver<T> observer);

@@ -1,11 +1,6 @@
-package edu.ucsd.flappycow.sprites;
+package edu.ucsd.flappycow.model;
 
 import android.graphics.Bitmap;
-
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
-import edu.ucsd.flappycow.R;
-import edu.ucsd.flappycow.Util;
 
 public class Spider extends IGameObstacle{
     @Override

@@ -1,11 +1,6 @@
-package edu.ucsd.flappycow.sprites;
+package edu.ucsd.flappycow.model;
 
 import android.graphics.Canvas;
-
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
-import edu.ucsd.flappycow.MainActivity;
-import edu.ucsd.flappycow.R;
 
 public class Obstacle extends Sprite {
     private IGameObstacle spider;

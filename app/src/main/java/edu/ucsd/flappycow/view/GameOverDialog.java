@@ -5,7 +5,7 @@
  * Copyright (c) <2014> <Lars Harmsen - Quchen>
  */
 
-package edu.ucsd.flappycow;
+package edu.ucsd.flappycow.view;
 
 import android.app.Dialog;
 import android.content.SharedPreferences;
@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 
 public class GameOverDialog extends Dialog {

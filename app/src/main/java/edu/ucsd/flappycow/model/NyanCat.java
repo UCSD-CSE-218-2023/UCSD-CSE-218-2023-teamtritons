@@ -1,12 +1,7 @@
-package edu.ucsd.flappycow.sprites;
+package edu.ucsd.flappycow.model;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
-import edu.ucsd.flappycow.R;
-import edu.ucsd.flappycow.Util;
 
 public class NyanCat extends IPlayableCharacter{
     /** The rainbow tail behind the cat */

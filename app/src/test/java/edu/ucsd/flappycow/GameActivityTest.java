@@ -10,6 +10,9 @@ import static org.junit.Assert.assertTrue;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import edu.ucsd.flappycow.consts.ApplicationConstants;
+import edu.ucsd.flappycow.view.AchievementBox;
+import edu.ucsd.flappycow.view.AchievementBoxUpdate;
+import edu.ucsd.flappycow.view.GameActivity;
 
 @RunWith(AndroidJUnit4.class)
 public class GameActivityTest {

@@ -4,7 +4,7 @@
  * @author Lars Harmsen
  * Copyright (c) <2014> <Lars Harmsen - Quchen>
  */
-package edu.ucsd.flappycow;
+package edu.ucsd.flappycow.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import edu.ucsd.flappycow.R;
+import edu.ucsd.flappycow.Util;
 
 public class StartScreenView extends View {
 
@@ -144,7 +145,7 @@ public class StartScreenView extends View {
                 && (event.getX() < REGION_INFO[2] * getWidth())
                 && (event.getY() > REGION_INFO[1] * getHeight())
                 && (event.getY() < REGION_INFO[3] * getHeight())) {
-                context.startActivity(new Intent("edu.ucsd.flappycow.About"));
+                context.startActivity(new Intent("edu.ucsd.flappycow.view.About"));
             }
         }
         return true;

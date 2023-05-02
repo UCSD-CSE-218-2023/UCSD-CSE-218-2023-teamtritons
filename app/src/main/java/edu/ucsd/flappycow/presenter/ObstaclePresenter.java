@@ -2,15 +2,15 @@ package edu.ucsd.flappycow.presenter;
 
 import android.graphics.Canvas;
 
-import edu.ucsd.flappycow.GameActivity;
-import edu.ucsd.flappycow.GameView;
-import edu.ucsd.flappycow.MainActivity;
+import edu.ucsd.flappycow.view.GameActivity;
+import edu.ucsd.flappycow.view.GameView;
+import edu.ucsd.flappycow.view.MainActivity;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
-import edu.ucsd.flappycow.sprites.IPlayableCharacter;
-import edu.ucsd.flappycow.sprites.Obstacle;
-import edu.ucsd.flappycow.sprites.Spider;
-import edu.ucsd.flappycow.sprites.WoodLog;
+import edu.ucsd.flappycow.model.IPlayableCharacter;
+import edu.ucsd.flappycow.model.Obstacle;
+import edu.ucsd.flappycow.model.Spider;
+import edu.ucsd.flappycow.model.WoodLog;
 
 public class ObstaclePresenter {
     private GameView gameView;

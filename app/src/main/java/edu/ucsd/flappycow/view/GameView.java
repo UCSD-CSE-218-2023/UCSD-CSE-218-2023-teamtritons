@@ -6,7 +6,7 @@
  * Copyright (c) <2014> <Lars Harmsen - Quchen>
  */
 
-package edu.ucsd.flappycow;
+package edu.ucsd.flappycow.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -31,7 +31,6 @@ import edu.ucsd.flappycow.presenter.TutorialPresenter;
 import edu.ucsd.flappycow.presenter.ObstaclePresenter;
 
 import edu.ucsd.flappycow.presenter.VirusPresenter;
-import edu.ucsd.flappycow.sprites.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,18 +39,10 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import edu.ucsd.flappycow.sprites.Background;
-import edu.ucsd.flappycow.sprites.Coin;
-import edu.ucsd.flappycow.sprites.Cow;
-import edu.ucsd.flappycow.sprites.Frontground;
-import edu.ucsd.flappycow.sprites.NyanCat;
-import edu.ucsd.flappycow.sprites.Obstacle;
-import edu.ucsd.flappycow.sprites.PauseButton;
-import edu.ucsd.flappycow.sprites.IPlayableCharacter;
-import edu.ucsd.flappycow.sprites.PowerUp;
-import edu.ucsd.flappycow.sprites.Toast;
-import edu.ucsd.flappycow.sprites.Tutorial;
-import edu.ucsd.flappycow.sprites.Virus;
+import edu.ucsd.flappycow.model.NyanCat;
+import edu.ucsd.flappycow.model.Obstacle;
+import edu.ucsd.flappycow.model.IPlayableCharacter;
+import edu.ucsd.flappycow.model.Toast;
 
 public class GameView extends SurfaceView {
 

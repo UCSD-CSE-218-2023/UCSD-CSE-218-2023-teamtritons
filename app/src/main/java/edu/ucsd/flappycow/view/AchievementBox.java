@@ -6,7 +6,7 @@
  * Copyright (c) <2014> <Lars Harmsen - Quchen>
  */
 
-package edu.ucsd.flappycow;
+package edu.ucsd.flappycow.view;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

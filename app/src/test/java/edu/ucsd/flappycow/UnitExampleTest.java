@@ -9,6 +9,8 @@ import androidx.lifecycle.Lifecycle;
 
 import static org.junit.Assert.assertNotNull;
 
+import edu.ucsd.flappycow.view.MainActivity;
+
 @RunWith(RobolectricTestRunner.class)
 public class UnitExampleTest {
     @Test

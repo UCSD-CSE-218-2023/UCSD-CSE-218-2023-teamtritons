@@ -1,10 +1,9 @@
 package edu.ucsd.flappycow.presenter;
 
-import edu.ucsd.flappycow.AchievementBox;
-import edu.ucsd.flappycow.AchievementBoxUpdate;
-import edu.ucsd.flappycow.IObserver;
+import edu.ucsd.flappycow.view.AchievementBoxUpdate;
+import edu.ucsd.flappycow.view.IObserver;
 //import edu.ucsd.flappycow.Subject;
-import edu.ucsd.flappycow.consts.ApplicationConstants;
+
 
 public class GameActivityAchievementBoxPresenter implements IObserver<AchievementBoxUpdate> {
     // observer - view
