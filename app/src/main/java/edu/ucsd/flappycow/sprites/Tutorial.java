@@ -15,10 +15,11 @@ public class Tutorial extends Sprite {
     public Tutorial(GameView view, GameActivity gameActivity) {
         super(view, gameActivity);
         tutorialIsShown= true;
-        if (globalBitmap == null) {
-            globalBitmap = Util.getScaledBitmapAlpha8(gameActivity, R.drawable.tutorial);
-        }
-        this.setBitmap(globalBitmap);
+    }
+
+    @Override
+    public void onInitBitmap(Bitmap bitmap) {
+        super.onInitBitmap(bitmap);
         this.setWidth(this.getBitmap().getWidth());
         this.setHeight(this.getBitmap().getHeight());
     }

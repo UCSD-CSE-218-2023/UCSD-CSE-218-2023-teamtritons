@@ -85,14 +85,14 @@ public class PlayableCharacterPresenter {
         playableCharacterModel.dead();
     }
 
-    public boolean isTouchingGround() {
+    public boolean isTouchingGround(int viewHeight) {
 //        return playableCharacterModel.isTouchingGround(gameView.getHeight());
-        return playableCharacterModel.isTouchingGround();
+        return playableCharacterModel.isTouchingGround(viewHeight);
     }
 
-    public boolean isTouchingEdge() {
+    public boolean isTouchingEdge(int viewHeight) {
 //        return playableCharacterModel.isTouchingEdge(gameView.getHeight());
-        return playableCharacterModel.isTouchingEdge();
+        return playableCharacterModel.isTouchingEdge(viewHeight);
     }
 
     public void setSpeedX(float speedX) {

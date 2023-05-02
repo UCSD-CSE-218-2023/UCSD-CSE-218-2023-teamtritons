@@ -313,7 +313,7 @@ public class GameView extends SurfaceView {
                 e.printStackTrace();
             }
 //        } while (!player.isTouchingGround());
-        } while (!playableCharacterPresenter.isTouchingGround());
+        } while (!playableCharacterPresenter.isTouchingGround(this.getHeight()));
     }
 
     /**
@@ -393,7 +393,7 @@ public class GameView extends SurfaceView {
 //                i--;
 //            }
 //        }
-        if (playableCharacterPresenter.isTouchingEdge()) {
+        if (playableCharacterPresenter.isTouchingEdge(this.getHeight())) {
             gameOver();
         }
     }

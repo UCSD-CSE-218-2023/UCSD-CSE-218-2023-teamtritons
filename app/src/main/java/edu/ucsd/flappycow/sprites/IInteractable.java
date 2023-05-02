@@ -8,7 +8,7 @@ public interface IInteractable {
     boolean isColliding(Sprite sprite, int heightPixels);
 
     void onCollision();
-    boolean isTouchingEdge();
+    boolean isTouchingEdge(int viewHeight);
 
     boolean isTouchingGround(int viewHeight);
 

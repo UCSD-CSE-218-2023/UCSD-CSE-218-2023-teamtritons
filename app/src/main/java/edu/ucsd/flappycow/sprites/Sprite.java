@@ -259,8 +259,8 @@ public class Sprite implements IInteractable, IMovable {
      * @return
      */
     @Override
-    public boolean isTouchingEdge() {
-        return isTouchingGround() || isTouchingSky();
+    public boolean isTouchingEdge(int viewHeight) {
+        return isTouchingGround(viewHeight) || isTouchingSky();
     }
 
     /**
