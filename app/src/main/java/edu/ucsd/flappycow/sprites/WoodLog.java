@@ -8,10 +8,6 @@ import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
 
 public class WoodLog extends IGameObstacle {
-    public WoodLog(GameView view, GameActivity gameActivity) {
-        super(view, gameActivity);
-    }
-
     @Override
     public void onInitBitmap(Bitmap bitmap) {
         super.onInitBitmap(bitmap);

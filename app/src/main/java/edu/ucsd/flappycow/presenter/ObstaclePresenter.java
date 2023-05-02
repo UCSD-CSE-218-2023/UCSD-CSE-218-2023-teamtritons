@@ -31,13 +31,13 @@ public class ObstaclePresenter {
 
 
     public Obstacle createInstance() {
-        Spider spider = new Spider(gameView, gameView.getGameActivity());
-        WoodLog woodLog = new WoodLog(gameView, gameView.getGameActivity());
+        Spider spider = new Spider();
+        WoodLog woodLog = new WoodLog();
 
         spider.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.spider_full));
         woodLog.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.log_full));
 
-        Obstacle obstacle = new Obstacle(gameView, gameView.getGameActivity(), spider, woodLog, gameView.getGameActivity().getResources().getDisplayMetrics().widthPixels, gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels, gameView.getSpeedX());
+        Obstacle obstacle = new Obstacle(spider, woodLog, gameView.getGameActivity().getResources().getDisplayMetrics().widthPixels, gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels, gameView.getSpeedX());
 
         return obstacle;
     }

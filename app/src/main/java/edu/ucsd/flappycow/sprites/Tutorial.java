@@ -9,8 +9,7 @@ import edu.ucsd.flappycow.GameView;
 public class Tutorial extends Sprite {
     private boolean tutorialIsShown ;
 
-    public Tutorial(GameView view, GameActivity gameActivity) {
-        super(view, gameActivity);
+    public Tutorial() {
         tutorialIsShown= true;
     }
 

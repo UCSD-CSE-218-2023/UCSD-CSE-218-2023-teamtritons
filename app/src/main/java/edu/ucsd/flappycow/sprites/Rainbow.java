@@ -8,8 +8,7 @@ import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
 
 public class Rainbow extends Sprite{
-    public Rainbow(GameView view, GameActivity gameActivity) {
-        super(view, gameActivity);
+    public Rainbow() {
         this.setColNr(new Integer(8).byteValue());
     }
 

@@ -29,16 +29,16 @@ public class PlayableCharacterPresenter {
     private IPlayableCharacter createInstance(String type) {
         // depending on parameters create object
         if(type.equals(ApplicationConstants.COW)) {
-            accessory = new Accessory(gameView, gameView.getGameActivity());
-            Cow cow = new Cow(gameView, gameView.getGameActivity(), gameView.getWidth(), gameView.getHeight(), accessory);
+            accessory = new Accessory();
+            Cow cow = new Cow(gameView.getWidth(), gameView.getHeight(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels, accessory);
             cow.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.cow));
             return cow;
         } else if (type.equals(ApplicationConstants.NYAN_CAT)) {
 //            Rainbow rainbow = new Rainbow();
-            Rainbow rainbow = new Rainbow(gameView, gameView.getGameActivity());
+            Rainbow rainbow = new Rainbow();
             rainbow.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.rainbow));
 
-            NyanCat nyanCat = new NyanCat(gameView, gameView.getGameActivity(), gameView.getWidth(), gameView.getHeight(), rainbow);
+            NyanCat nyanCat = new NyanCat(gameView.getWidth(), gameView.getHeight(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels, rainbow);
             nyanCat.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.nyan_cat));
 
 //            NyanCat nyanCat = new NyanCat(rainbow, gameView.getHeight(), gameView.getWidth(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels);

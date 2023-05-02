@@ -14,7 +14,7 @@ public class CoinPresenter extends PowerUpPresenter{
     public CoinPresenter(GameView gameView) {
         super(gameView);
 
-        Coin coin = new Coin(gameView, gameView.getGameActivity(), gameView.getSpeedX(), gameView.getWidth());
+        Coin coin = new Coin(gameView.getSpeedX(), gameView.getWidth());
         setPowerUpModel(coin);
 
         coin.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.coin));

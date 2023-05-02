@@ -14,7 +14,7 @@ public class ButtonPresenter {
     GameView gameView;
 
     public ButtonPresenter(GameView gameView) {
-        PauseButton pauseButton = new PauseButton(gameView, gameView.getGameActivity());
+        PauseButton pauseButton = new PauseButton();
         this.gameButton = pauseButton;
         this.gameView = gameView;
         pauseButton.onInitBitmap(Util.getDownScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.pause_button));

@@ -11,10 +11,6 @@ public class Frontground extends IGround {
      */
     private static final float GROUND_HEIGHT = (1f * /*45*/ 35) / 720;
 
-    public Frontground(GameView view, GameActivity gameActivity) {
-        super(view, gameActivity);
-    }
-
     public static float getGroundHeight() {
         return GROUND_HEIGHT;
     }

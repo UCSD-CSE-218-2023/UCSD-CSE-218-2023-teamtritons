@@ -12,9 +12,9 @@ public class NyanCat extends IPlayableCharacter{
     /** The rainbow tail behind the cat */
     private Rainbow rainbow;
 
-    public NyanCat(GameView view, GameActivity gameActivity, int viewWidth, int viewHeight, Rainbow rainbow) {
-        super(view, gameActivity, viewWidth, viewHeight);
-        this.setY(gameActivity.getResources().getDisplayMetrics().heightPixels / 2);
+    public NyanCat(int viewWidth, int viewHeight, int heightPixels, Rainbow rainbow) {
+        super(viewWidth, viewHeight);
+        this.setY(heightPixels / 2);
         this.rainbow = rainbow;
     }
 

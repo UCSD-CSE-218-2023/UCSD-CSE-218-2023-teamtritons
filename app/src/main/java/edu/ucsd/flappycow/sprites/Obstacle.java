@@ -17,8 +17,7 @@ public class Obstacle extends Sprite {
     /** Necessary so the onPass method is just called once */
     public boolean isAlreadyPassed = false;
 
-    public Obstacle(GameView view, GameActivity gameActivity, IGameObstacle spider, IGameObstacle log, int widthPixels, int heightPixels, int speedX) {
-        super(view, gameActivity);
+    public Obstacle(IGameObstacle spider, IGameObstacle log, int widthPixels, int heightPixels, int speedX) {
         this.spider = spider;
         this.log = log;
 

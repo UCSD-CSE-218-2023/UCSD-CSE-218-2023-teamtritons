@@ -4,8 +4,7 @@ import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 
 public abstract class PowerUp extends Sprite {
-    public PowerUp(GameView view, GameActivity gameActivity, int speedX, int viewWidth) {
-        super(view, gameActivity);
+    public PowerUp(int speedX, int viewWidth) {
         init(speedX, viewWidth);
     }
 

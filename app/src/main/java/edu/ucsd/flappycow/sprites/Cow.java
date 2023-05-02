@@ -19,11 +19,11 @@ public class Cow extends IPlayableCharacter{
     /** sunglasses, hats and stuff */
     private IAccessory accessory;
 
-    public Cow(GameView view, GameActivity gameActivity, int viewWidth, int viewHeight, IAccessory accessory) {
-        super(view, gameActivity, viewWidth, viewHeight);
+    public Cow(int viewWidth, int viewHeight, int heightPixels, IAccessory accessory) {
+        super(viewWidth, viewHeight);
         this.setColNr(new Integer(8).byteValue());
         this.setFrameTime((short)3);        // the frame will change every 3 runs
-        this.setY(gameActivity.getResources().getDisplayMetrics().heightPixels / 2);    // Startposition in in the middle of the screen
+        this.setY(heightPixels / 2);    // Startposition in in the middle of the screen
         // TODO: presenter
 //        if (sound == -1) {
 //            sound = GameActivity.soundPool.load(gameActivity, R.raw.cow, 1);

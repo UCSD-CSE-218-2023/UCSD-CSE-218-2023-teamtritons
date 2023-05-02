@@ -11,7 +11,7 @@ public class VirusPresenter extends PowerUpPresenter{
     public VirusPresenter(GameView gameView) {
         super(gameView);
 
-        Virus virus = new Virus(gameView, gameView.getGameActivity(), gameView.getSpeedX(), gameView.getWidth());
+        Virus virus = new Virus(gameView.getSpeedX(), gameView.getWidth());
         setPowerUpModel(virus);
 
         virus.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.virus));

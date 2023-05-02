@@ -6,8 +6,7 @@ import edu.ucsd.flappycow.GameView;
 public abstract class IPlayableCharacter extends Sprite{
     private boolean isDead = false;
 
-    public IPlayableCharacter(GameView view, GameActivity gameActivity, int viewWidth, int viewHeight) {
-        super(view, gameActivity);
+    public IPlayableCharacter(int viewWidth, int viewHeight) {
         move(viewWidth, viewHeight);
     }
 

@@ -10,7 +10,7 @@ public class ToastPresenter extends PowerUpPresenter{
     public ToastPresenter(GameView gameView) {
         super(gameView);
 
-        Toast toast = new Toast(gameView, gameView.getGameActivity(), gameView.getSpeedX(), gameView.getWidth());
+        Toast toast = new Toast(gameView.getSpeedX(), gameView.getWidth());
         setPowerUpModel(toast);
 
         toast.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.toast));

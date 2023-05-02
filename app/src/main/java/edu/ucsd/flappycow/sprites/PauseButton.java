@@ -8,10 +8,6 @@ import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
 
 public class PauseButton extends IGameButton{
-    public PauseButton(GameView view, GameActivity gameActivity) {
-        super(view, gameActivity);
-    }
-
     /**
      * Sets the button in the right upper corner.
      */
