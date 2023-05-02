@@ -268,8 +268,8 @@ public class Sprite implements IInteractable, IMovable {
      * @return
      */
     @Override
-    public boolean isTouchingGround() {
-        return this.y + this.height > this.view.getHeight() - this.view.getHeight() * Frontground.getGroundHeight();
+    public boolean isTouchingGround(int viewHeight) {
+        return this.y + this.height > viewHeight - viewHeight * Frontground.getGroundHeight();
     }
 
     /**
