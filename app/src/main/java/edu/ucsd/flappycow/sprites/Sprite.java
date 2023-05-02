@@ -43,14 +43,14 @@ public class Sprite implements IInteractable, IMovable {
     private short frameTimeCounter;
 
     /** The GameView that holds this Sprite */
-//    private GameView view;
+    private GameView view;
 
     /** The context */
-//    private GameActivity gameActivity;
+    private GameActivity gameActivity;
 
     public Sprite(GameView view, GameActivity gameActivity) {
-//        this.view = view;
-//        this.gameActivity = gameActivity;
+        this.view = view;
+        this.gameActivity = gameActivity;
         frameTime = 1;
         src = new Rect();
         dst = new Rect();
@@ -268,9 +268,8 @@ public class Sprite implements IInteractable, IMovable {
      * @return
      */
     @Override
-    public boolean isTouchingGround(int viewHeight) {
-//        return this.y + this.height > this.view.getHeight() - this.view.getHeight() * Frontground.getGroundHeight();
-        return this.y + this.height > viewHeight - viewHeight * Frontground.getGroundHeight();
+    public boolean isTouchingGround() {
+        return this.y + this.height > this.view.getHeight() - this.view.getHeight() * Frontground.getGroundHeight();
     }
 
     /**
@@ -287,9 +286,8 @@ public class Sprite implements IInteractable, IMovable {
      * @return
      */
     @Override
-    public boolean isPassed(int viewPlayerX) {
-//        return this.x + this.width < view.getPlayer().getX();
-        return this.x + this.width < viewPlayerX;
+    public boolean isPassed() {
+        return this.x + this.width < view.getPlayer().getX();
     }
 
     /**
@@ -345,4 +343,19 @@ public class Sprite implements IInteractable, IMovable {
         setBitmap(bitmap);
     }
 
+    public GameView getView() {
+        return view;
+    }
+
+    public void setView(GameView view) {
+        this.view = view;
+    }
+
+    public GameActivity getGameActivity() {
+        return gameActivity;
+    }
+
+    public void setGameActivity(GameActivity gameActivity) {
+        this.gameActivity = gameActivity;
+    }
 }

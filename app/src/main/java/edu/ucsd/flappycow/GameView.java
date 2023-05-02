@@ -175,7 +175,7 @@ public class GameView extends SurfaceView {
     public void run() {
         checkPasses();
         checkOutOfRange();
-        checkCollision();
+        checkCollision(this.getGameActivity().getResources().getDisplayMetrics().heightPixels);
         createObstacle();
         move();
         draw();
@@ -378,14 +378,16 @@ public class GameView extends SurfaceView {
     /**
      * Checks collisions and performs the action
      */
-    private void checkCollision() {
+    private void checkCollision(int heightPixels) {
         for (ObstaclePresenter o : obstaclePresenters) {
-            if (o.isColliding(getPlayer())) {
+            if (o.isColliding(getPlayer(), heightPixels)) {
                 o.onCollision();
                 gameOver();
             }
         }
-        powerUpPresenter.checkCollision();
+//        powerUpPresenter.checkCollision();
+        powerUpPresenter.checkCollision(this.getGameActivity().getResources().getDisplayMetrics().heightPixels);
+
 //        for (int i = 0; i < powerUps.size(); i++) {
 //            if (this.powerUps.get(i).isColliding(player)) {
 //                this.powerUps.get(i).onCollision();

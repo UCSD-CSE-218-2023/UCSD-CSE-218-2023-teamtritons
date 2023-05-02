@@ -64,10 +64,10 @@ public class PowerUpPresenter {
         powerUps.clear();
     }
 
-    public void checkCollision(){
+    public void checkCollision(int heightPixels){
         for (int i = 0; i < powerUps.size(); i++) {
 //            if (powerUps.get(i).isColliding(gameView.getPlayer(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels)) {
-            if (powerUps.get(i).isColliding(gameView.getPlayer())) {
+            if (powerUps.get(i).isColliding(gameView.getPlayer(), heightPixels)) {
                 powerUps.get(i).onCollision();
                 powerUps.remove(i);
                 i--;
