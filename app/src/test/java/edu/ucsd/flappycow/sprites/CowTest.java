@@ -15,10 +15,12 @@ public class CowTest {
 
     @Test
     public void initCowObject(){
-//        GameActivity gameActivity = Robolectric.setupActivity(GameActivity.class);
-//        GameView gameView = new GameView(gameActivity);
-//        Cow tCow = new Cow(gameView, gameActivity, new Accessory(gameView, gameActivity));
-//        tCow.move();
-//        assertTrue("Move successfull", true);
+        Accessory accessory = new Accessory();
+        int width = 2;
+        int height = 2;
+        int heightPixels = 2;
+        Cow tCow = new Cow(width, height, heightPixels, accessory);
+        tCow.move(width, height);
+        assertTrue("Move successfull", true);
     }
 }

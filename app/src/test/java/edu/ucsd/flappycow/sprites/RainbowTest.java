@@ -29,12 +29,12 @@ public class RainbowTest {
 
     @Test
     public void initRainbowObject(){
-//        GameActivity gameActivity = Robolectric.setupActivity(GameActivity.class);
-//        GameView gameView = new GameView(gameActivity);
-//        Rainbow tRainbow = new Rainbow(gameView, gameActivity);
-//        tRainbow.move();
-//        boolean moveSuccessful = true;
-//        assertTrue("Move was successful", moveSuccessful);
+        int width = 2;
+        int height = 2;
+        Rainbow tRainbow = new Rainbow();
+        tRainbow.move(width, height);
+        boolean moveSuccessful = true;
+        assertTrue("Move was successful", moveSuccessful);
     }
 
 }
