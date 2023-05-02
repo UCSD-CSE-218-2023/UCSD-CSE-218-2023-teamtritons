@@ -13,7 +13,7 @@ import android.content.SharedPreferences;
 
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 
-public class AchievementBox implements IObserver<AchievementBoxUpdate> {
+public class AchievementBox {
     /**
      * Points needed for a gold medal
      */
@@ -189,21 +189,21 @@ public class AchievementBox implements IObserver<AchievementBoxUpdate> {
         return ACHIEVEMENT_KEY_GOLD;
     }
 
-    @Override
-    public void onUpdate(AchievementBoxUpdate data) {
-        String key = data.getUpdatedKey();
-        String value = data.getUpdatedValue();
-
-        if (key == ApplicationConstants.POINTS) {
-            setPoints(Integer.parseInt(value));
-        } else if (key == ApplicationConstants.ACHIEVEMENT_50_COINS) {
-            setAchievement_50_coins(Boolean.parseBoolean(value));
-        } else if (key == ApplicationConstants.ACHIEVEMENT_BRONZE) {
-            setAchievement_bronze(Boolean.parseBoolean(value));
-        } else if (key == ApplicationConstants.ACHIEVEMENT_SILVER) {
-            setAchievement_silver(Boolean.parseBoolean(value));
-        } else if (key == ApplicationConstants.ACHIEVEMENT_GOLD) {
-            setAchievement_gold(Boolean.parseBoolean(value));
-        }
-    }
+//    @Override
+//    public void onUpdate(AchievementBoxUpdate data) {
+//        String key = data.getUpdatedKey();
+//        String value = data.getUpdatedValue();
+//
+//        if (key == ApplicationConstants.POINTS) {
+//            setPoints(Integer.parseInt(value));
+//        } else if (key == ApplicationConstants.ACHIEVEMENT_50_COINS) {
+//            setAchievement_50_coins(Boolean.parseBoolean(value));
+//        } else if (key == ApplicationConstants.ACHIEVEMENT_BRONZE) {
+//            setAchievement_bronze(Boolean.parseBoolean(value));
+//        } else if (key == ApplicationConstants.ACHIEVEMENT_SILVER) {
+//            setAchievement_silver(Boolean.parseBoolean(value));
+//        } else if (key == ApplicationConstants.ACHIEVEMENT_GOLD) {
+//            setAchievement_gold(Boolean.parseBoolean(value));
+//        }
+//    }
 }
