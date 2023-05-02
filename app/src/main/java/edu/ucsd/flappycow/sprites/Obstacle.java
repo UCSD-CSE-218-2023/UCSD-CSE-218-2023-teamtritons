@@ -98,8 +98,8 @@ public class Obstacle extends Sprite {
      * Checks whether the spider and the log are passed.
      */
     @Override
-    public boolean isPassed() {
-        return spider.isPassed() && log.isPassed();
+    public boolean isPassed(int speedX) {
+        return spider.isPassed(speedX) && log.isPassed(speedX);
     }
 
     private static final int SOUND_VOLUME_DIVIDER = 3;

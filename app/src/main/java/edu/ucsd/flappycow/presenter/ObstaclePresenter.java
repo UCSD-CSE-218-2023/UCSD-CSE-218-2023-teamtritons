@@ -54,7 +54,7 @@ public class ObstaclePresenter {
 
 
     public boolean isPassed() {
-       return obstacleModel.isPassed();
+       return obstacleModel.isPassed(gameView.getSpeedX());
     }
     public boolean isAlreadyPassed() {
         return obstacleModel.isAlreadyPassed();

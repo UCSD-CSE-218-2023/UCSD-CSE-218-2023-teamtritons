@@ -286,8 +286,8 @@ public class Sprite implements IInteractable, IMovable {
      * @return
      */
     @Override
-    public boolean isPassed() {
-        return this.x + this.width < view.getPlayer().getX();
+    public boolean isPassed(int speedX) {
+        return this.x + this.width < speedX;
     }
 
     /**

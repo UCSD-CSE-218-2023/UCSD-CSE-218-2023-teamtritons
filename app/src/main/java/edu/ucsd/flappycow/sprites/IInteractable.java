@@ -13,7 +13,7 @@ public interface IInteractable {
     boolean isTouchingGround(int viewHeight);
 
     boolean isTouchingSky();
-    boolean isPassed();
+    boolean isPassed(int speedX);
     int getCollisionTolerance(int heightPixels);
 
 }
