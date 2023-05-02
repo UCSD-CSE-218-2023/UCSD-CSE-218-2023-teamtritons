@@ -69,8 +69,8 @@ public class Cow extends IPlayableCharacter{
 //    }
 
     @Override
-    public void onTap() {
-        super.onTap();
+    public void onTap(int viewHeight) {
+        super.onTap(viewHeight);
 //        playSound();
     }
 
@@ -86,7 +86,7 @@ public class Cow extends IPlayableCharacter{
         // manage frames
         if (this.getRow() != 3) {
             // not dead
-            if (this.getSpeedY() > getTabSpeed() / 3 && this.getSpeedY() < getMaxSpeed() * 1 / 3) {
+            if (this.getSpeedY() > getTabSpeed(viewHeight) / 3 && this.getSpeedY() < getMaxSpeed(viewHeight) * 1 / 3) {
                 this.setRow((byte) 0);
             } else if (this.getSpeedY() > 0) {
                 this.setRow((byte) 1);
@@ -113,10 +113,10 @@ public class Cow extends IPlayableCharacter{
      * And changes the frame to a dead cow -.-
      */
     @Override
-    public void dead() {
+    public void dead(int viewHeight) {
         this.setRow(new Integer(3).byteValue());
         this.setFrameTime((short) 3);
-        super.dead();
+        super.dead(viewHeight);
     }
 
     // TODO: presenter

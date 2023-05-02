@@ -30,15 +30,15 @@ public abstract class IPlayableCharacter extends Sprite{
 
         if (this.getSpeedY() < 0) {
             // The character is moving up
-            this.setSpeedY(this.getSpeedY()  * 2 / 3 + getSpeedTimeDecrease() / 2);
+            this.setSpeedY(this.getSpeedY()  * 2 / 3 + getSpeedTimeDecrease(viewHeight) / 2);
         } else {
             // the character is moving down
-            this.setSpeedY(this.getSpeedY()  + getSpeedTimeDecrease());
+            this.setSpeedY(this.getSpeedY()  + getSpeedTimeDecrease(viewHeight));
         }
 
-        if (this.getSpeedY() > getMaxSpeed()) {
+        if (this.getSpeedY() > getMaxSpeed(viewHeight)) {
             // speed limit
-            this.setSpeedY(getMaxSpeed());
+            this.setSpeedY(getMaxSpeed(viewHeight));
         }
 
         super.move(viewWidth, viewHeight);
@@ -46,17 +46,17 @@ public abstract class IPlayableCharacter extends Sprite{
     /**
      * A dead character falls slowly to the ground.
      */
-    public void dead() {
+    public void dead(int viewHeight) {
         this.isDead = true;
-        this.setSpeedY(getMaxSpeed()/2);
+        this.setSpeedY(getMaxSpeed(viewHeight)/2);
     }
 
     /**
      * Let the character flap up.
      */
-    public void onTap() {
-        this.setSpeedY(getTabSpeed());
-        this.setY(this.getY() + getPosTabIncrease());
+    public void onTap(int viewHeight) {
+        this.setSpeedY(getTabSpeed(viewHeight));
+        this.setY(this.getY() + getPosTabIncrease(viewHeight));
     }
 
     /**
@@ -64,9 +64,9 @@ public abstract class IPlayableCharacter extends Sprite{
      *
      * @return
      */
-    protected float getMaxSpeed() {
+    protected float getMaxSpeed(int viewHeight) {
         // 25 @ 720x1280 px
-        return this.getView().getHeight() / 51.2f;
+        return viewHeight / 51.2f;
     }
 
     /**
@@ -74,9 +74,9 @@ public abstract class IPlayableCharacter extends Sprite{
      *
      * @return
      */
-    protected float getSpeedTimeDecrease() {
+    protected float getSpeedTimeDecrease(int viewHeight) {
         // 4 @ 720x1280 px
-        return this.getView().getHeight() / 320;
+        return viewHeight / 320;
     }
 
     /**
@@ -84,9 +84,9 @@ public abstract class IPlayableCharacter extends Sprite{
      *
      * @return
      */
-    protected float getTabSpeed() {
+    protected float getTabSpeed(int viewHeight) {
         // -80 @ 720x1280 px
-        return -this.getView().getHeight() / 16f;
+        return -viewHeight / 16f;
     }
 
     /**
@@ -94,9 +94,9 @@ public abstract class IPlayableCharacter extends Sprite{
      *
      * @return
      */
-    protected int getPosTabIncrease() {
+    protected int getPosTabIncrease(int viewHeight) {
         // -12 @ 720x1280 px
-        return -this.getView().getHeight() / 100;
+        return -viewHeight / 100;
     }
 
     public void revive(int viewWidth, int viewHeight) {

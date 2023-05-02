@@ -30,8 +30,8 @@ public class CowPresenter extends PlayableCharacterPresenter{
         }
     }
 
-    public void revive(int viewWidth, int viewHeight) {
-        this.getPlayer().revive(viewWidth, viewHeight);
+    public void revive() {
+        this.getPlayer().revive(getGameView().getWidth(), getGameView().getHeight());
         this.getAccessory().setBitmap(Util.getScaledBitmapAlpha8(this.getGameView().getGameActivity(), R.drawable.accessory_scumbag));
     }
 
@@ -41,7 +41,7 @@ public class CowPresenter extends PlayableCharacterPresenter{
     }
 
     public void onTap() {
-        this.getPlayer().onTap();
+        this.getPlayer().onTap(getGameView().getHeight());
         playSound();
     }
 }

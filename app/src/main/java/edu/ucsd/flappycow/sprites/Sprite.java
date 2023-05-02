@@ -43,14 +43,14 @@ public class Sprite implements IInteractable, IMovable {
     private short frameTimeCounter;
 
     /** The GameView that holds this Sprite */
-    private GameView view;
-
-    /** The context */
-    private GameActivity gameActivity;
+//    private GameView view;
+//
+//    /** The context */
+//    private GameActivity gameActivity;
 
     public Sprite(GameView view, GameActivity gameActivity) {
-        this.view = view;
-        this.gameActivity = gameActivity;
+//        this.view = view;
+//        this.gameActivity = gameActivity;
         frameTime = 1;
         src = new Rect();
         dst = new Rect();
@@ -168,21 +168,21 @@ public class Sprite implements IInteractable, IMovable {
         this.frameTimeCounter = frameTimeCounter;
     }
 
-    public GameView getView() {
-        return view;
-    }
-
-    public void setView(GameView view) {
-        this.view = view;
-    }
-
-    public GameActivity getGameActivity() {
-        return gameActivity;
-    }
-
-    public void setGameActivity(GameActivity gameActivity) {
-        this.gameActivity = gameActivity;
-    }
+//    public GameView getView() {
+//        return view;
+//    }
+//
+//    public void setView(GameView view) {
+//        this.view = view;
+//    }
+//
+//    public GameActivity getGameActivity() {
+//        return gameActivity;
+//    }
+//
+//    public void setGameActivity(GameActivity gameActivity) {
+//        this.gameActivity = gameActivity;
+//    }
 
     /**
      * Draws the frame of the bitmap specified by col and row

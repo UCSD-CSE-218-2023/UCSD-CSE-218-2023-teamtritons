@@ -43,7 +43,7 @@ public class NyanCat extends IPlayableCharacter{
         rainbow.move(viewWidth, viewHeight);
 
         // manage frames of the rainbow
-        if (this.getSpeedY() > getTabSpeed() / 3 && this.getSpeedY() < getMaxSpeed() * 1 / 3) {
+        if (this.getSpeedY() > getTabSpeed(viewHeight) / 3 && this.getSpeedY() < getMaxSpeed(viewHeight) * 1 / 3) {
             rainbow.setRow(new Integer(0).byteValue());
         } else if (this.getSpeedY() > 0) {
             rainbow.setRow((byte) 1);
@@ -70,8 +70,8 @@ public class NyanCat extends IPlayableCharacter{
      * and set the bitmapframe to a dead cat -.-
      */
     @Override
-    public void dead() {
-        super.dead();
+    public void dead(int viewHeight) {
+        super.dead(viewHeight);
         this.setRow((byte) 1);
 
         // Maybe an explosion

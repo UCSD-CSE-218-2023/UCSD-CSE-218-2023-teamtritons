@@ -74,7 +74,7 @@ public class PlayableCharacterPresenter {
 
     public void onTap(){
 //        playableCharacterModel.onTap(gameView.getHeight());
-        playableCharacterModel.onTap();
+        playableCharacterModel.onTap(gameView.getHeight());
     }
 
     public void draw(Canvas canvas) {
@@ -83,7 +83,7 @@ public class PlayableCharacterPresenter {
 
     public void dead() {
 //        playableCharacterModel.dead(gameView.getHeight());
-        playableCharacterModel.dead();
+        playableCharacterModel.dead(gameView.getHeight());
     }
 
     public boolean isTouchingGround() {

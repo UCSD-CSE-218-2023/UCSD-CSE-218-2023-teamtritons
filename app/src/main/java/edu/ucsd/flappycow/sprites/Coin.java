@@ -10,8 +10,8 @@ import edu.ucsd.flappycow.R;
 public class Coin extends PowerUp{
     private static int sound = -1;
 
-    public Coin(GameView view, GameActivity gameActivity, int speedX) {
-        super(view, gameActivity, speedX);
+    public Coin(GameView view, GameActivity gameActivity, int speedX, int viewWidth) {
+        super(view, gameActivity, speedX, viewWidth);
         this.setColNr((byte)12);
         this.setFrameTime((short)1);
 //        if (sound == -1) {

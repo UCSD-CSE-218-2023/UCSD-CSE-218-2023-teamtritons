@@ -25,9 +25,7 @@ public class ButtonPresenter {
         return gameButton.isTouching(x,y);
     }
 
-//    public void move(int height, int width){
     public void move(){
-//        gameButton.move(height, width);
         gameButton.move(gameView.getWidth(), gameView.getHeight());
     }
 

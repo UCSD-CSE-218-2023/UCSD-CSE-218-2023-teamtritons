@@ -9,8 +9,8 @@ import edu.ucsd.flappycow.Util;
 
 public class Virus extends PowerUp{
 
-    public Virus(GameView view, GameActivity gameActivity, int speedX) {
-        super(view, gameActivity, speedX);
+    public Virus(GameView view, GameActivity gameActivity, int speedX, int viewWidth) {
+        super(view, gameActivity, speedX, viewWidth);
     }
 
     @Override

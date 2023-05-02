@@ -4,9 +4,9 @@ import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 
 public abstract class PowerUp extends Sprite {
-    public PowerUp(GameView view, GameActivity gameActivity, int speedX) {
+    public PowerUp(GameView view, GameActivity gameActivity, int speedX, int viewWidth) {
         super(view, gameActivity);
-        init(speedX);
+        init(speedX, viewWidth);
     }
 
     public void onCollision() {
@@ -18,8 +18,8 @@ public abstract class PowerUp extends Sprite {
      * At x = 4/5 of the screen.
      * Uses the speed of the GameView to let the power-up fall slowly down.
      */
-    private void init(int speedX) {
-        this.setX(this.getView().getWidth() * 4 / 5);
+    private void init(int speedX, int viewWidth) {
+        this.setX(viewWidth * 4 / 5);
         this.setY( 0 - this.getHeight());
         this.setSpeedX(this.getSpeedX()-speedX);
         this.setSpeedY ( (int) (speedX * (Math.random() + 0.5)));
