@@ -6,17 +6,13 @@ import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 import edu.ucsd.flappycow.MainActivity;
 import edu.ucsd.flappycow.R;
-import edu.ucsd.flappycow.Util;
 
 public class Coin extends PowerUp{
-    /**
-     * Static bitmap to reduce memory usage.
-     */
-    public static Bitmap globalBitmap;
     private static int sound = -1;
 
     public Coin(GameView view, GameActivity gameActivity) {
         super(view, gameActivity);
+        this.setColNr((byte)12);
         this.setFrameTime((short)1);
         if (sound == -1) {
             sound = GameActivity.soundPool.load(gameActivity, R.raw.coin, 1);
@@ -26,7 +22,6 @@ public class Coin extends PowerUp{
     @Override
     public void onInitBitmap(Bitmap bitmap) {
         super.onInitBitmap(bitmap);
-        this.setColNr((byte)12);
         this.setWidth(this.getBitmap().getWidth() / (this.getColNr()));
         this.setHeight(this.getBitmap().getHeight());
     }

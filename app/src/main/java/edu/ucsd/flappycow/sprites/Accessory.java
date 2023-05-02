@@ -7,7 +7,6 @@ import edu.ucsd.flappycow.GameActivity;
 import edu.ucsd.flappycow.GameView;
 
 public class Accessory extends Sprite implements IAccessory{
-
     public Accessory(GameView view, GameActivity gameActivity) {
         super(view, gameActivity);
     }

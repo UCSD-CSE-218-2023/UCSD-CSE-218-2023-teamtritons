@@ -38,14 +38,6 @@ public class Cow extends IPlayableCharacter{
         this.setHeight(this.getBitmap().getHeight() / 4);           // and 4 in a column
     }
 
-//    public static Bitmap getGlobalBitmap() {
-//        return globalBitmap;
-//    }
-//
-//    public static void setGlobalBitmap(Bitmap globalBitmap) {
-//        Cow.globalBitmap = globalBitmap;
-//    }
-
     public static int getSound() {
         return sound;
     }
@@ -146,5 +138,4 @@ public class Cow extends IPlayableCharacter{
         super.wearMask();
         this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.mask));
     }
-
 }

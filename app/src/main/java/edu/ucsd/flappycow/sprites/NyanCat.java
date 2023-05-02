@@ -32,7 +32,6 @@ public class NyanCat extends IPlayableCharacter{
     @Override
     public void move() {
         super.move();
-
         if (rainbow != null) {
             manageRainbowMovement();
         }
@@ -83,5 +82,4 @@ public class NyanCat extends IPlayableCharacter{
         super.revive();
         manageRainbowMovement();
     }
-
 }
