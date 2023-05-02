@@ -24,6 +24,7 @@ public class Cow extends IPlayableCharacter{
         this.setColNr(new Integer(8).byteValue());
         this.setFrameTime((short)3);        // the frame will change every 3 runs
         this.setY(gameActivity.getResources().getDisplayMetrics().heightPixels / 2);    // Startposition in in the middle of the screen
+        // TODO: presenter
         if (sound == -1) {
             sound = GameActivity.soundPool.load(gameActivity, R.raw.cow, 1);
         }
@@ -62,6 +63,7 @@ public class Cow extends IPlayableCharacter{
         return POINTS_TO_COOL;
     }
 
+    // TODO: presenter
     private void playSound() {
         GameActivity.soundPool.play(sound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
     }
@@ -117,12 +119,14 @@ public class Cow extends IPlayableCharacter{
         super.dead();
     }
 
+    // TODO: presenter
     @Override
     public void revive(int viewWidth, int viewHeight) {
         super.revive(viewWidth, viewHeight);
         this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.accessory_scumbag));
     }
 
+    // TODO: presenter
     @Override
     public void upgradeBitmap(int points) {
         super.upgradeBitmap(points);
@@ -133,6 +137,7 @@ public class Cow extends IPlayableCharacter{
         }
     }
 
+    // TODO: presenter
     @Override
     public void wearMask() {
         super.wearMask();

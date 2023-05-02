@@ -10,8 +10,8 @@ import edu.ucsd.flappycow.Util;
 public class Virus extends PowerUp{
     public static Bitmap globalBitmap;
 
-    public Virus(GameView view, GameActivity gameActivity) {
-        super(view, gameActivity);
+    public Virus(GameView view, GameActivity gameActivity, int speedX) {
+        super(view, gameActivity, speedX);
     }
 
     @Override
@@ -27,6 +27,7 @@ public class Virus extends PowerUp{
     @Override
     public void onCollision() {
         super.onCollision();
+        // TODO: presenter
         this.getGameActivity().decreasePoints();
         this.getView().changeToSick();
     }

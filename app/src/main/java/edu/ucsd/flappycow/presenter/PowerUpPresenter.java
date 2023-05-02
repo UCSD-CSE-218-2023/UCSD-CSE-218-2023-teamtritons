@@ -89,7 +89,7 @@ public class PowerUpPresenter {
             // If no powerUp is present and you have more than / equal 42 points
             if (accomplishmentBoxPoints == Toast.POINTS_TO_TOAST || Math.random() * 100 < 33) {    // First time 100 % chance
 //                Toast toast = new Toast(gameView.getWidth(), gameView.getHeight(), gameView.getSpeedX());
-                Toast toast = new Toast(gameView, gameView.getGameActivity());
+                Toast toast = new Toast(gameView, gameView.getGameActivity(), gameView.getSpeedX());
                 this.add(toast);
                 toast.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.toast));
 //                toast.onInitBitmap();
@@ -99,7 +99,7 @@ public class PowerUpPresenter {
         if ((this.getSize() < 1) && (Math.random() * 100 < 20)) {
             // If no powerUp is present and 20% chance
 //            Coin coin = new Coin(gameView.getWidth(), gameView.getHeight(), gameView.getSpeedX());
-            Coin coin = new Coin(gameView, gameView.getGameActivity());
+            Coin coin = new Coin(gameView, gameView.getGameActivity(), gameView.getSpeedX());
             this.add(coin);
             coin.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.coin));
 //            coin.onInitBitmap();
@@ -108,7 +108,7 @@ public class PowerUpPresenter {
         if ((this.getSize() < 1) && (Math.random() * 100 < 10)) {
             // If no powerUp is present and 10% chance (if also no coin)
 //            Virus virus = new Virus(gameView.getWidth(), gameView.getHeight(), gameView.getSpeedX());
-            Virus virus = new Virus(gameView, gameView.getGameActivity());
+            Virus virus = new Virus(gameView, gameView.getGameActivity(), gameView.getSpeedX());
             this.add(virus);
             virus.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.virus));
 //            virus.onInitBitmap();

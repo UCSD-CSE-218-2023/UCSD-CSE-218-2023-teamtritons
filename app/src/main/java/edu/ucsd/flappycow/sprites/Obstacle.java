@@ -17,7 +17,7 @@ public class Obstacle extends Sprite {
     /** Necessary so the onPass method is just called once */
     public boolean isAlreadyPassed = false;
 
-    public Obstacle(GameView view, GameActivity gameActivity, IGameObstacle spider, IGameObstacle log) {
+    public Obstacle(GameView view, GameActivity gameActivity, IGameObstacle spider, IGameObstacle log, int widthPixels, int heightPixels, int speedX) {
         super(view, gameActivity);
         this.spider = spider;
         this.log = log;
@@ -29,7 +29,7 @@ public class Obstacle extends Sprite {
             passSound = GameActivity.soundPool.load(gameActivity, R.raw.pass, 1);
         }
 
-        initPos();
+        initPos(widthPixels, heightPixels, speedX);
     }
 
     /**
@@ -37,9 +37,9 @@ public class Obstacle extends Sprite {
      * With a certain gap between them.
      * The vertical position is in a certain area random.
      */
-    private void initPos() {
-        int height = this.getGameActivity().getResources().getDisplayMetrics().heightPixels;
-        int gab = height / 4 - this.getView().getSpeedX();
+    private void initPos(int widthPixels, int heightPixels, int speedX) {
+        int height = heightPixels;
+        int gab = height / 4 - speedX;
         if (gab < height / 5) {
             gab = height / 5;
         }
@@ -47,8 +47,8 @@ public class Obstacle extends Sprite {
         int y1 = (height / 10) + random - spider.getHeight();
         int y2 = (height / 10) + random + gab;
 
-        spider.init(this.getGameActivity().getResources().getDisplayMetrics().widthPixels, y1);
-        log.init(this.getGameActivity().getResources().getDisplayMetrics().widthPixels, y2);
+        spider.init(widthPixels, y1);
+        log.init(widthPixels, y2);
     }
 
     /**
@@ -107,14 +107,17 @@ public class Obstacle extends Sprite {
     /**
      * Will call obstaclePassed of the game, if this is the first pass of this obstacle.
      */
+    // TODO: presenter
     public void onPass() {
         if (!isAlreadyPassed) {
             isAlreadyPassed = true;
+            // TODO: presenter
             this.getView().getGameActivity().increasePoints();
             GameActivity.soundPool.play(passSound, MainActivity.volume / SOUND_VOLUME_DIVIDER, MainActivity.volume / SOUND_VOLUME_DIVIDER, 0, 0, 1);
         }
     }
 
+    // TODO: presenter
     @Override
     public void onCollision() {
         super.onCollision();

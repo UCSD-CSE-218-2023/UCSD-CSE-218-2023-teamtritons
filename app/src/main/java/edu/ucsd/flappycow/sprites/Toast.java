@@ -15,8 +15,8 @@ public class Toast extends PowerUp{
 
     public static final int POINTS_TO_TOAST = 42;
 
-    public Toast(GameView view, GameActivity gameActivity) {
-        super(view, gameActivity);
+    public Toast(GameView view, GameActivity gameActivity, int speedX) {
+        super(view, gameActivity, speedX);
     }
 
     @Override
