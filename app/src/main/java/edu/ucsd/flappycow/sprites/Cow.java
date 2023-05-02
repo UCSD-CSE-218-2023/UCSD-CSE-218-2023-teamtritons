@@ -25,9 +25,9 @@ public class Cow extends IPlayableCharacter{
         this.setFrameTime((short)3);        // the frame will change every 3 runs
         this.setY(gameActivity.getResources().getDisplayMetrics().heightPixels / 2);    // Startposition in in the middle of the screen
         // TODO: presenter
-        if (sound == -1) {
-            sound = GameActivity.soundPool.load(gameActivity, R.raw.cow, 1);
-        }
+//        if (sound == -1) {
+//            sound = GameActivity.soundPool.load(gameActivity, R.raw.cow, 1);
+//        }
 
         this.accessory = accessory;
     }
@@ -64,14 +64,14 @@ public class Cow extends IPlayableCharacter{
     }
 
     // TODO: presenter
-    private void playSound() {
-        GameActivity.soundPool.play(sound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
-    }
+//    private void playSound() {
+//        GameActivity.soundPool.play(sound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
+//    }
 
     @Override
     public void onTap() {
         super.onTap();
-        playSound();
+//        playSound();
     }
 
     /**
@@ -123,24 +123,25 @@ public class Cow extends IPlayableCharacter{
     @Override
     public void revive(int viewWidth, int viewHeight) {
         super.revive(viewWidth, viewHeight);
-        this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.accessory_scumbag));
+//        this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.accessory_scumbag));
     }
 
     // TODO: presenter
     @Override
     public void upgradeBitmap(int points) {
         super.upgradeBitmap(points);
-        if (points == POINTS_TO_SIR) {
-            this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.accessory_sir));
-        } else if (points == POINTS_TO_COOL) {
-            this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.accessory_sunglasses));
-        }
+//        if (points == POINTS_TO_SIR) {
+//            this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.accessory_sir));
+//        } else if (points == POINTS_TO_COOL) {
+//            this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.accessory_sunglasses));
+//        }
     }
 
     // TODO: presenter
-    @Override
+//    @Override
     public void wearMask() {
         super.wearMask();
-        this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.mask));
+////        this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.mask));
     }
+
 }

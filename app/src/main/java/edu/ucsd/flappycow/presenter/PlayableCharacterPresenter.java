@@ -8,6 +8,7 @@ import edu.ucsd.flappycow.Util;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 import edu.ucsd.flappycow.sprites.Accessory;
 import edu.ucsd.flappycow.sprites.Cow;
+import edu.ucsd.flappycow.sprites.IAccessory;
 import edu.ucsd.flappycow.sprites.IPlayableCharacter;
 import edu.ucsd.flappycow.sprites.NyanCat;
 import edu.ucsd.flappycow.sprites.Rainbow;
@@ -15,6 +16,8 @@ import edu.ucsd.flappycow.sprites.Rainbow;
 public class PlayableCharacterPresenter {
     private IPlayableCharacter playableCharacterModel;
     private GameView gameView;
+
+    private IAccessory accessory;
 
     public PlayableCharacterPresenter(GameView gameView, String type) {
         this.gameView = gameView;
@@ -26,7 +29,7 @@ public class PlayableCharacterPresenter {
     private IPlayableCharacter createInstance(String type) {
         // depending on parameters create object
         if(type.equals(ApplicationConstants.COW)) {
-            Accessory accessory = new Accessory(gameView, gameView.getGameActivity());
+            accessory = new Accessory(gameView, gameView.getGameActivity());
             Cow cow = new Cow(gameView, gameView.getGameActivity(), gameView.getWidth(), gameView.getHeight(), accessory);
             cow.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.cow));
             return cow;
@@ -109,4 +112,27 @@ public class PlayableCharacterPresenter {
         return playableCharacterModel;
     }
 
+    public IAccessory getAccessory() {
+        return accessory;
+    }
+
+    public void setAccessory(IAccessory accessory) {
+        this.accessory = accessory;
+    }
+
+    public GameView getGameView() {
+        return gameView;
+    }
+
+    public void setGameView(GameView gameView) {
+        this.gameView = gameView;
+    }
+
+    public IPlayableCharacter getPlayableCharacterModel() {
+        return playableCharacterModel;
+    }
+
+    public void setPlayableCharacterModel(IPlayableCharacter playableCharacterModel) {
+        this.playableCharacterModel = playableCharacterModel;
+    }
 }

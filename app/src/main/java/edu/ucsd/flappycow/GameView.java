@@ -21,6 +21,7 @@ import android.view.SurfaceView;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 import edu.ucsd.flappycow.presenter.ButtonPresenter;
+import edu.ucsd.flappycow.presenter.CowPresenter;
 import edu.ucsd.flappycow.presenter.GroundPresenter;
 import edu.ucsd.flappycow.presenter.PlayableCharacterPresenter;
 import edu.ucsd.flappycow.presenter.PowerUpPresenter;
@@ -98,7 +99,7 @@ public class GameView extends SurfaceView {
 
         holder = getHolder();
 //        player = new Cow(this, gameActivity, new Accessory(this, gameActivity));
-        playableCharacterPresenter = new PlayableCharacterPresenter(this, ApplicationConstants.COW);
+        playableCharacterPresenter = new CowPresenter(this, ApplicationConstants.COW);
         groundPresenterMap = new HashMap<>();
         groundPresenterMap.put(ApplicationConstants.BACKGROUND, new GroundPresenter(this, ApplicationConstants.BACKGROUND));
         groundPresenterMap.put(ApplicationConstants.FRONTGROUND, new GroundPresenter(this, ApplicationConstants.FRONTGROUND));
