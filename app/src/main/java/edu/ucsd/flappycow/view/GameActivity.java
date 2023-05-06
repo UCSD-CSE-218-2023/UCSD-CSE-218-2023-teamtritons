@@ -366,4 +366,12 @@ public class GameActivity extends Activity implements Subject<AchievementBoxUpda
             o.onUpdate(data);
         }
     }
+
+    public int getWidthPixels(){
+        return this.getResources().getDisplayMetrics().widthPixels;
+    }
+
+    public int getHeightPixels(){
+        return this.getResources().getDisplayMetrics().heightPixels;
+    }
 }

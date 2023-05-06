@@ -546,4 +546,23 @@ public class GameView extends SurfaceView {
         return this.gameActivity;
     }
 
+    public void gameActivityIncreaseCoin(){
+        this.getGameActivity().increaseCoin();
+    }
+
+    public void increasePoints(){
+        this.getGameActivity().increasePoints();
+    }
+
+    public void decreasePoints(){
+        this.getGameActivity().decreasePoints();
+    }
+
+    public int getWidthPixels(){
+        return this.getGameActivity().getWidthPixels();
+    }
+
+    public int getHeightPixels(){
+        return this.getGameActivity().getHeightPixels();
+    }
 }

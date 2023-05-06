@@ -37,7 +37,7 @@ public class ObstaclePresenter {
         spider.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.spider_full));
         woodLog.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.log_full));
 
-        Obstacle obstacle = new Obstacle(spider, woodLog, gameView.getGameActivity().getResources().getDisplayMetrics().widthPixels, gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels, gameView.getSpeedX());
+        Obstacle obstacle = new Obstacle(spider, woodLog, gameView.getWidthPixels(), gameView.getHeightPixels(), gameView.getSpeedX());
 
         return obstacle;
     }
@@ -56,7 +56,7 @@ public class ObstaclePresenter {
     public void onPass() {
         if(!obstacleModel.isAlreadyPassed()) {
             GameActivity.soundPool.play(obstacleModel.getPassSound(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), 0, 0, 1);
-            gameView.getGameActivity().increasePoints();
+            gameView.increasePoints();
         }
 
         obstacleModel.onPass();
@@ -67,7 +67,7 @@ public class ObstaclePresenter {
     }
 
     public boolean isColliding(IPlayableCharacter playableCharacter) {
-        return obstacleModel.isColliding(playableCharacter, gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels);
+        return obstacleModel.isColliding(playableCharacter, gameView.getHeightPixels());
     }
 
     public void onCollision() {

@@ -19,7 +19,7 @@ public class VirusPresenter extends PowerUpPresenter{
 
     public void onCollision() {
         super.onCollision();
-        gameView.getGameActivity().decreasePoints();
+        gameView.decreasePoints();
         gameView.changeToSick();
     }
 }

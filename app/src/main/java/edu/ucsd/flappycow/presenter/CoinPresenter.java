@@ -31,6 +31,6 @@ public class CoinPresenter extends PowerUpPresenter{
     public void onCollision() {
         super.onCollision();
         playSound();
-        this.gameView.getGameActivity().increaseCoin();
+        this.gameView.gameActivityIncreaseCoin();
     }
 }

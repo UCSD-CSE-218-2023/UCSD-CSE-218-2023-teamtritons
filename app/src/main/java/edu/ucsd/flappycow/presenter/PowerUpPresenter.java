@@ -26,7 +26,7 @@ public class PowerUpPresenter {
     }
 
     public boolean isColliding() {
-        return powerUpModel.isColliding(gameView.getPlayer(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels);
+        return powerUpModel.isColliding(gameView.getPlayer(), gameView.getHeightPixels());
     }
 
     public void onCollision() {

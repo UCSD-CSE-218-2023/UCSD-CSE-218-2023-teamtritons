@@ -30,7 +30,7 @@ public class PlayableCharacterPresenter {
         // depending on parameters create object
         if(type.equals(ApplicationConstants.COW)) {
             accessory = new Accessory();
-            Cow cow = new Cow(gameView.getWidth(), gameView.getHeight(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels, accessory);
+            Cow cow = new Cow(gameView.getWidth(), gameView.getHeight(), gameView.getHeightPixels(), accessory);
             cow.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.cow));
             return cow;
         } else if (type.equals(ApplicationConstants.NYAN_CAT)) {
@@ -38,7 +38,7 @@ public class PlayableCharacterPresenter {
             Rainbow rainbow = new Rainbow();
             rainbow.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.rainbow));
 
-            NyanCat nyanCat = new NyanCat(gameView.getWidth(), gameView.getHeight(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels, rainbow);
+            NyanCat nyanCat = new NyanCat(gameView.getWidth(), gameView.getHeight(), gameView.getHeightPixels(), rainbow);
             nyanCat.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.nyan_cat));
 
 //            NyanCat nyanCat = new NyanCat(rainbow, gameView.getHeight(), gameView.getWidth(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels);
