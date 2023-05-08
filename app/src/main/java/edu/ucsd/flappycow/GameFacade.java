@@ -94,9 +94,7 @@ class GameFacade {
     public void onCreate(){
         accomplishmentBox = new AchievementBox();
         gameActivityAchievementBoxPresenter = new GameActivityAchievementBoxPresenter(getGameActivity(), accomplishmentBox);
-        //view = new GameView(this);
         gameOverDialog = new GameOverDialog(getGameActivity());
-        //handler = new GameActivityHandler(this);
         getGameActivity().setContentView(gameView);
         initMusicPlayer();
         getGameActivity().loadCoins();

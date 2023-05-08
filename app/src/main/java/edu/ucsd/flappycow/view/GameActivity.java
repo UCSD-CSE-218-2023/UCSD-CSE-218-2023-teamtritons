@@ -158,6 +158,8 @@ public class GameActivity extends Activity implements Subject<AchievementBoxUpda
     public GameActivity() {
         gameActivitySub = new GameActivitySubjectImpl<>();
         observers = new ArrayList<>();
+        view = new GameView(this);
+        handler = new GameActivityHandler(this);
         gameFacade = new GameFacade(view);
     }
 
