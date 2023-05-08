@@ -2,6 +2,7 @@ package edu.ucsd.flappycow.presenter;
 
 import android.graphics.Canvas;
 
+import edu.ucsd.flappycow.GameFacade;
 import edu.ucsd.flappycow.view.GameView;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
@@ -11,13 +12,13 @@ import edu.ucsd.flappycow.model.PauseButton;
 public class ButtonPresenter {
 
     IGameButton gameButton;
-    GameView gameView;
+    GameFacade gameFacade;
 
-    public ButtonPresenter(GameView gameView) {
+    public ButtonPresenter(GameFacade gameFacade) {
         PauseButton pauseButton = new PauseButton();
         this.gameButton = pauseButton;
-        this.gameView = gameView;
-        pauseButton.onInitBitmap(Util.getDownScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.pause_button));
+        this.gameFacade = gameFacade;
+        pauseButton.onInitBitmap(Util.getDownScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.pause_button));
     }
     // isTouching, move, draw
 
@@ -26,7 +27,7 @@ public class ButtonPresenter {
     }
 
     public void move(){
-        gameButton.move(gameView.getWidth(), gameView.getHeight());
+        gameButton.move(gameFacade.getWidth(), gameFacade.getHeight());
     }
 
     public void draw(Canvas canvas){
