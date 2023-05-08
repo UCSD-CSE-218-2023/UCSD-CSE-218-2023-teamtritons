@@ -7,11 +7,8 @@ import edu.ucsd.flappycow.Util;
 import edu.ucsd.flappycow.model.Virus;
 
 public class VirusPresenter extends PowerUpPresenter{
-
-    private GameFacade gameFacade;
     public VirusPresenter(GameFacade gameFacade) {
         super(gameFacade);
-        this.gameFacade = gameFacade;
 
         Virus virus = new Virus(gameFacade.getSpeedX(), gameFacade.getWidth());
         setPowerUpModel(virus);

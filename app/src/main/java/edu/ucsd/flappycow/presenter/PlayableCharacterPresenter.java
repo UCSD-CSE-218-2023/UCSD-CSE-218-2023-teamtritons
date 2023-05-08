@@ -136,4 +136,8 @@ public class PlayableCharacterPresenter {
     public void setPlayableCharacterModel(IPlayableCharacter playableCharacterModel) {
         this.playableCharacterModel = playableCharacterModel;
     }
+
+    public GameFacade getGameFacade() {
+        return gameFacade;
+    }
 }

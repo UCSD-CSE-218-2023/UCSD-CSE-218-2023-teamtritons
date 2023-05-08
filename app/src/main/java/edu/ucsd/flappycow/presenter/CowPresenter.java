@@ -13,27 +13,27 @@ public class CowPresenter extends PlayableCharacterPresenter{
         super(gameFacade, type);
 
         if(((Cow)this.getPlayableCharacterModel()).getSound() == -1) {
-            ((Cow)this.getPlayableCharacterModel()).setSound(GameActivity.soundPool.load(this.getGameView().getGameActivity(), R.raw.cow, 1));
+            ((Cow)this.getPlayableCharacterModel()).setSound(GameActivity.soundPool.load(getGameFacade().getGameActivity(), R.raw.cow, 1));
         }
     }
 
     public void wearMask() {
         this.getPlayer().wearMask();
-        this.getAccessory().setBitmap(Util.getScaledBitmapAlpha8(this.getGameView().getGameActivity(), R.drawable.mask));
+        this.getAccessory().setBitmap(Util.getScaledBitmapAlpha8(getGameFacade().getGameActivity(), R.drawable.mask));
     }
 
     public void upgradeBitmap(int points) {
         this.getPlayer().upgradeBitmap(points);
         if (points == ((Cow)this.getPlayableCharacterModel()).getPointsToSir()) {
-            this.getAccessory().setBitmap(Util.getScaledBitmapAlpha8(this.getGameView().getGameActivity(), R.drawable.accessory_sir));
+            this.getAccessory().setBitmap(Util.getScaledBitmapAlpha8(getGameFacade().getGameActivity(), R.drawable.accessory_sir));
         } else if (points == ((Cow)this.getPlayableCharacterModel()).getPointsToCool()) {
-            this.getAccessory().setBitmap(Util.getScaledBitmapAlpha8(this.getGameView().getGameActivity(), R.drawable.accessory_sunglasses));
+            this.getAccessory().setBitmap(Util.getScaledBitmapAlpha8(getGameFacade().getGameActivity(), R.drawable.accessory_sunglasses));
         }
     }
 
     public void revive() {
-        this.getPlayer().revive(getGameView().getWidth(), getGameView().getHeight());
-        this.getAccessory().setBitmap(Util.getScaledBitmapAlpha8(this.getGameView().getGameActivity(), R.drawable.accessory_scumbag));
+        this.getPlayer().revive(getGameFacade().getWidth(), getGameFacade().getHeight());
+        this.getAccessory().setBitmap(Util.getScaledBitmapAlpha8(getGameFacade().getGameActivity(), R.drawable.accessory_scumbag));
     }
 
     private void playSound() {
@@ -42,7 +42,7 @@ public class CowPresenter extends PlayableCharacterPresenter{
     }
 
     public void onTap() {
-        this.getPlayer().onTap(getGameView().getHeight());
+        this.getPlayer().onTap(getGameFacade().getHeight());
         playSound();
     }
 }

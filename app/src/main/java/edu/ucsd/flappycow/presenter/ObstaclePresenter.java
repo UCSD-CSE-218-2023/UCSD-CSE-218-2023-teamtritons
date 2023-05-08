@@ -18,8 +18,9 @@ public class ObstaclePresenter {
     private Obstacle obstacleModel;
 
     public ObstaclePresenter(GameFacade gameFacade) {
+        System.out.println("Obstacle Presenter called----------");
         this.gameFacade = gameFacade;
-        this.obstacleModel = createInstance(gameFacade.getWidthPixels(), gameFacade.getHeightPixels(), gameFacade.getSpeedX());
+        this.obstacleModel = createInstance();
 
         if (obstacleModel.getCollideSound() == -1) {
             obstacleModel.setCollideSound(GameActivity.soundPool.load(gameFacade.getGameActivity(), R.raw.crash, 1));
@@ -31,14 +32,14 @@ public class ObstaclePresenter {
     }
 
 
-    public Obstacle createInstance(int widthPixels, int heightPixels, int speedX) {
+    public Obstacle createInstance() {
         Spider spider = new Spider();
         WoodLog woodLog = new WoodLog();
 
         spider.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.spider_full));
         woodLog.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.log_full));
 
-        Obstacle obstacle = new Obstacle(spider, woodLog, widthPixels, heightPixels, speedX);
+        Obstacle obstacle = new Obstacle(spider, woodLog, gameFacade.getWidthPixels(), gameFacade.getHeightPixels(), gameFacade.getSpeedX());
 
         return obstacle;
     }
@@ -47,8 +48,8 @@ public class ObstaclePresenter {
         obstacleModel.draw(canvas);
     }
 
-    public boolean isPassed(int speedX) {
-        return obstacleModel.isPassed(speedX);
+    public boolean isPassed() {
+        return obstacleModel.isPassed(gameFacade.getSpeedX());
     }
     public boolean isAlreadyPassed() {
         return obstacleModel.isAlreadyPassed();
@@ -81,8 +82,8 @@ public class ObstaclePresenter {
         obstacleModel.setSpeedX(speedX);
     }
 
-    public void move(int width, int height){
-        obstacleModel.move(width, height);
+    public void move(){
+        obstacleModel.move(gameFacade.getWidth(), gameFacade.getHeight());
     }
 
 //    public ObstaclePresenter(GameView gameView) {

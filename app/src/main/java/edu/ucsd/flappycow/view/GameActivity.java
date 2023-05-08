@@ -374,4 +374,20 @@ public class GameActivity extends Activity implements Subject<AchievementBoxUpda
     public int getHeightPixels(){
         return this.getResources().getDisplayMetrics().heightPixels;
     }
+
+    public AchievementBox getAccomplishmentBox() {
+        return accomplishmentBox;
+    }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
+
+    public GameActivityHandler getHandler() {
+        return handler;
+    }
 }

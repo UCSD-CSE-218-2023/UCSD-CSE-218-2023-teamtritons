@@ -13,9 +13,9 @@ public class TutorialPresenter {
     private Tutorial tutorial;  // MODEL
     private GameFacade gameFacade;  // VIEW
 
-    public TutorialPresenter(GameView gameView){
+    public TutorialPresenter(GameFacade gameFacade){
         tutorial= new Tutorial();
-        tutorial.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.tutorial));
+        tutorial.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.tutorial));
         this.gameFacade = gameFacade;
     }
 
@@ -27,24 +27,32 @@ public class TutorialPresenter {
         tutorial.setTutorialIsShown(tutorialIsShown);
     }
 
-    public void showTutorial() {
-//        gameView.getPlayableCharacterPresenter().move();
-        gameFacade.getPlayer().move(gameFacade.getWidth(), gameFacade.getHeight());
-        gameFacade.getPauseButton().move();
-        while (!gameFacade.getHolder().getSurface().isValid()) {
-            /*wait*/
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        Canvas canvas = gameFacade.getCanvas();
-        gameFacade.drawCanvas(canvas, true);
-
-//        tutorial.move(gameView.getWidth(), gameView.getHeight());
+    public void move() {
         tutorial.move(gameFacade.getWidth(), gameFacade.getHeight());
-        tutorial.draw(canvas);
-        gameFacade.gameView.getHolder().unlockCanvasAndPost(canvas);
     }
+
+    public void draw(Canvas canvas) {
+        tutorial.draw(canvas);
+    }
+
+//    public void showTutorial() {
+////        gameView.getPlayableCharacterPresenter().move();
+//        gameFacade.getPlayer().move(gameFacade.getWidth(), gameFacade.getHeight());
+//        gameFacade.getPauseButton().move();
+//        while (!gameFacade.getHolder().getSurface().isValid()) {
+//            /*wait*/
+//            try {
+//                Thread.sleep(10);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        Canvas canvas = gameFacade.getCanvas();
+//        gameFacade.drawCanvas(canvas, true);
+//
+////        tutorial.move(gameView.getWidth(), gameView.getHeight());
+//        tutorial.move(gameFacade.getWidth(), gameFacade.getHeight());
+//        tutorial.draw(canvas);
+//        gameFacade.gameView.getHolder().unlockCanvasAndPost(canvas);
+//    }
 }
