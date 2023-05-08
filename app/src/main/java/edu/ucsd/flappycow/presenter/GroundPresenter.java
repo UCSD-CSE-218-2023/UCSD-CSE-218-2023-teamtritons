@@ -14,11 +14,11 @@ import edu.ucsd.flappycow.model.IGround;
 public class GroundPresenter {
 
     private IGround ground;
-    private GameView gameView;
+    private GameFacade gameFacade;
 
-    public GroundPresenter(GameView gameView, String type) {
+    public GroundPresenter(GameFacade gameFacade, String type) {
 
-        this.gameView = gameView;
+        this.gameFacade = gameFacade;
         this.ground = createInstance(type);
     }
 
@@ -27,11 +27,11 @@ public class GroundPresenter {
         // depending on parameters create object
         if(type.equals(ApplicationConstants.BACKGROUND)) {
             Background background = new Background();
-            background.onInitBitmap(Util.getDownScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.bg));
+            background.onInitBitmap(Util.getDownScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.bg));
             return background;
         } else if (type.equals(ApplicationConstants.FRONTGROUND)) {
             Frontground frontground = new Frontground();
-            frontground.onInitBitmap(Util.getDownScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.fg));
+            frontground.onInitBitmap(Util.getDownScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.fg));
             return frontground;
         }
         return null;
@@ -43,7 +43,7 @@ public class GroundPresenter {
 //    }
 
     public void move(){
-        ground.move(gameView.getWidth(), gameView.getHeight());
+        ground.move(gameFacade.getWidth(), gameFacade.getHeight());
     }
 
     public void setSpeedX(int speedX){

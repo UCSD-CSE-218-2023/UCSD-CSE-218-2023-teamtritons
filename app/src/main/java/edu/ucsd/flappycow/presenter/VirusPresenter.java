@@ -1,25 +1,29 @@
 package edu.ucsd.flappycow.presenter;
 
+import edu.ucsd.flappycow.GameFacade;
 import edu.ucsd.flappycow.view.GameView;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.Util;
 import edu.ucsd.flappycow.model.Virus;
 
 public class VirusPresenter extends PowerUpPresenter{
-    public VirusPresenter(GameView gameView) {
-        super(gameView);
 
-        Virus virus = new Virus(gameView.getSpeedX(), gameView.getWidth());
+    private GameFacade gameFacade;
+    public VirusPresenter(GameFacade gameFacade) {
+        super(gameFacade);
+        this.gameFacade = gameFacade;
+
+        Virus virus = new Virus(gameFacade.getSpeedX(), gameFacade.getWidth());
         setPowerUpModel(virus);
 
-        virus.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.virus));
+        virus.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.virus));
 
         setPowerUpModel(virus);
     }
 
     public void onCollision() {
         super.onCollision();
-        gameView.decreasePoints();
-        gameView.changeToSick();
+        gameFacade.decreasePoints();
+        gameFacade.changeToSick();
     }
 }
