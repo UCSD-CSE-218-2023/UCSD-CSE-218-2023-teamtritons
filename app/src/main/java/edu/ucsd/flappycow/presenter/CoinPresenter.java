@@ -23,7 +23,7 @@ public class CoinPresenter extends PowerUpPresenter{
             ((Coin)this.getPowerUpModel()).setSound(GameActivity.soundPool.load(gameFacade.getGameActivity(), R.raw.coin, 1));
         }
     }
-//
+
     private void playSound() {
         GameActivity.soundPool.play(((Coin)this.getPowerUpModel()).getSound(), MainActivity.volume, MainActivity.volume, 0, 0, 1);
     }

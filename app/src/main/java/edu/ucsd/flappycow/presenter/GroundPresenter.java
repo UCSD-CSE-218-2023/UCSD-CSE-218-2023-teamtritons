@@ -38,10 +38,6 @@ public class GroundPresenter {
     }
     // draw, move, setSpeedX,
 
-//    public void move(int height, int width){
-//        ground.move(height, width);
-//    }
-
     public void move(){
         ground.move(gameFacade.getWidth(), gameFacade.getHeight());
     }

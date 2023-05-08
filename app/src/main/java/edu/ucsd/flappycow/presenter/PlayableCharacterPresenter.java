@@ -34,20 +34,11 @@ public class PlayableCharacterPresenter {
             cow.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.cow));
             return cow;
         } else if (type.equals(ApplicationConstants.NYAN_CAT)) {
-//            Rainbow rainbow = new Rainbow();
             Rainbow rainbow = new Rainbow();
             rainbow.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.rainbow));
 
             NyanCat nyanCat = new NyanCat(gameFacade.getWidth(), gameFacade.getHeight(), gameFacade.getHeightPixels(), rainbow);
             nyanCat.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.nyan_cat));
-
-//            NyanCat nyanCat = new NyanCat(rainbow, gameView.getHeight(), gameView.getWidth(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels);
-//            rainbow.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.rainbow));
-//            nyanCat.setBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.nyan_cat));
-//            rainbow.onInitBitmap();
-//            nyanCat.onInitBitmap();
-//            return nyanCat;
-
             return nyanCat;
         }
         return null;
@@ -73,7 +64,6 @@ public class PlayableCharacterPresenter {
     }
 
     public void onTap(){
-//        playableCharacterModel.onTap(gameView.getHeight());
         playableCharacterModel.onTap(gameFacade.getHeight());
     }
 
@@ -87,12 +77,10 @@ public class PlayableCharacterPresenter {
     }
 
     public boolean isTouchingGround() {
-//        return playableCharacterModel.isTouchingGround(gameView.getHeight());
         return playableCharacterModel.isTouchingGround(gameFacade.getHeight());
     }
 
     public boolean isTouchingEdge() {
-//        return playableCharacterModel.isTouchingEdge(gameView.getHeight());
         return playableCharacterModel.isTouchingEdge(gameFacade.getHeight());
     }
 
@@ -119,14 +107,6 @@ public class PlayableCharacterPresenter {
     public void setAccessory(IAccessory accessory) {
         this.accessory = accessory;
     }
-
-//    public GameView getGameView() {
-//        return gameView;
-//    }
-//
-//    public void setGameView(GameView gameView) {
-//        this.gameView = gameView;
-//    }
 
     public IPlayableCharacter getPlayableCharacterModel() {
         return playableCharacterModel;

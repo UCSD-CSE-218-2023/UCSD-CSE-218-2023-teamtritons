@@ -45,12 +45,4 @@ public class PowerUpPresenter {
     public void setPowerUpModel(PowerUp powerUpModel) {
         this.powerUpModel = powerUpModel;
     }
-
-//    public GameView getGameFacade() {
-//        return gameFacade;
-//    }
-//
-//    public void setGameFacade(GameView gameFacade) {
-//        this.gameFacade = gameFacade;
-//    }
 }

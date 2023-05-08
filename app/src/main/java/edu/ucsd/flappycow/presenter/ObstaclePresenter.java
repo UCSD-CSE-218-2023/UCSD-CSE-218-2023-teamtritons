@@ -17,7 +17,6 @@ public class ObstaclePresenter {
     private Obstacle obstacleModel;
 
     public ObstaclePresenter(GameFacade gameFacade) {
-        System.out.println("Obstacle Presenter called----------");
         this.gameFacade = gameFacade;
         this.obstacleModel = createInstance();
 
@@ -57,8 +56,7 @@ public class ObstaclePresenter {
     public void onPass() {
         if(!obstacleModel.isAlreadyPassed()) {
             GameActivity.soundPool.play(obstacleModel.getPassSound(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), 0, 0, 1);
-//            gameView.getGameActivity().increasePoints();
-//            gameFacade.increasePoints();
+            gameFacade.increasePoints();
         }
 
         obstacleModel.onPass();
@@ -84,71 +82,4 @@ public class ObstaclePresenter {
     public void move(){
         obstacleModel.move(gameFacade.getWidth(), gameFacade.getHeight());
     }
-
-//    public ObstaclePresenter(GameView gameView) {
-//        this.gameView = gameView;
-//        this.obstacleModel = createInstance();
-//
-//        if (obstacleModel.getCollideSound() == -1) {
-//            obstacleModel.setCollideSound(GameActivity.soundPool.load(gameView.getGameActivity(), R.raw.crash, 1));
-//        }
-//        // TODO: presenter
-//        if (obstacleModel.getPassSound() == -1) {
-//            obstacleModel.setPassSound(GameActivity.soundPool.load(gameView.getGameActivity(), R.raw.pass, 1));
-//        }
-//    }
-//
-//
-//    public Obstacle createInstance() {
-//        Spider spider = new Spider();
-//        WoodLog woodLog = new WoodLog();
-//
-//        spider.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.spider_full));
-//        woodLog.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.log_full));
-//
-//        Obstacle obstacle = new Obstacle(spider, woodLog, gameView.getGameActivity().getResources().getDisplayMetrics().widthPixels, gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels, gameView.getSpeedX());
-//
-//        return obstacle;
-//    }
-//
-//    public void draw(Canvas canvas) {
-//        obstacleModel.draw(canvas);
-//    }
-//
-//    public boolean isPassed() {
-//       return obstacleModel.isPassed(gameView.getSpeedX());
-//    }
-//    public boolean isAlreadyPassed() {
-//        return obstacleModel.isAlreadyPassed();
-//    }
-//
-//    public void onPass() {
-//        if(!obstacleModel.isAlreadyPassed()) {
-//            GameActivity.soundPool.play(obstacleModel.getPassSound(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), 0, 0, 1);
-//            gameView.getGameActivity().increasePoints();
-//        }
-//
-//        obstacleModel.onPass();
-//    }
-//
-//    public boolean isOutOfRange() {
-//        return obstacleModel.isOutOfRange();
-//    }
-//
-//    public boolean isColliding(IPlayableCharacter playableCharacter) {
-//        return obstacleModel.isColliding(playableCharacter, gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels);
-//    }
-//
-//    public void onCollision() {
-//        obstacleModel.onCollision();
-//        GameActivity.soundPool.play(obstacleModel.getCollideSound(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), 0, 0, 1);
-//    }
-//
-//    public void setSpeedX(float speedX) {
-//        obstacleModel.setSpeedX(speedX);
-//    }
-//
-//    public void move(){
-//        obstacleModel.move(gameView.getWidth(), gameView.getHeight());
-//    }
 }

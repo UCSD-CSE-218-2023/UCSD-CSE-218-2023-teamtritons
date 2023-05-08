@@ -51,6 +51,9 @@ class GameFacade {
         powerUpPresenters = new ArrayList<>();
     }
 
+    /**
+     * content of the timertask
+     */
     public void run() {
         checkPasses();
         checkOutOfRange();
@@ -60,6 +63,9 @@ class GameFacade {
         draw();
     }
 
+    /**
+     * Draw Tutorial
+     */
     public void showTutorial() {
         playableCharacterPresenter.move();
         buttonPresenter.move();
@@ -92,6 +98,9 @@ class GameFacade {
         })).start();
     }
 
+    /**
+     * Draws all gameobjects on the surface
+     */
     private void draw() {
         while (!getSurfaceViewHolder().getSurface().isValid()) {
             /*wait*/
@@ -109,8 +118,13 @@ class GameFacade {
         getSurfaceViewHolder().unlockCanvasAndPost(canvas);
     }
 
+    /**
+     * Draws everything normal,
+     * except the player will only be drawn, when the parameter is true
+     *
+     * @param drawPlayer
+     */
     public void drawCanvas(Canvas canvas, boolean drawPlayer) {
-//        background.draw(canvas);
         groundPresenterMap.get(ApplicationConstants.BACKGROUND).draw(canvas);
         for (ObstaclePresenter r : obstaclePresenters) {
             r.draw(canvas);
@@ -119,10 +133,8 @@ class GameFacade {
             p.draw(canvas);
         }
         if (drawPlayer) {
-//            player.draw(canvas);
             playableCharacterPresenter.draw(canvas);
         }
-//        frontground.draw(canvas);
         groundPresenterMap.get(ApplicationConstants.FRONTGROUND).draw(canvas);
         buttonPresenter.draw(canvas);
 
@@ -135,6 +147,9 @@ class GameFacade {
                 0, getScoreTextMetrics(), paint);
     }
 
+    /**
+     * A value for the position and size of the onScreen score Text
+     */
     public int getScoreTextMetrics() {
         return (int) (getHeight() / 21.0f);
     }
@@ -143,33 +158,43 @@ class GameFacade {
         playableCharacterPresenter.wearMask();
     }
 
+    /**
+     * Changes the player to Nyan Cat
+     */
     public void changeToNyanCat() {
         getGameActivity().getAccomplishmentBox().setAchievement_toastification(true);
         gameView.sendMessage();
         IPlayableCharacter tmp = this.playableCharacterPresenter.getPlayer();
-        this.playableCharacterPresenter = new PlayableCharacterPresenter(this, ApplicationConstants.NYAN_CAT);
-        this.playableCharacterPresenter.setX(tmp.getX());
-        this.playableCharacterPresenter.setY(tmp.getY());
-        this.playableCharacterPresenter.setSpeedX(tmp.getSpeedX());
-        this.playableCharacterPresenter.setSpeedY(tmp.getSpeedY());
+        playableCharacterPresenter = new PlayableCharacterPresenter(this, ApplicationConstants.NYAN_CAT);
+        playableCharacterPresenter.setX(tmp.getX());
+        playableCharacterPresenter.setY(tmp.getY());
+        playableCharacterPresenter.setSpeedX(tmp.getSpeedX());
+        playableCharacterPresenter.setSpeedY(tmp.getSpeedY());
 
         getGameActivity().musicShouldPlay = true;
         GameActivity.musicPlayer.start();
     }
 
+    /**
+     * if no obstacle is present a new one is created
+     */
     public void createObstacle() {
         if (obstaclePresenters.size() < 1) {
             obstaclePresenters.add(new ObstaclePresenter(this));
         }
     }
 
+    /**
+     * Sets the player into startposition
+     * Removes obstacles.
+     * Let's the character blink a few times.
+     */
     public void setupRevive() {
-        getGameActivity().gameOver.hide();
+        getGameActivity().getGameOverDialog().hide();
         playableCharacterPresenter.setY(getHeight() / 2 - playableCharacterPresenter.getPlayer().getWidth() / 2);
         playableCharacterPresenter.setX(getWidth() / 6);
         obstaclePresenters.clear();
         powerUpPresenters.clear();
-//        player.revive();
         playableCharacterPresenter.revive();
         for (int i = 0; i < 6; ++i) {
             while (!getSurfaceViewHolder().getSurface().isValid()) {/*wait*/}
@@ -186,6 +211,9 @@ class GameFacade {
         gameView.resume();
     }
 
+    /**
+     * Update sprite movements
+     */
     private void move() {
         for (ObstaclePresenter o : obstaclePresenters) {
             o.setSpeedX(-getSpeedX());
@@ -203,6 +231,9 @@ class GameFacade {
         playableCharacterPresenter.move();
     }
 
+    /**
+     * Checks collisions and performs the action
+     */
     private void checkCollision(int heightPixels) {
         for (ObstaclePresenter o : obstaclePresenters) {
             if (o.isColliding(playableCharacterPresenter.getPlayer())) {
@@ -223,6 +254,10 @@ class GameFacade {
         }
     }
 
+    /**
+     * Let's the player fall down dead, makes sure the runcycle stops
+     * and invokes the next method for the dialog and stuff.
+     */
     public void gameOver() {
         gameView.pause();
         playerDeadFall();
@@ -236,6 +271,9 @@ class GameFacade {
         new Thread(this::setupRevive).start();
     }
 
+    /**
+     * Checks whether the obstacles or powerUps are out of range and deletes them
+     */
     private void checkOutOfRange() {
         for (int i = 0; i < obstaclePresenters.size(); i++) {
             if (this.obstaclePresenters.get(i).isOutOfRange()) {
@@ -251,8 +289,10 @@ class GameFacade {
         }
     }
 
+    /**
+     * Creates a toast with a certain chance
+     */
     private void createPowerUp() {
-//        powerUpPresenter.createPowerUp(gameActivity.accomplishmentBox.getPoints());
 //        // Toast
         if (getGameActivity().getAccomplishmentBox().getPoints() >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(playableCharacterPresenter.getPlayer() instanceof NyanCat)) {
             // If no powerUp is present and you have more than / equal 42 points
@@ -274,6 +314,9 @@ class GameFacade {
         }
     }
 
+    /**
+     * Let the player fall to the ground
+     */
     private void playerDeadFall() {
         playableCharacterPresenter.dead();
         do {
@@ -306,17 +349,14 @@ class GameFacade {
         if (tutorialPresenter.isTutorialIsShown()) {
             // dismiss tutorial
             tutorialPresenter.setTutorialIsShown(false);
-//                tutorialIsShown = false;
             gameView.resume();
-//                this.player.onTap();
-            this.playableCharacterPresenter.onTap();
+            playableCharacterPresenter.onTap();
         } else if (gameView.isPaused()) {
             gameView.resume();
         } else if (buttonPresenter.isTouching(x, y) && !gameView.isPaused()) {
             gameView.pause();
         } else {
-//                this.player.onTap();
-            this.playableCharacterPresenter.onTap();
+            playableCharacterPresenter.onTap();
         }
     }
 
