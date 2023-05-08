@@ -30,6 +30,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ucsd.flappycow.GameFacade;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 import edu.ucsd.flappycow.presenter.GameActivityAchievementBoxPresenter;
@@ -138,7 +139,7 @@ public class GameActivity extends Activity implements Subject<AchievementBoxUpda
     /**
      * The dialog displayed when the game is over
      */
-    GameOverDialog gameOverDialog;
+   // GameOverDialog gameOverDialog;
 
     /**
      * Interstitial ad.
@@ -150,28 +151,35 @@ public class GameActivity extends Activity implements Subject<AchievementBoxUpda
 
     private List<IObserver> observers;
 
+    GameFacade gameFacade;
+
     private GameActivityAchievementBoxPresenter gameActivityAchievementBoxPresenter;
 
     public GameActivity() {
         gameActivitySub = new GameActivitySubjectImpl<>();
         observers = new ArrayList<>();
+        view = new GameView(this);
+        handler = new GameActivityHandler(this);
+        gameFacade = new GameFacade(view);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        accomplishmentBox = new AchievementBox();
-        gameActivityAchievementBoxPresenter = new GameActivityAchievementBoxPresenter(this, accomplishmentBox);
-//        gameActivityAchievementBoxPresenter.register(accomplishmentBox);
-        view = new GameView(this);
-        gameOverDialog = new GameOverDialog(this);
-        handler = new GameActivityHandler(this);
-        setContentView(view);
-        initMusicPlayer();
-        loadCoins();
-        if (gameOverCounter % GAMES_PER_AD == 0) {
-            setupAd();
-        }
+        gameFacade.onCreate();
+
+//        accomplishmentBox = new AchievementBox();
+//        gameActivityAchievementBoxPresenter = new GameActivityAchievementBoxPresenter(this, accomplishmentBox);
+////        gameActivityAchievementBoxPresenter.register(accomplishmentBox);
+//        view = new GameView(this);
+//        gameOverDialog = new GameOverDialog(this);
+//        handler = new GameActivityHandler(this);
+//        setContentView(view);
+//        initMusicPlayer();
+//        loadCoins();
+//        if (gameOverCounter % GAMES_PER_AD == 0) {
+//            setupAd();
+//        }
     }
 
 
@@ -179,20 +187,20 @@ public class GameActivity extends Activity implements Subject<AchievementBoxUpda
      * Initializes the player with the nyan cat song
      * and sets the position to 0.
      */
-    public void initMusicPlayer() {
-        if (musicPlayer == null) {
-            // to avoid unnecessary reinitialisation
-            musicPlayer = MediaPlayer.create(this, R.raw.nyan_cat_theme);
-            if (musicPlayer == null) {
-                return;
-            }
-            musicPlayer.setLooping(true);
-            musicPlayer.setVolume(MainActivity.volume, MainActivity.volume);
-        }
-        musicPlayer.seekTo(0);    // Reset song to position 0
-    }
-
-    private void loadCoins() {
+//    public void initMusicPlayer() {
+//        if (musicPlayer == null) {
+//            // to avoid unnecessary reinitialisation
+//            musicPlayer = MediaPlayer.create(this, R.raw.nyan_cat_theme);
+//            if (musicPlayer == null) {
+//                return;
+//            }
+//            musicPlayer.setLooping(true);
+//            musicPlayer.setVolume(MainActivity.volume, MainActivity.volume);
+//        }
+//        musicPlayer.seekTo(0);    // Reset song to position 0
+//    }
+//
+    public void loadCoins() {
         SharedPreferences saves = this.getSharedPreferences(coin_save, 0);
         this.coins = saves.getInt(coin_key, 0);
     }
@@ -300,50 +308,51 @@ public class GameActivity extends Activity implements Subject<AchievementBoxUpda
 //        accomplishmentBox.setPoints(accomplishmentBox.getPoints()-1);
         notify(new AchievementBoxUpdate(ApplicationConstants.POINTS, Integer.toString(accomplishmentBox.getPoints()-1)));
     }
-
+    public void sendMessage() {
+        handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_GAME_OVER_DIALOG));    }
     /**
      * Shows the GameOverDialog when a message with code 0 is received.
      */
     
 
-    private void setupAd() {
-        MobileAds.initialize(this, initializationStatus -> { /* no-op */ });
-
-        String adUnitId = getResources().getString(R.string.ad_unit_id);
-
-        // Make sure only adds appropriate for children of all ages are displayed.
-        Bundle extras = new Bundle();
-        extras.putString("max_ad_content_rating", "G");
-
-        AdRequest adRequest = new AdRequest.Builder()
-            .addNetworkExtrasBundle(AdMobAdapter.class, extras)
-            .build();
-
-        InterstitialAd.load(this, adUnitId, adRequest, new InterstitialAdLoadCallback() {
-            @Override
-            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                Log.i("Ads", "Ad was loaded.");
-                interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-                    @Override
-                    public void onAdDismissedFullScreenContent() {
-                        handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_GAME_OVER_DIALOG));
-                    }
-                });
-                GameActivity.this.interstitial = interstitialAd;
-            }
-
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                if (loadAdError.getCode() == AdRequest.ERROR_CODE_NO_FILL) {
-                    Log.i("Ads", "No ad was available.");
-                } else {
-                    Log.i("Ads", "Ad failed to load.");
-                }
-                Log.d("Ads", loadAdError.toString());
-                GameActivity.this.interstitial = null;
-            }
-        });
-    }
+//    private void setupAd() {
+//        MobileAds.initialize(this, initializationStatus -> { /* no-op */ });
+//
+//        String adUnitId = getResources().getString(R.string.ad_unit_id);
+//
+//        // Make sure only adds appropriate for children of all ages are displayed.
+//        Bundle extras = new Bundle();
+//        extras.putString("max_ad_content_rating", "G");
+//
+//        AdRequest adRequest = new AdRequest.Builder()
+//            .addNetworkExtrasBundle(AdMobAdapter.class, extras)
+//            .build();
+//
+//        InterstitialAd.load(this, adUnitId, adRequest, new InterstitialAdLoadCallback() {
+//            @Override
+//            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+//                Log.i("Ads", "Ad was loaded.");
+//                interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+//                    @Override
+//                    public void onAdDismissedFullScreenContent() {
+//                        handler.sendMessage(Message.obtain(handler, ApplicationConstants.SHOW_GAME_OVER_DIALOG));
+//                    }
+//                });
+//                GameActivity.this.interstitial = interstitialAd;
+//            }
+//
+//            @Override
+//            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+//                if (loadAdError.getCode() == AdRequest.ERROR_CODE_NO_FILL) {
+//                    Log.i("Ads", "No ad was available.");
+//                } else {
+//                    Log.i("Ads", "Ad failed to load.");
+//                }
+//                Log.d("Ads", loadAdError.toString());
+//                GameActivity.this.interstitial = null;
+//            }
+//        });
+//    }
 
     public ISubjectImpl<AchievementBoxUpdate> getGameActivitySub() {
         return gameActivitySub;
