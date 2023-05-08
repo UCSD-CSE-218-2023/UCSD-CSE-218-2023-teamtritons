@@ -26,14 +26,14 @@ public class Score implements IObserver<GameOverUpdate> {
         if(gameActivityHandlerUpdate.type.equals(ApplicationConstants.SCORE)){
             SharedPreferences saves = gameActivityHandlerUpdate.gameActivity.getSharedPreferences(score_save_name, 0);
             int oldPoints = saves.getInt(best_score_key, 0);
-            if (gameActivityHandlerUpdate.gameActivity.accomplishmentBox.getPoints() > oldPoints) {
+            if (gameActivityHandlerUpdate.gameActivity.getAccomplishmentBoxPoints() > oldPoints) {
                 // Save new highscore
                 SharedPreferences.Editor editor = saves.edit();
-                editor.putInt(best_score_key, gameActivityHandlerUpdate.gameActivity.accomplishmentBox.getPoints());
+                editor.putInt(best_score_key, gameActivityHandlerUpdate.gameActivity.getAccomplishmentBoxPoints());
                 gameActivityHandlerUpdate.tvCurrentScoreVal.setTextColor(Color.RED);
                 editor.apply();
             }
-            gameActivityHandlerUpdate.tvCurrentScoreVal.setText("" + gameActivityHandlerUpdate.gameActivity.accomplishmentBox.getPoints());
+            gameActivityHandlerUpdate.tvCurrentScoreVal.setText("" + gameActivityHandlerUpdate.gameActivity.getAccomplishmentBoxPoints());
             gameActivityHandlerUpdate.tvBestScoreVal.setText("" + oldPoints);
         }
 

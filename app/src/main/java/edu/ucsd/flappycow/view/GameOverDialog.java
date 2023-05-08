@@ -70,7 +70,7 @@ public class GameOverDialog extends Dialog {
 
         reviveButton.setText(gameActivity.getReviveButtonText()
             + " " + REVIVE_PRICE * gameActivity.numberOfRevive + " "
-            + gameActivity.getResources().getString(R.string.coins));
+            + gameActivity.getCoinsText());
         reviveButton.setOnClickListener(this::onReviveClick);
         if (gameActivity.coins < REVIVE_PRICE * gameActivity.numberOfRevive) {
             reviveButton.setClickable(false);
