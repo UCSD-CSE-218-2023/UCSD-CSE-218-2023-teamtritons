@@ -134,7 +134,8 @@ public class GameView extends SurfaceView {
 
 
     public void sendMessage() {
-        getGameActivity().getHandler().sendMessage(Message.obtain(getGameActivity().getHandler(), 1, R.string.toast_achievement_toastification, ApplicationConstants.SHOW_TOAST));
+//        getGameActivity().getHandler().sendMessage(Message.obtain(getGameActivity().getHandler(), 1, R.string.toast_achievement_toastification, ApplicationConstants.SHOW_TOAST));
+        getGameActivity().sendToastAchievementMessage();
     }
 
     public GameActivity getGameActivity() {

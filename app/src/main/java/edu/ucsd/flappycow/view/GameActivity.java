@@ -426,11 +426,31 @@ public class GameActivity extends Activity implements Subject<AchievementBoxUpda
         return this.getResources().getString(R.string.revive_button);
     }
 
+    public String getCoinsText(){
+        return this.getResources().getString(R.string.coins);
+    }
+
     public void startMusicPlayer(){
         this.musicPlayer.start();
     }
 
     public void saveAccomplishmentBox(){
         this.accomplishmentBox.save(this);
+    }
+
+    public Boolean isAchievementGold(){
+        return accomplishmentBox.isAchievement_gold();
+    }
+
+    public Boolean isAchievementSilver(){
+        return accomplishmentBox.isAchievement_silver();
+    }
+
+    public Boolean isAchievementBronze(){
+        return accomplishmentBox.isAchievement_bronze();
+    }
+
+    public void sendToastAchievementMessage(){
+        handler.sendMessage(Message.obtain(handler, 1, R.string.toast_achievement_toastification, ApplicationConstants.SHOW_TOAST));
     }
 }
