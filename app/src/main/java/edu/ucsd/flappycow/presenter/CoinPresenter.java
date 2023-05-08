@@ -1,5 +1,6 @@
 package edu.ucsd.flappycow.presenter;
 
+import edu.ucsd.flappycow.GameFacade;
 import edu.ucsd.flappycow.view.GameActivity;
 import edu.ucsd.flappycow.view.GameView;
 import edu.ucsd.flappycow.view.MainActivity;
@@ -9,13 +10,13 @@ import edu.ucsd.flappycow.model.Coin;
 
 public class CoinPresenter extends PowerUpPresenter{
 
-    public CoinPresenter(GameView gameView) {
-        super(gameView);
+    public CoinPresenter(GameFacade gameFacade) {
+        super(gameFacade);
 
-        Coin coin = new Coin(gameView.getSpeedX(), gameView.getWidth());
+        Coin coin = new Coin(gameFacade.getSpeedX(), gameFacade.getWidth());
         setPowerUpModel(coin);
 
-        coin.onInitBitmap(Util.getScaledBitmapAlpha8(gameView.getGameActivity(), R.drawable.coin));
+        coin.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.coin));
 
         setPowerUpModel(coin);
 
