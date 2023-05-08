@@ -68,7 +68,7 @@ public class GameOverDialog extends Dialog {
 
         Button reviveButton = (Button) findViewById(R.id.b_revive);
 
-        reviveButton.setText(gameActivity.getResources().getString(R.string.revive_button)
+        reviveButton.setText(gameActivity.getReviveButtonText()
             + " " + REVIVE_PRICE * gameActivity.numberOfRevive + " "
             + gameActivity.getResources().getString(R.string.coins));
         reviveButton.setOnClickListener(this::onReviveClick);
@@ -135,7 +135,8 @@ public class GameOverDialog extends Dialog {
     private void onOKClick(View view) {
         saveCoins();
         if (gameActivity.numberOfRevive <= 1) {
-            gameActivity.accomplishmentBox.save(gameActivity);
+            gameActivity.saveAccomplishmentBox();
+//            gameActivity.accomplishmentBox.save(gameActivity);
         }
 
         dismiss();

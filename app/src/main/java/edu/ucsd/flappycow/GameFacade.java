@@ -57,7 +57,7 @@ class GameFacade {
     public void run() {
         checkPasses();
         checkOutOfRange();
-        checkCollision(this.getGameActivity().getResources().getDisplayMetrics().heightPixels);
+        checkCollision(this.getHeightPixels());
         createObstacle();
         move();
         draw();
@@ -142,8 +142,11 @@ class GameFacade {
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(getScoreTextMetrics());
-        canvas.drawText(getGameActivity().getResources().getString(R.string.onscreen_score_text) + " " + getGameActivity().getAccomplishmentBox().getPoints()
-                        + " / " + getGameActivity().getResources().getString(R.string.onscreen_coin_text) + " " + getGameActivity().getCoins(),
+//        canvas.drawText(getGameActivity().getResources().getString(R.string.onscreen_score_text) + " " + getGameActivity().getAccomplishmentBox().getPoints()
+//        + " / " + getGameActivity().getResources().getString(R.string.onscreen_coin_text) + " " + getGameActivity().getCoins(),
+//                0, getScoreTextMetrics(), paint);
+        canvas.drawText(gameView.onScreenScoreText() + " " +         gameView.getAccomplishmentBoxPoints()
+                        + " / " + gameView.onScreenCoinText() + " " + gameView.getCoins(),
                 0, getScoreTextMetrics(), paint);
     }
 
@@ -162,7 +165,8 @@ class GameFacade {
      * Changes the player to Nyan Cat
      */
     public void changeToNyanCat() {
-        getGameActivity().getAccomplishmentBox().setAchievement_toastification(true);
+        gameView.setAchievement_toastification();
+//        getGameActivity().getAccomplishmentBox().setAchievement_toastification(true);
         gameView.sendMessage();
         IPlayableCharacter tmp = this.playableCharacterPresenter.getPlayer();
         playableCharacterPresenter = new PlayableCharacterPresenter(this, ApplicationConstants.NYAN_CAT);
@@ -170,9 +174,10 @@ class GameFacade {
         playableCharacterPresenter.setY(tmp.getY());
         playableCharacterPresenter.setSpeedX(tmp.getSpeedX());
         playableCharacterPresenter.setSpeedY(tmp.getSpeedY());
-
-        getGameActivity().musicShouldPlay = true;
-        GameActivity.musicPlayer.start();
+        gameView.setMusicShouldPlay(true);
+//        getGameActivity().musicShouldPlay = true;
+        gameView.startMusicPlayer();
+//        GameActivity.musicPlayer.start();
     }
 
     /**
@@ -190,7 +195,8 @@ class GameFacade {
      * Let's the character blink a few times.
      */
     public void setupRevive() {
-        getGameActivity().getGameOverDialog().hide();
+        gameView.getGameOverDialog().hide();
+//        getGameActivity().getGameOverDialog().hide();
         playableCharacterPresenter.setY(getHeight() / 2 - playableCharacterPresenter.getPlayer().getWidth() / 2);
         playableCharacterPresenter.setX(getWidth() / 6);
         obstaclePresenters.clear();
@@ -261,11 +267,13 @@ class GameFacade {
     public void gameOver() {
         gameView.pause();
         playerDeadFall();
-        getGameActivity().gameOver();
+        gameView.gameOver();
+//        getGameActivity().gameOver();
     }
 
     public void revive() {
-        getGameActivity().numberOfRevive++;
+        gameView.increaseNumberOfRevive();
+//        getGameActivity().numberOfRevive++;
 
         // This needs to run another thread, so the dialog can close.
         new Thread(this::setupRevive).start();
@@ -294,9 +302,12 @@ class GameFacade {
      */
     private void createPowerUp() {
 //        // Toast
-        if (getGameActivity().getAccomplishmentBox().getPoints() >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(playableCharacterPresenter.getPlayer() instanceof NyanCat)) {
+//        if (getGameActivity().getAccomplishmentBox().getPoints() >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(playableCharacterPresenter.getPlayer() instanceof NyanCat)) {
+        if (gameView.getAccomplishmentBoxPoints() >= Toast.POINTS_TO_TOAST /*&& powerUps.size() < 1*/ && !(playableCharacterPresenter.getPlayer() instanceof NyanCat)) {
+
             // If no powerUp is present and you have more than / equal 42 points
-            if (getGameActivity().getAccomplishmentBox().getPoints() == Toast.POINTS_TO_TOAST) {    // First time 100 % chance
+//            if (getGameActivity().getAccomplishmentBox().getPoints() == Toast.POINTS_TO_TOAST) {    // First time 100 % chance
+            if(gameView.getAccomplishmentBoxPoints() == Toast.POINTS_TO_TOAST){
                 powerUpPresenters.add(new ToastPresenter(this));
             } else if (Math.random() * 100 < 33) {    // 33% chance
                 powerUpPresenters.add(new ToastPresenter(this));
@@ -396,14 +407,14 @@ class GameFacade {
         return gameView.getHeight();
     }
     public void gameActivityIncreaseCoin(){
-        getGameActivity().increaseCoin();
+        gameView.increaseCoin();
     }
 
     public void increasePoints(){
-        getGameActivity().increasePoints();
+        gameView.increasePoints();
     }
     public void decreasePoints(){
-        getGameActivity().decreasePoints();
+        gameView.decreasePoints();
     }
 
     public boolean isPlayerDead() {

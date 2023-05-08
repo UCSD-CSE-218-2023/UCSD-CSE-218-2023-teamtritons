@@ -401,4 +401,36 @@ public class GameActivity extends Activity implements Subject<AchievementBoxUpda
     public void setGameOverDialog(GameOverDialog gameOverDialog) {
         this.gameOverDialog = gameOverDialog;
     }
+
+    public int getAccomplishmentBoxPoints(){
+        return accomplishmentBox.getPoints();
+    }
+
+    public void setAchievement_toastification(){
+        this.getAccomplishmentBox().setAchievement_toastification(true);
+    }
+
+    public void increaseNumberOfRevive(){
+        numberOfRevive++;
+    }
+
+    public String onScreenCoinText(){
+        return this.getResources().getString(R.string.onscreen_coin_text);
+    }
+
+    public String onScreenScoreText(){
+        return this.getResources().getString(R.string.onscreen_score_text);
+    }
+
+    public String getReviveButtonText(){
+        return this.getResources().getString(R.string.revive_button);
+    }
+
+    public void startMusicPlayer(){
+        this.musicPlayer.start();
+    }
+
+    public void saveAccomplishmentBox(){
+        this.accomplishmentBox.save(this);
+    }
 }

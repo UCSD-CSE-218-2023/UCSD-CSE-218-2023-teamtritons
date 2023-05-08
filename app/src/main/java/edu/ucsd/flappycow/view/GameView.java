@@ -170,7 +170,7 @@ public class GameView extends SurfaceView {
         int speedDefault = this.getWidth() / 45;
 
         // 1,2 every 4 points @ 720x1280 px
-        int speedIncrease = (int) (this.getWidth() / 600f * (gameActivity.accomplishmentBox.getPoints() / 4));
+        int speedIncrease = (int) (this.getWidth() / 600f * ( getAccomplishmentBoxPoints() / 4));
 
         int speed = speedDefault + speedIncrease;
 
@@ -199,5 +199,49 @@ public class GameView extends SurfaceView {
 
     public void revive() {
         gameFacade.revive();
+    }
+
+    public int getAccomplishmentBoxPoints(){
+        return getGameActivity().getAccomplishmentBoxPoints();
+    }
+
+    public void gameOver(){
+        getGameActivity().gameOver();
+    }
+
+    public GameOverDialog getGameOverDialog() {
+        return getGameActivity().getGameOverDialog();
+    }
+
+    public void setMusicShouldPlay(Boolean musicShouldPlay){
+        getGameActivity().musicShouldPlay = musicShouldPlay;
+    }
+
+    public void setAchievement_toastification(){
+        getGameActivity().setAchievement_toastification();
+    }
+
+    public int getCoins(){
+        return getGameActivity().getCoins();
+    }
+
+    public void increaseCoin(){
+        getGameActivity().increaseCoin();
+    }
+
+    public void increaseNumberOfRevive(){
+        getGameActivity().increaseNumberOfRevive();
+    }
+
+    public String onScreenCoinText(){
+        return getGameActivity().onScreenCoinText();
+    }
+
+    public String onScreenScoreText(){
+        return getGameActivity().onScreenScoreText();
+    }
+
+    public void startMusicPlayer(){
+        getGameActivity().startMusicPlayer();
     }
 }
