@@ -1,10 +1,24 @@
 package edu.ucsd.flappycow;
 
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.Message;
+import android.util.Log;
 import android.view.SurfaceHolder;
+
+import androidx.annotation.NonNull;
+
+import com.google.ads.mediation.admob.AdMobAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +32,7 @@ import edu.ucsd.flappycow.model.Toast;
 import edu.ucsd.flappycow.presenter.ButtonPresenter;
 import edu.ucsd.flappycow.presenter.CoinPresenter;
 import edu.ucsd.flappycow.presenter.CowPresenter;
+import edu.ucsd.flappycow.presenter.GameActivityAchievementBoxPresenter;
 import edu.ucsd.flappycow.presenter.GroundPresenter;
 import edu.ucsd.flappycow.presenter.ObstaclePresenter;
 import edu.ucsd.flappycow.presenter.PlayableCharacterPresenter;
@@ -25,8 +40,11 @@ import edu.ucsd.flappycow.presenter.PowerUpPresenter;
 import edu.ucsd.flappycow.presenter.ToastPresenter;
 import edu.ucsd.flappycow.presenter.TutorialPresenter;
 import edu.ucsd.flappycow.presenter.VirusPresenter;
+import edu.ucsd.flappycow.view.AchievementBox;
 import edu.ucsd.flappycow.view.GameActivity;
+import edu.ucsd.flappycow.view.GameOverDialog;
 import edu.ucsd.flappycow.view.GameView;
+import edu.ucsd.flappycow.view.MainActivity;
 
 public
 class GameFacade {
@@ -37,7 +55,17 @@ class GameFacade {
     private TutorialPresenter tutorialPresenter;
     private ButtonPresenter buttonPresenter;
     private Map<String, GroundPresenter> groundPresenterMap;
+    GameOverDialog gameOverDialog;
+    public static MediaPlayer musicPlayer = null;
+    private static int gameOverCounter = 1;
+    private static final int GAMES_PER_AD = 3;
+
+
     private PlayableCharacterPresenter playableCharacterPresenter;
+    AchievementBox accomplishmentBox;
+
+    private GameActivityAchievementBoxPresenter gameActivityAchievementBoxPresenter;
+
     private List<PowerUpPresenter> powerUpPresenters = new ArrayList<>();
     public GameFacade(GameView gameView) {
         this.gameView = gameView;
@@ -63,9 +91,72 @@ class GameFacade {
         draw();
     }
 
-    /**
-     * Draw Tutorial
-     */
+    public void onCreate(){
+        accomplishmentBox = new AchievementBox();
+        gameActivityAchievementBoxPresenter = new GameActivityAchievementBoxPresenter(getGameActivity(), accomplishmentBox);
+        //view = new GameView(this);
+        gameOverDialog = new GameOverDialog(getGameActivity());
+        //handler = new GameActivityHandler(this);
+        getGameActivity().setContentView(gameView);
+        initMusicPlayer();
+        getGameActivity().loadCoins();
+        if (gameOverCounter % GAMES_PER_AD == 0) {
+            setupAd();
+        }
+    }
+    private void setupAd() {
+        MobileAds.initialize(getGameActivity(), initializationStatus -> { /* no-op */ });
+
+        String adUnitId = getGameActivity().getResources().getString(R.string.ad_unit_id);
+
+        // Make sure only adds appropriate for children of all ages are displayed.
+        Bundle extras = new Bundle();
+        extras.putString("max_ad_content_rating", "G");
+
+        AdRequest adRequest = new AdRequest.Builder()
+                .addNetworkExtrasBundle(AdMobAdapter.class, extras)
+                .build();
+
+        InterstitialAd.load(getGameActivity(), adUnitId, adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                Log.i("Ads", "Ad was loaded.");
+                interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                    @Override
+                    public void onAdDismissedFullScreenContent() {
+                        getGameActivity().sendMessage();
+                    }
+                });
+                getGameActivity().setInterstitial(interstitialAd);
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                if (loadAdError.getCode() == AdRequest.ERROR_CODE_NO_FILL) {
+                    Log.i("Ads", "No ad was available.");
+                } else {
+                    Log.i("Ads", "Ad failed to load.");
+                }
+                Log.d("Ads", loadAdError.toString());
+                getGameActivity().setInterstitial(null);
+            }
+        });
+    }
+    public void initMusicPlayer() {
+        if (musicPlayer == null) {
+            // to avoid unnecessary reinitialisation
+            musicPlayer = MediaPlayer.create(getGameActivity(), R.raw.nyan_cat_theme);
+            if (musicPlayer == null) {
+                return;
+            }
+            musicPlayer.setLooping(true);
+            musicPlayer.setVolume(MainActivity.volume, MainActivity.volume);
+        }
+        musicPlayer.seekTo(0);    // Reset song to position 0
+    }
+
+
+
     public void showTutorial() {
         playableCharacterPresenter.move();
         buttonPresenter.move();
