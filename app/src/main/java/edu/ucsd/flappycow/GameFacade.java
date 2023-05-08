@@ -281,7 +281,7 @@ class GameFacade {
      * Let's the character blink a few times.
      */
     public void setupRevive() {
-        getGameActivity().getGameOverDialog().hide();
+        gameOverDialog.hide();
         playableCharacterPresenter.setY(getHeight() / 2 - playableCharacterPresenter.getPlayer().getWidth() / 2);
         playableCharacterPresenter.setX(getWidth() / 6);
         obstaclePresenters.clear();
@@ -499,6 +499,13 @@ class GameFacade {
 
     public boolean isPlayerDead() {
         return playableCharacterPresenter.isDead();
+    }
+    public GameOverDialog getGameOverDialog() {
+        return gameOverDialog;
+    }
+
+    public void setGameOverDialog(GameOverDialog gameOverDialog) {
+        this.gameOverDialog = gameOverDialog;
     }
 
 }

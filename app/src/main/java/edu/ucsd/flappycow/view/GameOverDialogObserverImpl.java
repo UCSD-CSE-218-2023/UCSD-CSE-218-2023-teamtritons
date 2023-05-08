@@ -13,8 +13,8 @@ public class GameOverDialogObserverImpl<T> extends GameOverDialog implements IOb
     public void onUpdate(GameActivityHandlerUpdate gameActivityHandlerUpdate) {
         if (gameActivityHandlerUpdate.msgType == ApplicationConstants.SHOW_GAME_OVER_DIALOG) {
             gameActivityHandlerUpdate.gameActivity.setGameOverCounter(gameActivityHandlerUpdate.gameActivity.getGameOverCounter() + 1);
-            gameActivityHandlerUpdate.gameActivity.gameOverDialog.init();
-            gameActivityHandlerUpdate.gameActivity.gameOverDialog.show();
+            gameActivityHandlerUpdate.gameActivity.gameFacade.getGameOverDialog().init();
+            gameActivityHandlerUpdate.gameActivity.gameFacade.getGameOverDialog().show();
         }
     }
 }

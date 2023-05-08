@@ -401,11 +401,11 @@ public class GameActivity extends Activity implements Subject<AchievementBoxUpda
         return handler;
     }
 
-    public GameOverDialog getGameOverDialog() {
-        return gameOverDialog;
-    }
-
-    public void setGameOverDialog(GameOverDialog gameOverDialog) {
-        this.gameOverDialog = gameOverDialog;
-    }
+//    public GameOverDialog getGameOverDialog() {
+//        return gameOverDialog;
+//    }
+//
+//    public void setGameOverDialog(GameOverDialog gameOverDialog) {
+//        this.gameOverDialog = gameOverDialog;
+//    }
 }
