@@ -112,9 +112,9 @@ class GameFacade {
     public void drawCanvas(Canvas canvas, boolean drawPlayer) {
 //        background.draw(canvas);
         groundPresenterMap.get(ApplicationConstants.BACKGROUND).draw(canvas);
-//        for (ObstaclePresenter r : obstaclePresenters) {
-//            r.draw(canvas);
-//        }
+        for (ObstaclePresenter r : obstaclePresenters) {
+            r.draw(canvas);
+        }
         for (PowerUpPresenter p : powerUpPresenters) {
             p.draw(canvas);
         }
@@ -164,10 +164,10 @@ class GameFacade {
     }
 
     public void setupRevive() {
-//        gameActivity.gameOverDialog.hide();
+        getGameActivity().gameOver.hide();
         playableCharacterPresenter.setY(getHeight() / 2 - playableCharacterPresenter.getPlayer().getWidth() / 2);
         playableCharacterPresenter.setX(getWidth() / 6);
-//        obstaclePresenters.clear();
+        obstaclePresenters.clear();
         powerUpPresenters.clear();
 //        player.revive();
         playableCharacterPresenter.revive();

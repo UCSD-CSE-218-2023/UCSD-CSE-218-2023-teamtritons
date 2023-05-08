@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
+import edu.ucsd.flappycow.util.IObserver;
+import edu.ucsd.flappycow.util.ISubjectImpl;
 
 public class GameOverDialog extends Dialog {
     public static final int REVIVE_PRICE = 5;

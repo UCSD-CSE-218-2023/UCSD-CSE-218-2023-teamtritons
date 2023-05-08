@@ -1,5 +1,7 @@
-package edu.ucsd.flappycow.view;
+package edu.ucsd.flappycow.util;
 
-public interface ISubjectImpl<T> extends ISubject<T>{
+import edu.ucsd.flappycow.util.ISubject;
+
+public interface ISubjectImpl<T> extends ISubject<T> {
     void notify(T data);
 }

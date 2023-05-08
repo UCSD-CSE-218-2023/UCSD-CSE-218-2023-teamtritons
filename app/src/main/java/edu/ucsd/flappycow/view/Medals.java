@@ -5,10 +5,11 @@ import android.content.SharedPreferences;
 import android.view.View;
 
 import edu.ucsd.flappycow.R;
-import edu.ucsd.flappycow.Util;
+import edu.ucsd.flappycow.util.IObserver;
+import edu.ucsd.flappycow.util.Util;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 
-public class Medals extends Dialog implements IObserver<GameOverUpdate>{
+public class Medals extends Dialog implements IObserver<GameOverUpdate> {
 
     Medals(GameActivity gameActivity){
         super(gameActivity);

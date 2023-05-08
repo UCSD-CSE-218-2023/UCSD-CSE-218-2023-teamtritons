@@ -1,9 +1,8 @@
 package edu.ucsd.flappycow.presenter;
 
 import edu.ucsd.flappycow.GameFacade;
-import edu.ucsd.flappycow.view.GameView;
 import edu.ucsd.flappycow.R;
-import edu.ucsd.flappycow.Util;
+import edu.ucsd.flappycow.util.Util;
 import edu.ucsd.flappycow.model.Toast;
 
 public class ToastPresenter extends PowerUpPresenter{

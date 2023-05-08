@@ -4,10 +4,9 @@ import android.graphics.Canvas;
 
 import edu.ucsd.flappycow.GameFacade;
 import edu.ucsd.flappycow.view.GameActivity;
-import edu.ucsd.flappycow.view.GameView;
 import edu.ucsd.flappycow.view.MainActivity;
 import edu.ucsd.flappycow.R;
-import edu.ucsd.flappycow.Util;
+import edu.ucsd.flappycow.util.Util;
 import edu.ucsd.flappycow.model.IPlayableCharacter;
 import edu.ucsd.flappycow.model.Obstacle;
 import edu.ucsd.flappycow.model.Spider;

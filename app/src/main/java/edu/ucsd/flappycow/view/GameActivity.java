@@ -33,6 +33,9 @@ import java.util.List;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 import edu.ucsd.flappycow.presenter.GameActivityAchievementBoxPresenter;
+import edu.ucsd.flappycow.util.IObserver;
+import edu.ucsd.flappycow.util.ISubjectImpl;
+import edu.ucsd.flappycow.util.Subject;
 
 
 public class GameActivity extends Activity implements Subject<AchievementBoxUpdate> {

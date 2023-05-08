@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.widget.TextView;
 
 import edu.ucsd.flappycow.consts.ApplicationConstants;
+import edu.ucsd.flappycow.util.IObserver;
 
 public class Score implements IObserver<GameOverUpdate> {
     /**
