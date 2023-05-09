@@ -69,10 +69,10 @@ public class GameOverDialog extends Dialog {
         Button reviveButton = (Button) findViewById(R.id.b_revive);
 
         reviveButton.setText(gameActivity.getReviveButtonText()
-            + " " + REVIVE_PRICE * gameActivity.numberOfRevive + " "
+            + " " + REVIVE_PRICE * gameActivity.getNumberOfRevive() + " "
             + gameActivity.getCoinsText());
         reviveButton.setOnClickListener(this::onReviveClick);
-        if (gameActivity.coins < REVIVE_PRICE * gameActivity.numberOfRevive) {
+        if (gameActivity.getCoins() < REVIVE_PRICE * gameActivity.getNumberOfRevive()) {
             reviveButton.setClickable(false);
         } else {
             reviveButton.setClickable(true);
@@ -125,16 +125,16 @@ public class GameOverDialog extends Dialog {
 //    }
 
     private void saveCoins() {
-        SharedPreferences coin_save = gameActivity.getSharedPreferences(GameActivity.coin_save, 0);
-        coin_save.getInt(GameActivity.coin_key, 0);
+        SharedPreferences coin_save = gameActivity.getSharedPreferences(gameActivity.getCoinSave(), 0);
+        coin_save.getInt(gameActivity.getCoinKey(), 0);
         SharedPreferences.Editor editor = coin_save.edit();
-        editor.putInt(GameActivity.coin_key, gameActivity.coins);
+        editor.putInt(gameActivity.getCoinKey(), gameActivity.getCoins());
         editor.apply();
     }
 
     private void onOKClick(View view) {
         saveCoins();
-        if (gameActivity.numberOfRevive <= 1) {
+        if (gameActivity.getNumberOfRevive() <= 1) {
             gameActivity.saveAccomplishmentBox();
 //            gameActivity.accomplishmentBox.save(gameActivity);
         }
@@ -145,9 +145,9 @@ public class GameOverDialog extends Dialog {
 
     private void onReviveClick(View view) {
         dismiss();
-        gameActivity.coins -= REVIVE_PRICE * gameActivity.numberOfRevive;
+        gameActivity.setCoins(gameActivity.getCoins() - REVIVE_PRICE * gameActivity.getNumberOfRevive());
         saveCoins();
-        gameActivity.view.revive();
+        gameActivity.getView().revive();
 
     }
 }

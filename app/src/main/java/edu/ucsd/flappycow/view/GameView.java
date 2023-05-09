@@ -147,11 +147,11 @@ public class GameView extends SurfaceView {
     }
 
     public void increasePoints(){
-        this.getGameActivity().increasePoints();
+        this.getGameActivity().getGameActivityFacade().increasePoints();
     }
 
     public void decreasePoints(){
-        this.getGameActivity().decreasePoints();
+        this.getGameActivity().getGameActivityFacade().decreasePoints();
     }
 
     public int getWidthPixels(){
@@ -207,11 +207,11 @@ public class GameView extends SurfaceView {
     }
 
     public void gameOver(){
-        getGameActivity().gameOver();
+        getGameActivity().getGameActivityFacade().gameOver();
     }
 
     public GameOverDialog getGameOverDialog() {
-        return getGameActivity().getGameOverDialog();
+        return getGameActivity().getGameActivityFacade().getGameOverDialog();
     }
 
     public void setMusicShouldPlay(Boolean musicShouldPlay){
