@@ -54,7 +54,7 @@ public class GameActivity extends Activity implements Subject<AchievementBoxUpda
     /**
      * Will play things like mooing
      */
-    public static SoundPool soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);;
+    private static SoundPool soundPool;
 
     private static final int GAMES_PER_AD = 3;
 
@@ -135,7 +135,7 @@ public class GameActivity extends Activity implements Subject<AchievementBoxUpda
     public GameActivity() {
         gameActivitySub = new GameActivitySubjectImpl<>();
         observers = new ArrayList<>();
-//        soundPool =
+        soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
     }
 
     @Override

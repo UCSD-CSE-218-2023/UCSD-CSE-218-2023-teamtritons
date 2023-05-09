@@ -21,11 +21,11 @@ public class ObstaclePresenter {
         this.obstacleModel = createInstance();
 
         if (obstacleModel.getCollideSound() == -1) {
-            obstacleModel.setCollideSound(GameActivity.soundPool.load(gameFacade.getGameActivity(), R.raw.crash, 1));
+            obstacleModel.setCollideSound(gameFacade.getGameActivity().getSoundPool().load(gameFacade.getGameActivity(), R.raw.crash, 1));
         }
 
         if (obstacleModel.getPassSound() == -1) {
-            obstacleModel.setPassSound(GameActivity.soundPool.load(gameFacade.getGameActivity(), R.raw.pass, 1));
+            obstacleModel.setPassSound(gameFacade.getGameActivity().getSoundPool().load(gameFacade.getGameActivity(), R.raw.pass, 1));
         }
     }
 
@@ -55,7 +55,7 @@ public class ObstaclePresenter {
 
     public void onPass() {
         if(!obstacleModel.isAlreadyPassed()) {
-            GameActivity.soundPool.play(obstacleModel.getPassSound(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), 0, 0, 1);
+            gameFacade.getGameActivity().getSoundPool().play(obstacleModel.getPassSound(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), 0, 0, 1);
             gameFacade.increasePoints();
         }
 
@@ -72,7 +72,7 @@ public class ObstaclePresenter {
 
     public void onCollision() {
         obstacleModel.onCollision();
-        GameActivity.soundPool.play(obstacleModel.getCollideSound(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), 0, 0, 1);
+        gameFacade.getGameActivity().getSoundPool().play(obstacleModel.getCollideSound(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), 0, 0, 1);
     }
 
     public void setSpeedX(float speedX) {

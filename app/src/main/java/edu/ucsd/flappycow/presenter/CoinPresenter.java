@@ -20,12 +20,12 @@ public class CoinPresenter extends PowerUpPresenter{
         setPowerUpModel(coin);
 
         if (((Coin)this.getPowerUpModel()).getSound() == -1) {
-            ((Coin)this.getPowerUpModel()).setSound(GameActivity.soundPool.load(gameFacade.getGameActivity(), R.raw.coin, 1));
+            ((Coin)this.getPowerUpModel()).setSound(gameFacade.getGameActivity().getSoundPool().load(gameFacade.getGameActivity(), R.raw.coin, 1));
         }
     }
 
     private void playSound() {
-        GameActivity.soundPool.play(((Coin)this.getPowerUpModel()).getSound(), MainActivity.volume, MainActivity.volume, 0, 0, 1);
+        gameFacade.getGameActivity().getSoundPool().play(((Coin)this.getPowerUpModel()).getSound(), MainActivity.volume, MainActivity.volume, 0, 0, 1);
     }
 
     public void onCollision() {

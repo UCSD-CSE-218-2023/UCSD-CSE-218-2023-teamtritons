@@ -12,7 +12,7 @@ public class CowPresenter extends PlayableCharacterPresenter{
         super(gameFacade, type);
 
         if(((Cow)this.getPlayableCharacterModel()).getSound() == -1) {
-            ((Cow)this.getPlayableCharacterModel()).setSound(GameActivity.soundPool.load(getGameFacade().getGameActivity(), R.raw.cow, 1));
+            ((Cow)this.getPlayableCharacterModel()).setSound(gameFacade.getGameActivity().getSoundPool().load(getGameFacade().getGameActivity(), R.raw.cow, 1));
         }
     }
 
@@ -37,7 +37,7 @@ public class CowPresenter extends PlayableCharacterPresenter{
 
     private void playSound() {
         int sound = ((Cow)this.getPlayableCharacterModel()).getSound();
-        GameActivity.soundPool.play(sound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
+        getGameFacade().getGameActivity().getSoundPool().play(sound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
     }
 
     public void onTap() {
