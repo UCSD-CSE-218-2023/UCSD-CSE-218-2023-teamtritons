@@ -8,9 +8,10 @@ import edu.ucsd.flappycow.model.Spider;
 import edu.ucsd.flappycow.model.WoodLog;
 
 public class ObstacleFactory {
-    public static Obstacle getInstance(SpriteObstacle type, Spider spider, WoodLog woodLog, int widthPixels, int heightPixels, int speedX) {
+    public static Obstacle getInstance(SpriteObstacle type, IGameObstacle spider, IGameObstacle woodLog, int widthPixels, int heightPixels, int speedX) {
         Obstacle obstacle = null;
         if(type.equals(SpriteObstacle.OBSTACLE)) {
+
             obstacle = new Obstacle.ObstacleBuilder()
                     .setSpider(spider)
                     .setWoodLog(woodLog)

@@ -7,7 +7,6 @@ import edu.ucsd.flappycow.enums.GameObstacle;
 import edu.ucsd.flappycow.enums.SpriteObstacle;
 import edu.ucsd.flappycow.factory.GameObstacleFactory;
 import edu.ucsd.flappycow.factory.ObstacleFactory;
-import edu.ucsd.flappycow.view.GameActivity;
 import edu.ucsd.flappycow.view.MainActivity;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.util.Util;

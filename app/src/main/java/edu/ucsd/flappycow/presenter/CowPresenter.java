@@ -1,16 +1,21 @@
 package edu.ucsd.flappycow.presenter;
 
 import edu.ucsd.flappycow.GameFacade;
+import edu.ucsd.flappycow.enums.GameLevel;
 import edu.ucsd.flappycow.enums.PlayableCharacter;
-import edu.ucsd.flappycow.view.GameActivity;
+import edu.ucsd.flappycow.factory.AbstractFactory;
+import edu.ucsd.flappycow.factory.GameLevelFactoryProvider;
 import edu.ucsd.flappycow.view.MainActivity;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.util.Util;
 import edu.ucsd.flappycow.model.Cow;
 
 public class CowPresenter extends PlayableCharacterPresenter{
+    AbstractFactory abstractFactory;
     public CowPresenter(GameFacade gameFacade, PlayableCharacter type) {
         super(gameFacade, type);
+
+        abstractFactory = GameLevelFactoryProvider.getFactory(GameLevel.LEVEL_1);
 
         if(((Cow)this.getPlayableCharacterModel()).getSound() == -1) {
             ((Cow)this.getPlayableCharacterModel()).setSound(gameFacade.getGameActivity().getSoundPool().load(getGameFacade().getGameActivity(), R.raw.cow, 1));

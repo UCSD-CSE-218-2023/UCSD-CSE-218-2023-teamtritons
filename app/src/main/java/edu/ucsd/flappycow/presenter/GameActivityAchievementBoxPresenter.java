@@ -5,7 +5,6 @@ import edu.ucsd.flappycow.view.AchievementBox;
 import edu.ucsd.flappycow.view.AchievementBoxUpdate;
 import edu.ucsd.flappycow.util.IObserver;
 import edu.ucsd.flappycow.util.Subject;
-//import edu.ucsd.flappycow.Subject;
 
 
 public class GameActivityAchievementBoxPresenter implements IObserver<AchievementBoxUpdate> {

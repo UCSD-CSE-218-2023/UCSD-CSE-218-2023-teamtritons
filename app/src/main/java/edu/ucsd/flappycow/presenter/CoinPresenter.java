@@ -2,19 +2,16 @@ package edu.ucsd.flappycow.presenter;
 
 import edu.ucsd.flappycow.GameFacade;
 import edu.ucsd.flappycow.enums.PowerUp;
-import edu.ucsd.flappycow.factory.PowerUpFactory;
-import edu.ucsd.flappycow.view.GameActivity;
 import edu.ucsd.flappycow.view.MainActivity;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.util.Util;
 import edu.ucsd.flappycow.model.Coin;
 
 public class CoinPresenter extends PowerUpPresenter{
-
     public CoinPresenter(GameFacade gameFacade) {
         super(gameFacade);
 
-        Coin coin = (Coin) PowerUpFactory.getInstance(PowerUp.COIN, gameFacade.getSpeedX(), gameFacade.getWidth());
+        Coin coin = (Coin) abstractFactory.createPowerUp(PowerUp.COIN, gameFacade.getSpeedX(), gameFacade.getWidth());
         setPowerUpModel(coin);
 
         coin.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.coin));
