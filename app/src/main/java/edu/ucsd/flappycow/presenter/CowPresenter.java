@@ -1,6 +1,7 @@
 package edu.ucsd.flappycow.presenter;
 
 import edu.ucsd.flappycow.GameFacade;
+import edu.ucsd.flappycow.enums.PlayableCharacter;
 import edu.ucsd.flappycow.view.GameActivity;
 import edu.ucsd.flappycow.view.MainActivity;
 import edu.ucsd.flappycow.R;
@@ -8,7 +9,7 @@ import edu.ucsd.flappycow.util.Util;
 import edu.ucsd.flappycow.model.Cow;
 
 public class CowPresenter extends PlayableCharacterPresenter{
-    public CowPresenter(GameFacade gameFacade, String type) {
+    public CowPresenter(GameFacade gameFacade, PlayableCharacter type) {
         super(gameFacade, type);
 
         if(((Cow)this.getPlayableCharacterModel()).getSound() == -1) {

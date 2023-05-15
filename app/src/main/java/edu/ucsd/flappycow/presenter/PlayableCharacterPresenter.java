@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 
 import edu.ucsd.flappycow.GameFacade;
 import edu.ucsd.flappycow.R;
+import edu.ucsd.flappycow.enums.PlayableCharacter;
+import edu.ucsd.flappycow.factory.PlayableCharacterFactory;
 import edu.ucsd.flappycow.util.Util;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 import edu.ucsd.flappycow.model.Accessory;
@@ -19,25 +21,27 @@ public class PlayableCharacterPresenter {
 
     private IAccessory accessory;
 
-    public PlayableCharacterPresenter(GameFacade gameFacade, String type) {
+    public PlayableCharacterPresenter(GameFacade gameFacade, PlayableCharacter type) {
         this.gameFacade = gameFacade;
         this.playableCharacterModel = createInstance(type);
 
     }
 
 
-    private IPlayableCharacter createInstance(String type) {
+    private IPlayableCharacter createInstance(PlayableCharacter type) {
         // depending on parameters create object
-        if(type.equals(ApplicationConstants.COW)) {
-            accessory = new Accessory();
-            Cow cow = new Cow(gameFacade.getWidth(), gameFacade.getHeight(), gameFacade.getHeightPixels(), accessory);
+        if(type.equals(PlayableCharacter.COW)) {
+//            accessory = new Accessory();
+//            Cow cow = new Cow(gameFacade.getWidth(), gameFacade.getHeight(), gameFacade.getHeightPixels(), accessory);
+            Cow cow = (Cow) PlayableCharacterFactory.getInstance(PlayableCharacter.COW, gameFacade.getWidth(), gameFacade.getHeight(), gameFacade.getHeightPixels());
             cow.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.cow));
             return cow;
-        } else if (type.equals(ApplicationConstants.NYAN_CAT)) {
+        } else if (type.equals(PlayableCharacter.NYAN_CAT)) {
             Rainbow rainbow = new Rainbow();
             rainbow.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.rainbow));
 
-            NyanCat nyanCat = new NyanCat(gameFacade.getWidth(), gameFacade.getHeight(), gameFacade.getHeightPixels(), rainbow);
+//            NyanCat nyanCat = new NyanCat(gameFacade.getWidth(), gameFacade.getHeight(), gameFacade.getHeightPixels(), rainbow);
+            NyanCat nyanCat = (NyanCat) PlayableCharacterFactory.getInstance(PlayableCharacter.NYAN_CAT, gameFacade.getWidth(), gameFacade.getHeight(), gameFacade.getHeightPixels());
             nyanCat.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.nyan_cat));
             return nyanCat;
         }

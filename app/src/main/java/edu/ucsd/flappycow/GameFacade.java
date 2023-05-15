@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 import edu.ucsd.flappycow.consts.ApplicationConstants;
+import edu.ucsd.flappycow.enums.Ground;
+import edu.ucsd.flappycow.enums.PlayableCharacter;
 import edu.ucsd.flappycow.model.IPlayableCharacter;
 import edu.ucsd.flappycow.model.NyanCat;
 import edu.ucsd.flappycow.model.Toast;
@@ -36,7 +38,7 @@ class GameFacade {
     private List<ObstaclePresenter> obstaclePresenters;
     private TutorialPresenter tutorialPresenter;
     private ButtonPresenter buttonPresenter;
-    private Map<String, GroundPresenter> groundPresenterMap;
+    private Map<Ground, GroundPresenter> groundPresenterMap;
     private PlayableCharacterPresenter playableCharacterPresenter;
     private List<PowerUpPresenter> powerUpPresenters = new ArrayList<>();
     public GameFacade(GameView gameView) {
@@ -45,9 +47,9 @@ class GameFacade {
         tutorialPresenter = new TutorialPresenter(this);
         buttonPresenter = new ButtonPresenter(this);
         groundPresenterMap = new HashMap<>();
-        groundPresenterMap.put(ApplicationConstants.BACKGROUND, new GroundPresenter(this, ApplicationConstants.BACKGROUND));
-        groundPresenterMap.put(ApplicationConstants.FRONTGROUND, new GroundPresenter(this, ApplicationConstants.FRONTGROUND));
-        playableCharacterPresenter = new CowPresenter(this, ApplicationConstants.COW);
+        groundPresenterMap.put(Ground.BACKGROUND, new GroundPresenter(this, Ground.BACKGROUND));
+        groundPresenterMap.put(Ground.FRONTGROUND, new GroundPresenter(this, Ground.FRONTGROUND));
+        playableCharacterPresenter = new CowPresenter(this, PlayableCharacter.COW);
         powerUpPresenters = new ArrayList<>();
     }
 
@@ -125,7 +127,7 @@ class GameFacade {
      * @param drawPlayer
      */
     public void drawCanvas(Canvas canvas, boolean drawPlayer) {
-        groundPresenterMap.get(ApplicationConstants.BACKGROUND).draw(canvas);
+        groundPresenterMap.get(Ground.BACKGROUND).draw(canvas);
         for (ObstaclePresenter r : obstaclePresenters) {
             r.draw(canvas);
         }
@@ -135,7 +137,7 @@ class GameFacade {
         if (drawPlayer) {
             playableCharacterPresenter.draw(canvas);
         }
-        groundPresenterMap.get(ApplicationConstants.FRONTGROUND).draw(canvas);
+        groundPresenterMap.get(Ground.FRONTGROUND).draw(canvas);
         buttonPresenter.draw(canvas);
 
         // Score Text
@@ -169,7 +171,7 @@ class GameFacade {
 //        getGameActivity().getAccomplishmentBox().setAchievement_toastification(true);
         gameView.sendMessage();
         IPlayableCharacter tmp = this.playableCharacterPresenter.getPlayer();
-        playableCharacterPresenter = new PlayableCharacterPresenter(this, ApplicationConstants.NYAN_CAT);
+        playableCharacterPresenter = new PlayableCharacterPresenter(this, PlayableCharacter.NYAN_CAT);
         playableCharacterPresenter.setX(tmp.getX());
         playableCharacterPresenter.setY(tmp.getY());
         playableCharacterPresenter.setSpeedX(tmp.getSpeedX());
@@ -228,11 +230,11 @@ class GameFacade {
         for (PowerUpPresenter p : powerUpPresenters) {
             p.move();
         }
-        groundPresenterMap.get(ApplicationConstants.BACKGROUND).setSpeedX(-getSpeedX() / 2);
-        groundPresenterMap.get(ApplicationConstants.BACKGROUND).move();
+        groundPresenterMap.get(Ground.BACKGROUND).setSpeedX(-getSpeedX() / 2);
+        groundPresenterMap.get(Ground.BACKGROUND).move();
 
-        groundPresenterMap.get(ApplicationConstants.FRONTGROUND).setSpeedX(-getSpeedX() * 4 / 3);
-        groundPresenterMap.get(ApplicationConstants.FRONTGROUND).move();
+        groundPresenterMap.get(Ground.FRONTGROUND).setSpeedX(-getSpeedX() * 4 / 3);
+        groundPresenterMap.get(Ground.FRONTGROUND).move();
         buttonPresenter.move();
         playableCharacterPresenter.move();
     }
