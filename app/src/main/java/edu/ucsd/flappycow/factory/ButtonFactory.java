@@ -6,7 +6,6 @@ import edu.ucsd.flappycow.model.IGameButton;
 import edu.ucsd.flappycow.model.PauseButton;
 
 public class ButtonFactory {
-
     public static IGameButton getInstance(GameButton type) {
         IGameButton gameButton = null;
         if (type.equals(GameButton.PAUSEBUTTON)) {

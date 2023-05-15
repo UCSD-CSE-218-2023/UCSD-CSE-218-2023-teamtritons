@@ -2,7 +2,6 @@ package edu.ucsd.flappycow.enums;
 
 public enum Tutorial {
     TUTORIAL("TUTORIAL");
-
     String tutorial;
     //Constructor to define name
     Tutorial(String tutorial) {

@@ -88,22 +88,18 @@ public class NyanCat extends IPlayableCharacter{
             this.rainbow = rainbow;
             return this;
         }
-
         public NyanCatBuilder setViewWidth(int viewWidth) {
             this.viewWidth = viewWidth;
             return this;
         }
-
         public NyanCatBuilder setViewHeight(int viewHeight) {
             this.viewHeight = viewHeight;
             return this;
         }
-
         public NyanCatBuilder setHeightPixels(int heightPixels) {
             this.heightPixels = heightPixels;
             return this;
         }
-
         public NyanCat build() {
             NyanCat nyanCat = new NyanCat(this);
             return nyanCat;

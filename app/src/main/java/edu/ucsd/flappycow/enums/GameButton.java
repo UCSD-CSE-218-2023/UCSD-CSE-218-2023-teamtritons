@@ -1,9 +1,7 @@
 package edu.ucsd.flappycow.enums;
 
 public enum GameButton {
-
     PAUSEBUTTON("PAUSEBUTTON");
-
 
     String gameButton;
     //Constructor to define name

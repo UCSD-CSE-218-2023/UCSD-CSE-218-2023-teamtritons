@@ -3,7 +3,6 @@ package edu.ucsd.flappycow.enums;
 public enum Accessory {
     ACCESSORY("ACCESSORY");
 
-
     String accessory;
     //Constructor to define name
     Accessory(String accessory) {

@@ -1,6 +1,5 @@
 package edu.ucsd.flappycow.factory;
 
-import edu.ucsd.flappycow.consts.ApplicationConstants;
 import edu.ucsd.flappycow.enums.Accessory;
 import edu.ucsd.flappycow.enums.PlayableCharacter;
 import edu.ucsd.flappycow.model.Cow;

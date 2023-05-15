@@ -152,33 +152,25 @@ public class Obstacle extends Sprite {
     public static class ObstacleBuilder {
         private IGameObstacle spider;
         private IGameObstacle log;
-
         private int widthPixels;
-
         private int heightPixels;
-
         private int speedX;
-
         public ObstacleBuilder setSpider(IGameObstacle spider) {
             this.spider = spider;
             return this;
         }
-
         public ObstacleBuilder setWoodLog(IGameObstacle log) {
             this.log = log;
             return this;
         }
-
         public ObstacleBuilder setWidthPixels(int widthPixels) {
             this.widthPixels = widthPixels;
             return this;
         }
-
         public ObstacleBuilder setHeightPixels(int heightPixels) {
             this.heightPixels = heightPixels;
             return this;
         }
-
         public ObstacleBuilder setSpeedX(int speedX) {
             this.speedX = speedX;
             return this;

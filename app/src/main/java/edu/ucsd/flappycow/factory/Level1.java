@@ -21,37 +21,30 @@ public class Level1 implements AbstractFactory{
     public IPlayableCharacter createPlayableCharacter(PlayableCharacter type, int width, int height, int heightPixels) {
         return PlayableCharacterFactory.getInstance(type, width, height, heightPixels);
     }
-
     @Override
     public IAccessory createAccessory(Accessory type) {
         return AccessoryFactory.getInstance(type);
     }
-
     @Override
     public IGround createGround(Ground type) {
         return GroundFactory.getInstance(type);
     }
-
     @Override
     public IPowerUp createPowerUp(PowerUp type, int speedX, int viewWidth) {
         return PowerUpFactory.getInstance(type, speedX, viewWidth);
     }
-
     @Override
     public Tutorial createTutorial(edu.ucsd.flappycow.enums.Tutorial type) {
         return TutorialFactory.getInstance(type);
     }
-
     @Override
     public IGameButton createGameButton(GameButton type) {
         return ButtonFactory.getInstance(type);
     }
-
     @Override
     public Obstacle createObstacle(SpriteObstacle type, IGameObstacle spider, IGameObstacle woodLog,  int widthPixels, int heightPixels, int speedX) {
         return ObstacleFactory.getInstance(type, spider, woodLog, widthPixels, heightPixels, speedX);
     }
-
     @Override
     public IGameObstacle createGameObstacle(GameObstacle type) {
         return GameObstacleFactory.getInstance(type);

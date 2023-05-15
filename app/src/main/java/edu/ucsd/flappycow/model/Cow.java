@@ -10,24 +10,15 @@ public class Cow extends IPlayableCharacter{
 
     /** The moo sound */
     private static int sound = -1;
-
     /** sunglasses, hats and stuff */
     private IAccessory accessory;
-
     public Cow(CowBuilder cowBuilder) {
         super(cowBuilder.height, cowBuilder.width);
         this.setColNr(new Integer(8).byteValue());
         this.setFrameTime((short)3);        // the frame will change every 3 runs
         this.setY(cowBuilder.heightPixels / 2);    // Startposition in in the middle of the screen
-        // TODO: presenter
-//        if (sound == -1) {
-//            sound = GameActivity.soundPool.load(gameActivity, R.raw.cow, 1);
-//        }
-
         this.accessory = cowBuilder.accessory;
-
     }
-
 
     @Override
     public void onInitBitmap(Bitmap bitmap) {
@@ -59,12 +50,6 @@ public class Cow extends IPlayableCharacter{
     public static int getPointsToCool() {
         return POINTS_TO_COOL;
     }
-
-    // TODO: presenter
-//    private void playSound() {
-//        GameActivity.soundPool.play(sound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
-//    }
-
     @Override
     public void onTap(int viewHeight) {
         super.onTap(viewHeight);
@@ -135,34 +120,25 @@ public class Cow extends IPlayableCharacter{
 
     public static class CowBuilder {
         private IAccessory accessory;
-
         private int width;
-
         private int heightPixels;
-
         private int height;
-
-        public Cow.CowBuilder setAccessory(IAccessory accessory) {
+        public CowBuilder setAccessory(IAccessory accessory) {
             this.accessory = accessory;
             return this;
         }
-
-
-        public Cow.CowBuilder setWidth(int width) {
+        public CowBuilder setWidth(int width) {
             this.width = width;
             return this;
         }
-
-        public Cow.CowBuilder setHeightPixels(int heightPixels) {
+        public CowBuilder setHeightPixels(int heightPixels) {
             this.heightPixels = heightPixels;
             return this;
         }
-
-        public Cow.CowBuilder setHeight(int height) {
+        public CowBuilder setHeight(int height) {
             this.height = height;
             return this;
         }
-
         public Cow build() {
             Cow cow = new Cow(this);
             return cow;

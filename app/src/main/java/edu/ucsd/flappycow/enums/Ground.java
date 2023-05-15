@@ -3,7 +3,6 @@ package edu.ucsd.flappycow.enums;
 public enum Ground {
     FRONTGROUND("FRONTGROUND"),
     BACKGROUND("BACKGROUND");
-
     String ground;
     //Constructor to define name
     Ground(String ground) {
@@ -14,5 +13,4 @@ public enum Ground {
     public String toString() {
         return ground;
     }
-
 }

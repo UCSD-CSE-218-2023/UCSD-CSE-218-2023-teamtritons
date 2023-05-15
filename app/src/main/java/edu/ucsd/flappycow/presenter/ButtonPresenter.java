@@ -13,7 +13,6 @@ import edu.ucsd.flappycow.model.IGameButton;
 import edu.ucsd.flappycow.model.PauseButton;
 
 public class ButtonPresenter {
-
     IGameButton gameButton;
     GameFacade gameFacade;
     AbstractFactory abstractFactory;
