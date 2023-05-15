@@ -11,7 +11,13 @@ public class ObstacleFactory {
     public static Obstacle getInstance(SpriteObstacle type, Spider spider, WoodLog woodLog, int widthPixels, int heightPixels, int speedX) {
         Obstacle obstacle = null;
         if(type.equals(SpriteObstacle.OBSTACLE)) {
-            obstacle = new Obstacle(spider, woodLog, widthPixels, heightPixels, speedX);
+            obstacle = new Obstacle.ObstacleBuilder()
+                    .setSpider(spider)
+                    .setWoodLog(woodLog)
+                    .setWidthPixels(widthPixels)
+                    .setHeightPixels(heightPixels)
+                    .setSpeedX(speedX)
+                    .build();
         }
         return obstacle;
     }

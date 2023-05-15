@@ -12,9 +12,9 @@ public class Obstacle extends Sprite {
     /** Necessary so the onPass method is just called once */
     public boolean isAlreadyPassed = false;
 
-    public Obstacle(IGameObstacle spider, IGameObstacle log, int widthPixels, int heightPixels, int speedX) {
-        this.spider = spider;
-        this.log = log;
+    private Obstacle(ObstacleBuilder obstacleBuilder) {
+        this.spider = obstacleBuilder.spider;
+        this.log = obstacleBuilder.log;
 
         // TODO: presenter
 //        if (collideSound == -1) {
@@ -25,7 +25,7 @@ public class Obstacle extends Sprite {
 //            passSound = GameActivity.soundPool.load(gameActivity, R.raw.pass, 1);
 //        }
 
-        initPos(widthPixels, heightPixels, speedX);
+        initPos(obstacleBuilder.widthPixels, obstacleBuilder.heightPixels, obstacleBuilder.speedX);
     }
 
     /**
@@ -147,5 +147,46 @@ public class Obstacle extends Sprite {
 
     public static void setCollideSound(int cs) {
         collideSound = cs;
+    }
+
+    public static class ObstacleBuilder {
+        private IGameObstacle spider;
+        private IGameObstacle log;
+
+        private int widthPixels;
+
+        private int heightPixels;
+
+        private int speedX;
+
+        public ObstacleBuilder setSpider(IGameObstacle spider) {
+            this.spider = spider;
+            return this;
+        }
+
+        public ObstacleBuilder setWoodLog(IGameObstacle log) {
+            this.log = log;
+            return this;
+        }
+
+        public ObstacleBuilder setWidthPixels(int widthPixels) {
+            this.widthPixels = widthPixels;
+            return this;
+        }
+
+        public ObstacleBuilder setHeightPixels(int heightPixels) {
+            this.heightPixels = heightPixels;
+            return this;
+        }
+
+        public ObstacleBuilder setSpeedX(int speedX) {
+            this.speedX = speedX;
+            return this;
+        }
+
+        public Obstacle build() {
+            Obstacle obstacle = new Obstacle(this);
+            return obstacle;
+        }
     }
 }
