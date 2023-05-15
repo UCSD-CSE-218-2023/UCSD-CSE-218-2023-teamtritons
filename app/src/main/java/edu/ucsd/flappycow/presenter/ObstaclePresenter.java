@@ -3,6 +3,10 @@ package edu.ucsd.flappycow.presenter;
 import android.graphics.Canvas;
 
 import edu.ucsd.flappycow.GameFacade;
+import edu.ucsd.flappycow.enums.GameObstacle;
+import edu.ucsd.flappycow.enums.SpriteObstacle;
+import edu.ucsd.flappycow.factory.GameObstacleFactory;
+import edu.ucsd.flappycow.factory.ObstacleFactory;
 import edu.ucsd.flappycow.view.GameActivity;
 import edu.ucsd.flappycow.view.MainActivity;
 import edu.ucsd.flappycow.R;
@@ -31,13 +35,13 @@ public class ObstaclePresenter {
 
 
     public Obstacle createInstance() {
-        Spider spider = new Spider();
-        WoodLog woodLog = new WoodLog();
+        Spider spider = (Spider) GameObstacleFactory.getInstance(GameObstacle.SPIDER);
+        WoodLog woodLog = (WoodLog) GameObstacleFactory.getInstance(GameObstacle.WOODLOG);
 
         spider.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.spider_full));
         woodLog.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.log_full));
 
-        Obstacle obstacle = new Obstacle(spider, woodLog, gameFacade.getWidthPixels(), gameFacade.getHeightPixels(), gameFacade.getSpeedX());
+        Obstacle obstacle = ObstacleFactory.getInstance(SpriteObstacle.OBSTACLE, spider, woodLog, gameFacade.getWidthPixels(), gameFacade.getHeightPixels(), gameFacade.getSpeedX());
 
         return obstacle;
     }
