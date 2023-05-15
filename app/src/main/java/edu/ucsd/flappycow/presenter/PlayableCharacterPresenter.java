@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 
 import edu.ucsd.flappycow.GameFacade;
 import edu.ucsd.flappycow.R;
-import edu.ucsd.flappycow.builder.CowBuilder;
 import edu.ucsd.flappycow.enums.PlayableCharacter;
 import edu.ucsd.flappycow.factory.PlayableCharacterFactory;
 import edu.ucsd.flappycow.util.Util;
@@ -34,7 +33,7 @@ public class PlayableCharacterPresenter {
         if(type.equals(PlayableCharacter.COW)) {
 //            accessory = new Accessory();
 //            Cow cow = new Cow(gameFacade.getWidth(), gameFacade.getHeight(), gameFacade.getHeightPixels(), accessory);
-            Cow cow = (Cow) CowBuilder.getInstance(gameFacade.getWidth(), gameFacade.getHeight(), gameFacade.getHeightPixels());
+            Cow cow = (Cow) PlayableCharacterFactory.getInstance(PlayableCharacter.COW, gameFacade.getWidth(), gameFacade.getHeight(), gameFacade.getHeightPixels());
             cow.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.cow));
             return cow;
         } else if (type.equals(PlayableCharacter.NYAN_CAT)) {

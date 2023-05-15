@@ -6,6 +6,7 @@ import edu.ucsd.flappycow.enums.PlayableCharacter;
 import edu.ucsd.flappycow.model.Cow;
 import edu.ucsd.flappycow.model.IPlayableCharacter;
 import edu.ucsd.flappycow.model.NyanCat;
+import edu.ucsd.flappycow.model.Obstacle;
 import edu.ucsd.flappycow.model.Rainbow;
 
 public class PlayableCharacterFactory {
@@ -14,7 +15,12 @@ public class PlayableCharacterFactory {
         if(type.equals(PlayableCharacter.NYAN_CAT)) {
             playableCharacter = new NyanCat(width, height, heightPixels, new Rainbow());
         } else if (type.equals(PlayableCharacter.COW)) {
-            playableCharacter = new Cow(width, height, heightPixels, AccessoryFactory.getInstance(Accessory.ACCESSORY));
+            playableCharacter = new Cow.CowBuilder()
+                    .setAccessory(AccessoryFactory.getInstance(Accessory.ACCESSORY))
+                    .setWidth(width)
+                    .setHeightPixels(heightPixels)
+                    .setHeight(height)
+                    .build();
         }
         return playableCharacter;
     }
