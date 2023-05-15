@@ -1,8 +1,8 @@
 package edu.ucsd.flappycow.factory;
 
 import edu.ucsd.flappycow.consts.ApplicationConstants;
+import edu.ucsd.flappycow.enums.Accessory;
 import edu.ucsd.flappycow.enums.PlayableCharacter;
-import edu.ucsd.flappycow.model.Accessory;
 import edu.ucsd.flappycow.model.Cow;
 import edu.ucsd.flappycow.model.IPlayableCharacter;
 import edu.ucsd.flappycow.model.NyanCat;
@@ -14,7 +14,7 @@ public class PlayableCharacterFactory {
         if(type.equals(PlayableCharacter.NYAN_CAT)) {
             playableCharacter = new NyanCat(width, height, heightPixels, new Rainbow());
         } else if (type.equals(PlayableCharacter.COW)) {
-            playableCharacter = new Cow(width, height, heightPixels, new Accessory());
+            playableCharacter = new Cow(width, height, heightPixels, AccessoryFactory.getInstance(Accessory.ACCESSORY));
         }
         return playableCharacter;
     }
