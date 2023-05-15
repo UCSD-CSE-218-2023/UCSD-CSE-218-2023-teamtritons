@@ -15,7 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import edu.ucsd.flappycow.R;
-import edu.ucsd.flappycow.Util;
+import edu.ucsd.flappycow.util.Util;
 
 public class StartScreenView extends View {
 

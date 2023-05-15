@@ -1,4 +1,6 @@
-package edu.ucsd.flappycow.view;
+package edu.ucsd.flappycow.util;
+
+import edu.ucsd.flappycow.util.IObserver;
 
 public interface Subject<T> {
     void register(IObserver<T> o);

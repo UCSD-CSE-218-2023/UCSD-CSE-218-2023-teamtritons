@@ -3,8 +3,10 @@ package edu.ucsd.flappycow.view;
 import android.os.Handler;
 import android.os.Message;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
+import edu.ucsd.flappycow.util.IObserver;
+import edu.ucsd.flappycow.util.ISubjectImpl;
 
-class GameActivityHandler extends Handler {
+public class GameActivityHandler extends Handler {
 
     private ISubjectImpl<GameActivityHandlerUpdate> GameActivityHandlerSub = new GameActivityHandlerSubjectImpl<>();
 

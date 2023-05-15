@@ -2,15 +2,16 @@ package edu.ucsd.flappycow.presenter;
 
 import android.graphics.Canvas;
 
+import edu.ucsd.flappycow.GameFacade;
 import edu.ucsd.flappycow.view.GameView;
 import edu.ucsd.flappycow.model.PowerUp;
 
 public class PowerUpPresenter {
     private PowerUp powerUpModel;
-    GameView gameView;
+    GameFacade gameFacade;
 
-    public PowerUpPresenter(GameView gameView){
-        this.gameView = gameView;
+    public PowerUpPresenter(GameFacade gameFacade){
+        this.gameFacade = gameFacade;
     }
 
     public void draw(Canvas canvas) {
@@ -22,11 +23,11 @@ public class PowerUpPresenter {
     }
 
     public void move(){
-        powerUpModel.move(gameView.getWidth(), gameView.getHeight());
+        powerUpModel.move(gameFacade.getWidth(), gameFacade.getHeight());
     }
 
     public boolean isColliding() {
-        return powerUpModel.isColliding(gameView.getPlayer(), gameView.getGameActivity().getResources().getDisplayMetrics().heightPixels);
+        return powerUpModel.isColliding(gameFacade.getPlayer(), gameFacade.getHeightPixels());
     }
 
     public void onCollision() {
@@ -43,13 +44,5 @@ public class PowerUpPresenter {
 
     public void setPowerUpModel(PowerUp powerUpModel) {
         this.powerUpModel = powerUpModel;
-    }
-
-    public GameView getGameView() {
-        return gameView;
-    }
-
-    public void setGameView(GameView gameView) {
-        this.gameView = gameView;
     }
 }

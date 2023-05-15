@@ -1,4 +1,4 @@
-package edu.ucsd.flappycow;
+package edu.ucsd.flappycow.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -3,8 +3,8 @@ package edu.ucsd.flappycow.presenter;
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 import edu.ucsd.flappycow.view.AchievementBox;
 import edu.ucsd.flappycow.view.AchievementBoxUpdate;
-import edu.ucsd.flappycow.view.IObserver;
-import edu.ucsd.flappycow.view.Subject;
+import edu.ucsd.flappycow.util.IObserver;
+import edu.ucsd.flappycow.util.Subject;
 //import edu.ucsd.flappycow.Subject;
 
 

@@ -2,6 +2,9 @@ package edu.ucsd.flappycow.view;
 
 import java.util.ArrayList;
 
+import edu.ucsd.flappycow.util.IObserver;
+import edu.ucsd.flappycow.util.ISubjectImpl;
+
 public class GameActivitySubjectImpl <T> implements ISubjectImpl<T> {
     private ArrayList<IObserver> observers;
 

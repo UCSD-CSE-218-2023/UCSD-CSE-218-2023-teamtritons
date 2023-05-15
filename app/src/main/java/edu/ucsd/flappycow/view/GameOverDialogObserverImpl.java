@@ -1,6 +1,7 @@
 package edu.ucsd.flappycow.view;
 
 import edu.ucsd.flappycow.consts.ApplicationConstants;
+import edu.ucsd.flappycow.util.IObserver;
 
 public class GameOverDialogObserverImpl<T> extends GameOverDialog implements IObserver<GameActivityHandlerUpdate> {
     public GameOverDialogObserverImpl(GameActivity gameActivity) {
@@ -12,8 +13,8 @@ public class GameOverDialogObserverImpl<T> extends GameOverDialog implements IOb
     public void onUpdate(GameActivityHandlerUpdate gameActivityHandlerUpdate) {
         if (gameActivityHandlerUpdate.msgType == ApplicationConstants.SHOW_GAME_OVER_DIALOG) {
             gameActivityHandlerUpdate.gameActivity.setGameOverCounter(gameActivityHandlerUpdate.gameActivity.getGameOverCounter() + 1);
-            gameActivityHandlerUpdate.gameActivity.gameOverDialog.init();
-            gameActivityHandlerUpdate.gameActivity.gameOverDialog.show();
+            gameActivityHandlerUpdate.gameActivity.getGameOverDialog().init();
+            gameActivityHandlerUpdate.gameActivity.getGameOverDialog().show();
         }
     }
 }
