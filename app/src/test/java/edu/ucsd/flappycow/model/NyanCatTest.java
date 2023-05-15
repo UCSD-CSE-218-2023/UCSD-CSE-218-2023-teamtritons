@@ -14,7 +14,12 @@ public class NyanCatTest {
         int width = 2;
         int height = 2;
         int heightPixels = 2;
-        NyanCat tNyanCat= new NyanCat(width, height, heightPixels, r);
+        NyanCat tNyanCat= new NyanCat.NyanCatBuilder()
+                .setViewWidth(width)
+                .setViewHeight(height)
+                .setHeightPixels(heightPixels)
+                .setRainbow(r)
+                        .build();
         tNyanCat.move(width, height);
         assertTrue("Move successful", true);
     }

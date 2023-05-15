@@ -13,7 +13,12 @@ public class PlayableCharacterFactory {
     public static IPlayableCharacter getInstance(PlayableCharacter type, int width, int height, int heightPixels) {
         IPlayableCharacter playableCharacter = null;
         if(type.equals(PlayableCharacter.NYAN_CAT)) {
-            playableCharacter = new NyanCat(width, height, heightPixels, new Rainbow());
+            playableCharacter = new NyanCat.NyanCatBuilder().
+                    setViewWidth(width)
+                    .setViewHeight(height)
+                    .setHeightPixels(heightPixels)
+                    .setRainbow(new Rainbow())
+                    .build();
         } else if (type.equals(PlayableCharacter.COW)) {
             playableCharacter = new Cow.CowBuilder()
                     .setAccessory(AccessoryFactory.getInstance(Accessory.ACCESSORY))
