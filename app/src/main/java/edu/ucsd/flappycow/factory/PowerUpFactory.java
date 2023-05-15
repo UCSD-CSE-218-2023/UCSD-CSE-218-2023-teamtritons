@@ -1,13 +1,7 @@
 package edu.ucsd.flappycow.factory;
 
-import edu.ucsd.flappycow.consts.ApplicationConstants;
 import edu.ucsd.flappycow.enums.PowerUp;
-import edu.ucsd.flappycow.model.Accessory;
 import edu.ucsd.flappycow.model.Coin;
-import edu.ucsd.flappycow.model.Cow;
-import edu.ucsd.flappycow.model.IPlayableCharacter;
-import edu.ucsd.flappycow.model.NyanCat;
-import edu.ucsd.flappycow.model.Rainbow;
 import edu.ucsd.flappycow.model.Toast;
 import edu.ucsd.flappycow.model.Virus;
 
