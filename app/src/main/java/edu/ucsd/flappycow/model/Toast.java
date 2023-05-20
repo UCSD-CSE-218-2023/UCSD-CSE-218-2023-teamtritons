@@ -2,7 +2,7 @@ package edu.ucsd.flappycow.model;
 
 import android.graphics.Bitmap;
 
-public class Toast extends PowerUp{
+public class Toast extends IPowerUp {
 
     public static final int POINTS_TO_TOAST = 42;
 

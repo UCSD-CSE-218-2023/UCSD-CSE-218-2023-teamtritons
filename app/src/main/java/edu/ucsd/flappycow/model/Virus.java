@@ -2,7 +2,7 @@ package edu.ucsd.flappycow.model;
 
 import android.graphics.Bitmap;
 
-public class Virus extends PowerUp{
+public class Virus extends IPowerUp {
 
     public Virus(int speedX, int viewWidth) {
         super(speedX, viewWidth);

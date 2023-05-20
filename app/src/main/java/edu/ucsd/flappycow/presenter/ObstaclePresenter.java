@@ -3,7 +3,11 @@ package edu.ucsd.flappycow.presenter;
 import android.graphics.Canvas;
 
 import edu.ucsd.flappycow.GameFacade;
-import edu.ucsd.flappycow.view.GameActivity;
+import edu.ucsd.flappycow.enums.GameLevel;
+import edu.ucsd.flappycow.enums.GameObstacle;
+import edu.ucsd.flappycow.enums.SpriteObstacle;
+import edu.ucsd.flappycow.factory.AbstractFactory;
+import edu.ucsd.flappycow.factory.GameLevelFactoryProvider;
 import edu.ucsd.flappycow.view.MainActivity;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.util.Util;
@@ -16,7 +20,10 @@ public class ObstaclePresenter {
     private GameFacade gameFacade;
     private Obstacle obstacleModel;
 
+    private AbstractFactory abstractFactory;
+
     public ObstaclePresenter(GameFacade gameFacade) {
+        abstractFactory = GameLevelFactoryProvider.getFactory(GameLevel.LEVEL_1);
         this.gameFacade = gameFacade;
         this.obstacleModel = createInstance();
 
@@ -31,13 +38,13 @@ public class ObstaclePresenter {
 
 
     public Obstacle createInstance() {
-        Spider spider = new Spider();
-        WoodLog woodLog = new WoodLog();
+        Spider spider = (Spider) abstractFactory.createGameObstacle(GameObstacle.SPIDER);
+        WoodLog woodLog = (WoodLog) abstractFactory.createGameObstacle(GameObstacle.WOODLOG);
 
         spider.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.spider_full));
         woodLog.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.log_full));
 
-        Obstacle obstacle = new Obstacle(spider, woodLog, gameFacade.getWidthPixels(), gameFacade.getHeightPixels(), gameFacade.getSpeedX());
+        Obstacle obstacle = abstractFactory.createObstacle(SpriteObstacle.OBSTACLE, spider, woodLog, gameFacade.getWidthPixels(), gameFacade.getHeightPixels(), gameFacade.getSpeedX());
 
         return obstacle;
     }

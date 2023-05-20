@@ -2,7 +2,7 @@ package edu.ucsd.flappycow.model;
 
 import android.graphics.Bitmap;
 
-public class Coin extends PowerUp{
+public class Coin extends IPowerUp {
     private static int sound = -1;
 
     public Coin(int speedX, int viewWidth) {

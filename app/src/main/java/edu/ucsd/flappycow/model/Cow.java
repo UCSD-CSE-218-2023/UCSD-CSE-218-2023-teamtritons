@@ -3,27 +3,21 @@ package edu.ucsd.flappycow.model;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
+
 public class Cow extends IPlayableCharacter{
     private static final int POINTS_TO_SIR = 23;
     private static final int POINTS_TO_COOL = 35;
 
     /** The moo sound */
     private static int sound = -1;
-
     /** sunglasses, hats and stuff */
     private IAccessory accessory;
-
-    public Cow(int viewWidth, int viewHeight, int heightPixels, IAccessory accessory) {
-        super(viewWidth, viewHeight);
+    public Cow(CowBuilder cowBuilder) {
+        super(cowBuilder.height, cowBuilder.width);
         this.setColNr(new Integer(8).byteValue());
         this.setFrameTime((short)3);        // the frame will change every 3 runs
-        this.setY(heightPixels / 2);    // Startposition in in the middle of the screen
-        // TODO: presenter
-//        if (sound == -1) {
-//            sound = GameActivity.soundPool.load(gameActivity, R.raw.cow, 1);
-//        }
-
-        this.accessory = accessory;
+        this.setY(cowBuilder.heightPixels / 2);    // Startposition in in the middle of the screen
+        this.accessory = cowBuilder.accessory;
     }
 
     @Override
@@ -56,12 +50,6 @@ public class Cow extends IPlayableCharacter{
     public static int getPointsToCool() {
         return POINTS_TO_COOL;
     }
-
-    // TODO: presenter
-//    private void playSound() {
-//        GameActivity.soundPool.play(sound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
-//    }
-
     @Override
     public void onTap(int viewHeight) {
         super.onTap(viewHeight);
@@ -113,29 +101,48 @@ public class Cow extends IPlayableCharacter{
         super.dead(viewHeight);
     }
 
-    // TODO: presenter
+
     @Override
     public void revive(int viewWidth, int viewHeight) {
         super.revive(viewWidth, viewHeight);
-//        this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.accessory_scumbag));
     }
 
-    // TODO: presenter
+
     @Override
     public void upgradeBitmap(int points) {
         super.upgradeBitmap(points);
-//        if (points == POINTS_TO_SIR) {
-//            this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.accessory_sir));
-//        } else if (points == POINTS_TO_COOL) {
-//            this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.accessory_sunglasses));
-//        }
     }
 
-    // TODO: presenter
 //    @Override
     public void wearMask() {
         super.wearMask();
-////        this.accessory.setBitmap(Util.getScaledBitmapAlpha8(this.getGameActivity(), R.drawable.mask));
+    }
+
+    public static class CowBuilder {
+        private IAccessory accessory;
+        private int width;
+        private int heightPixels;
+        private int height;
+        public CowBuilder setAccessory(IAccessory accessory) {
+            this.accessory = accessory;
+            return this;
+        }
+        public CowBuilder setWidth(int width) {
+            this.width = width;
+            return this;
+        }
+        public CowBuilder setHeightPixels(int heightPixels) {
+            this.heightPixels = heightPixels;
+            return this;
+        }
+        public CowBuilder setHeight(int height) {
+            this.height = height;
+            return this;
+        }
+        public Cow build() {
+            Cow cow = new Cow(this);
+            return cow;
+        }
     }
 
 }

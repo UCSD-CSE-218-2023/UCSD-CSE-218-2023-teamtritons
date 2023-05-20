@@ -7,10 +7,10 @@ public class NyanCat extends IPlayableCharacter{
     /** The rainbow tail behind the cat */
     private Rainbow rainbow;
 
-    public NyanCat(int viewWidth, int viewHeight, int heightPixels, Rainbow rainbow) {
-        super(viewWidth, viewHeight);
-        this.setY(heightPixels / 2);
-        this.rainbow = rainbow;
+    private NyanCat(NyanCatBuilder nyanCatBuilder) {
+        super(nyanCatBuilder.viewWidth, nyanCatBuilder.viewHeight);
+        this.setY(nyanCatBuilder.heightPixels / 2);
+        this.rainbow = nyanCatBuilder.rainbow;
     }
 
     @Override
@@ -76,5 +76,33 @@ public class NyanCat extends IPlayableCharacter{
     public void revive(int viewWidth, int viewHeight) {
         super.revive(viewWidth, viewHeight);
         manageRainbowMovement(viewWidth, viewHeight);
+    }
+
+    public static class NyanCatBuilder {
+        private Rainbow rainbow;
+        private int viewWidth;
+        private int viewHeight;
+        private int heightPixels;
+
+        public NyanCatBuilder setRainbow(Rainbow rainbow) {
+            this.rainbow = rainbow;
+            return this;
+        }
+        public NyanCatBuilder setViewWidth(int viewWidth) {
+            this.viewWidth = viewWidth;
+            return this;
+        }
+        public NyanCatBuilder setViewHeight(int viewHeight) {
+            this.viewHeight = viewHeight;
+            return this;
+        }
+        public NyanCatBuilder setHeightPixels(int heightPixels) {
+            this.heightPixels = heightPixels;
+            return this;
+        }
+        public NyanCat build() {
+            NyanCat nyanCat = new NyanCat(this);
+            return nyanCat;
+        }
     }
 }
