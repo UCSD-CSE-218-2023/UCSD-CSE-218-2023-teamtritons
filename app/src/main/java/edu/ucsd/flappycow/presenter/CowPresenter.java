@@ -5,6 +5,8 @@ import edu.ucsd.flappycow.enums.GameLevel;
 import edu.ucsd.flappycow.enums.PlayableCharacter;
 import edu.ucsd.flappycow.factory.AbstractFactory;
 import edu.ucsd.flappycow.factory.GameLevelFactoryProvider;
+import edu.ucsd.flappycow.model.Sound;
+import edu.ucsd.flappycow.view.GameActivity;
 import edu.ucsd.flappycow.view.MainActivity;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.util.Util;
@@ -12,8 +14,13 @@ import edu.ucsd.flappycow.model.Cow;
 
 public class CowPresenter extends PlayableCharacterPresenter{
     AbstractFactory abstractFactory;
+
+
+    Sound sound;
+
     public CowPresenter(GameFacade gameFacade, PlayableCharacter type) {
         super(gameFacade, type);
+        sound = new Sound();
 
         abstractFactory = GameLevelFactoryProvider.getFactory(GameLevel.LEVEL_1);
 
@@ -41,13 +48,16 @@ public class CowPresenter extends PlayableCharacterPresenter{
         this.getAccessory().setBitmap(Util.getScaledBitmapAlpha8(getGameFacade().getGameActivity(), R.drawable.accessory_scumbag));
     }
 
-    private void playSound() {
-        int sound = ((Cow)this.getPlayableCharacterModel()).getSound();
-        getGameFacade().getGameActivity().getSoundPool().play(sound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
-    }
+//    private void playSound() {
+//        int sound = ((Cow)this.getPlayableCharacterModel()).getSound();
+//        getGameFacade().getGameActivity().getSoundPool().play(sound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
+//    }
 
     public void onTap() {
         this.getPlayer().onTap(getGameFacade().getHeight());
-        playSound();
+        sound.setSound(((Cow)this.getPlayableCharacterModel()).getSound());
+        sound.playSound(getGameFacade());
+
+        //playSound();
     }
 }
