@@ -5,6 +5,7 @@ public abstract class IPowerUp extends Sprite {
         init(speedX, viewWidth);
     }
 
+
     public void onCollision() {
         // Every subclass has to specify this itself
     }
