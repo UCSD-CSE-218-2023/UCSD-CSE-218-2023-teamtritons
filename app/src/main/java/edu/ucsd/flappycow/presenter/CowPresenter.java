@@ -31,7 +31,6 @@ public class CowPresenter extends PlayableCharacterPresenter{
 
     public void wearMask() {
         this.getPlayer().wearMask();
-        System.out.println(getAccessory() + "-----");
         this.getAccessory().setBitmap(Util.getScaledBitmapAlpha8(getGameFacade().getGameActivity(), R.drawable.mask));
     }
 
