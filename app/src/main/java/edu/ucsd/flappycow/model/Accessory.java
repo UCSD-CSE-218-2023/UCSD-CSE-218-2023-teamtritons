@@ -13,7 +13,7 @@ public class Accessory extends Sprite implements IAccessory{
 
     @Override
     public void setBitmap(Bitmap bitmap) {
-        super.setBitmap(bitmap);
+        super.onInitBitmap(bitmap);
         this.setWidth(this.getBitmap().getWidth());
         this.setHeight(this.getBitmap().getHeight());
     }

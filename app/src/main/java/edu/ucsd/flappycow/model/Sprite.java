@@ -4,10 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-public class Sprite implements IInteractable, IMovable {
+public class Sprite extends SpriteBitmap implements IInteractable, IMovable {
 
     /** The bitmaps that holds the frames that should be drawn */
-    private Bitmap bitmap;
+//    private Bitmap bitmap;
 
     /** Height and width of one frame of the bitmap */
     private int height, width;
@@ -53,13 +53,13 @@ public class Sprite implements IInteractable, IMovable {
         dst = new Rect();
     }
 
-    public Bitmap getBitmap() {
-        return bitmap;
-    }
+//    public Bitmap getBitmap() {
+//        return bitmap;
+//    }
 
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
-    }
+//    public void setBitmap(Bitmap bitmap) {
+//        this.bitmap = bitmap;
+//    }
 
     public int getHeight() {
         return height;
@@ -190,7 +190,7 @@ public class Sprite implements IInteractable, IMovable {
     public void draw(Canvas canvas) {
         src.set(col * width, row * height, (col + 1) * width, (row + 1) * height);
         dst.set(x, y, x + width, y + height);
-        canvas.drawBitmap(bitmap, src, dst, null);
+        canvas.drawBitmap(this.getBitmap(), src, dst, null);
     }
 
     /**
@@ -336,7 +336,7 @@ public class Sprite implements IInteractable, IMovable {
         return heightPixels / 50;
     }
 
-    public void onInitBitmap(Bitmap bitmap) {
-        setBitmap(bitmap);
-    }
+//    public void onInitBitmap(Bitmap bitmap) {
+//        this.setBitmap(bitmap);
+//    }
 }
