@@ -8,6 +8,7 @@ import edu.ucsd.flappycow.enums.GameObstacle;
 import edu.ucsd.flappycow.enums.SpriteObstacle;
 import edu.ucsd.flappycow.factory.AbstractFactory;
 import edu.ucsd.flappycow.factory.GameLevelFactoryProvider;
+import edu.ucsd.flappycow.model.SoundManager;
 import edu.ucsd.flappycow.view.MainActivity;
 import edu.ucsd.flappycow.R;
 import edu.ucsd.flappycow.util.Util;
@@ -22,17 +23,20 @@ public class ObstaclePresenter {
 
     private AbstractFactory abstractFactory;
 
+    private SoundManager soundManager;
+
     public ObstaclePresenter(GameFacade gameFacade) {
         abstractFactory = GameLevelFactoryProvider.getFactory(GameLevel.LEVEL_1);
         this.gameFacade = gameFacade;
         this.obstacleModel = createInstance();
+        soundManager = new SoundManager();
 
         if (obstacleModel.getCollideSound() == -1) {
-            obstacleModel.setCollideSound(gameFacade.getGameActivity().getSoundPool().load(gameFacade.getGameActivity(), R.raw.crash, 1));
+            obstacleModel.setCollideSound(soundManager.getSoundPool().load(gameFacade.getGameActivity(), R.raw.crash, 1));
         }
 
         if (obstacleModel.getPassSound() == -1) {
-            obstacleModel.setPassSound(gameFacade.getGameActivity().getSoundPool().load(gameFacade.getGameActivity(), R.raw.pass, 1));
+            obstacleModel.setPassSound(soundManager.getSoundPool().load(gameFacade.getGameActivity(), R.raw.pass, 1));
         }
     }
 
@@ -62,7 +66,7 @@ public class ObstaclePresenter {
 
     public void onPass() {
         if(!obstacleModel.isAlreadyPassed()) {
-            gameFacade.getGameActivity().getSoundPool().play(obstacleModel.getPassSound(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), 0, 0, 1);
+            soundManager.getSoundPool().play(obstacleModel.getPassSound(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), 0, 0, 1);
             gameFacade.increasePoints();
         }
 
@@ -79,7 +83,7 @@ public class ObstaclePresenter {
 
     public void onCollision() {
         obstacleModel.onCollision();
-        gameFacade.getGameActivity().getSoundPool().play(obstacleModel.getCollideSound(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), 0, 0, 1);
+        soundManager.getSoundPool().play(obstacleModel.getCollideSound(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), MainActivity.volume / obstacleModel.getSoundVolumeDivider(), 0, 0, 1);
     }
 
     public void setSpeedX(float speedX) {

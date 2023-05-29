@@ -132,7 +132,7 @@ public class GameActivity extends Activity implements Subject<AchievementBoxUpda
 
     private GameActivityFacade gameActivityFacade;
 
-    public static SoundPool soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+//    public static SoundPool soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
     public GameActivity() {
         gameActivitySub = new GameActivitySubjectImpl<>();
         observers = new ArrayList<>();
@@ -456,13 +456,13 @@ public class GameActivity extends Activity implements Subject<AchievementBoxUpda
         return gameOverCounter;
     }
 
-    public static SoundPool getSoundPool() {
-        return soundPool;
-    }
-
-    public static void setSoundPool(SoundPool soundPool) {
-        GameActivity.soundPool = soundPool;
-    }
+//    public static SoundPool getSoundPool() {
+//        return soundPool;
+//    }
+//
+//    public static void setSoundPool(SoundPool soundPool) {
+//        GameActivity.soundPool = soundPool;
+//    }
 
     public static MediaPlayer getMusicPlayer() {
         return musicPlayer;
