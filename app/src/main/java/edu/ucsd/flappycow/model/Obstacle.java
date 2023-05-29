@@ -15,16 +15,6 @@ public class Obstacle extends Sprite {
     private Obstacle(ObstacleBuilder obstacleBuilder) {
         this.spider = obstacleBuilder.spider;
         this.log = obstacleBuilder.log;
-
-        // TODO: presenter
-//        if (collideSound == -1) {
-//            collideSound = GameActivity.soundPool.load(gameActivity, R.raw.crash, 1);
-//        }
-//        // TODO: presenter
-//        if (passSound == -1) {
-//            passSound = GameActivity.soundPool.load(gameActivity, R.raw.pass, 1);
-//        }
-
         initPos(obstacleBuilder.widthPixels, obstacleBuilder.heightPixels, obstacleBuilder.speedX);
     }
 
