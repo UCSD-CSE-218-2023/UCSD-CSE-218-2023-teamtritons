@@ -54,7 +54,7 @@ public class CowPresenter extends PlayableCharacterPresenter{
     public void onTap() {
         this.getPlayer().onTap(getGameFacade().getHeight());
         soundManager.setSound(((Cow)this.getPlayableCharacterModel()).getSound());
-        soundManager.playSound(getGameFacade());
+        soundManager.playSound();
 
         //playSound();
     }

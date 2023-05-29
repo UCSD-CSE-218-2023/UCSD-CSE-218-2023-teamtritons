@@ -28,7 +28,7 @@ public class SoundManager {
 
     }
 
-    public void playSound(GameFacade gameFacade) {
+    public void playSound() {
         int sound = this.sound;
         soundPool.play(sound, MainActivity.volume, MainActivity.volume, 0, 0, 1);
     }

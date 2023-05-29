@@ -38,7 +38,7 @@ public class CoinPresenter extends PowerUpPresenter{
     public void onCollision() {
         super.onCollision();
         //playSound();
-        soundManager.playSound(gameFacade);
+        soundManager.playSound();
         soundManager.getSoundPool().play(((Coin)this.getPowerUpModel()).getSound(), MainActivity.volume, MainActivity.volume, 0, 0, 1);
 
 
