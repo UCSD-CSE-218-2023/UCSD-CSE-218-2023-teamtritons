@@ -23,8 +23,8 @@ public class Cow extends IPlayableCharacter{
     @Override
     public void onInitBitmap(Bitmap bitmap) {
         super.onInitBitmap(bitmap);
-        this.setWidth(this.getBitmap().getWidth()/(getColNr()));  // The image has 8 frames in a row
-        this.setHeight(this.getBitmap().getHeight() / 4);           // and 4 in a column
+        this.setWidth(this.getSpriteBitmap().getBitmap().getWidth()/(getColNr()));  // The image has 8 frames in a row
+        this.setHeight(this.getSpriteBitmap().getBitmap().getHeight() / 4);           // and 4 in a column
     }
 
     public static int getSound() {

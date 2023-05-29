@@ -13,8 +13,8 @@ public class Toast extends IPowerUp {
     @Override
     public void onInitBitmap(Bitmap bitmap) {
         super.onInitBitmap(bitmap);
-        this.setWidth(this.getBitmap().getWidth());
-        this.setHeight(this.getBitmap().getHeight());
+        this.setWidth(this.getSpriteBitmap().getBitmap().getWidth());
+        this.setHeight(this.getSpriteBitmap().getBitmap().getHeight());
     }
     /**
      * When eaten the player will turn into nyan cat.

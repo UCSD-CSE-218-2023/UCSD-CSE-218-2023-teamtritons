@@ -2,14 +2,8 @@ package edu.ucsd.flappycow.model;
 
 import android.graphics.Bitmap;
 
-public class SpriteBitmap {
-    private Bitmap bitmap;
+public interface ISpriteBitmap {
+    public Bitmap getBitmap();
 
-    public Bitmap getBitmap() {
-        return bitmap;
-    }
-
-    public void onInitBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
-    }
+    public void onInitBitmap(Bitmap bitmap);
 }

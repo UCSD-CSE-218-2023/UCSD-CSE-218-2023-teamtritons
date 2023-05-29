@@ -12,25 +12,25 @@ public abstract class IGround extends Sprite {
      */
     @Override
     public void draw(Canvas canvas) {
-        double factor = (1.0 * canvas.getHeight()) / this.getBitmap().getHeight();
+        double factor = (1.0 * canvas.getHeight()) / this.getSpriteBitmap().getBitmap().getHeight();
 
-        if (-this.getX() > this.getBitmap().getWidth()) {
+        if (-this.getX() > this.getSpriteBitmap().getBitmap().getWidth()) {
             // The first bitmap is completely out of the screen
-            this.setX(this.getX() + this.getBitmap().getWidth());
+            this.setX(this.getX() + this.getSpriteBitmap().getBitmap().getWidth());
 
         }
 
-        int endBitmap = Math.min(-this.getX() + (int) (canvas.getWidth() / factor), this.getBitmap().getWidth());
+        int endBitmap = Math.min(-this.getX() + (int) (canvas.getWidth() / factor), this.getSpriteBitmap().getBitmap().getWidth());
         int endCanvas = (int) ((endBitmap + this.getX()) * factor) + 1;
-        this.getSrc().set(-this.getX(), 0, endBitmap, this.getBitmap().getHeight());
+        this.getSrc().set(-this.getX(), 0, endBitmap, this.getSpriteBitmap().getBitmap().getHeight());
         this.getDst().set(0, 0, endCanvas, canvas.getHeight());
-        canvas.drawBitmap(this.getBitmap(), this.getSrc(), this.getDst(), null);
+        canvas.drawBitmap(this.getSpriteBitmap().getBitmap(), this.getSrc(), this.getDst(), null);
 
-        if (endBitmap == this.getBitmap().getWidth()) {
+        if (endBitmap == this.getSpriteBitmap().getBitmap().getWidth()) {
             // draw second bitmap
-            this.getSrc().set(0, 0, (int) (canvas.getWidth() / factor), this.getBitmap().getHeight());
+            this.getSrc().set(0, 0, (int) (canvas.getWidth() / factor), this.getSpriteBitmap().getBitmap().getHeight());
             this.getDst().set(endCanvas, 0, endCanvas + canvas.getWidth(), canvas.getHeight());
-            canvas.drawBitmap(this.getBitmap(), this.getSrc(), this.getDst(), null);
+            canvas.drawBitmap(this.getSpriteBitmap().getBitmap(), this.getSrc(), this.getDst(), null);
         }
     }
 }

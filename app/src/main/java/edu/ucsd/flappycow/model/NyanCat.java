@@ -16,8 +16,8 @@ public class NyanCat extends IPlayableCharacter{
     @Override
     public void onInitBitmap(Bitmap bitmap) {
         super.onInitBitmap(bitmap);
-        this.setWidth(this.getBitmap().getWidth());
-        this.setHeight(this.getBitmap().getHeight() / 2);
+        this.setWidth(this.getSpriteBitmap().getBitmap().getWidth());
+        this.setHeight(this.getSpriteBitmap().getBitmap().getHeight() / 2);
     }
 
     /**

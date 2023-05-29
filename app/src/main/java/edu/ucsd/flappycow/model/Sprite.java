@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-public class Sprite extends SpriteBitmap implements IInteractable, IMovable {
+public class Sprite implements IInteractable, IMovable {
 
     /** The bitmaps that holds the frames that should be drawn */
 //    private Bitmap bitmap;
@@ -39,6 +39,8 @@ public class Sprite extends SpriteBitmap implements IInteractable, IMovable {
      */
     private short frameTimeCounter;
 
+    private ISpriteBitmap spriteBitmap;
+
     /** The GameView that holds this Sprite */
 //    private GameView view;
 //
@@ -51,6 +53,7 @@ public class Sprite extends SpriteBitmap implements IInteractable, IMovable {
         frameTime = 1;
         src = new Rect();
         dst = new Rect();
+        spriteBitmap = new SpriteBitmap();
     }
 
 //    public Bitmap getBitmap() {
@@ -190,7 +193,7 @@ public class Sprite extends SpriteBitmap implements IInteractable, IMovable {
     public void draw(Canvas canvas) {
         src.set(col * width, row * height, (col + 1) * width, (row + 1) * height);
         dst.set(x, y, x + width, y + height);
-        canvas.drawBitmap(this.getBitmap(), src, dst, null);
+        canvas.drawBitmap(spriteBitmap.getBitmap(), src, dst, null);
     }
 
     /**
@@ -335,8 +338,11 @@ public class Sprite extends SpriteBitmap implements IInteractable, IMovable {
 //        return gameActivity.getResources().getDisplayMetrics().heightPixels / 50;
         return heightPixels / 50;
     }
+    public void onInitBitmap(Bitmap bitmap) {
+        spriteBitmap.onInitBitmap(bitmap);
+    }
 
-//    public void onInitBitmap(Bitmap bitmap) {
-//        this.setBitmap(bitmap);
-//    }
+    public ISpriteBitmap getSpriteBitmap() {
+        return spriteBitmap;
+    }
 }

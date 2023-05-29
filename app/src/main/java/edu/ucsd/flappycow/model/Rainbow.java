@@ -16,7 +16,7 @@ public class Rainbow extends Sprite{
     @Override
     public void onInitBitmap(Bitmap bitmap) {
         super.onInitBitmap(bitmap);
-        this.setWidth(this.getBitmap().getWidth() / getColNr());
-        this.setHeight(this.getBitmap().getHeight() / 3);
+        this.setWidth(this.getSpriteBitmap().getBitmap().getWidth() / getColNr());
+        this.setHeight(this.getSpriteBitmap().getBitmap().getHeight() / 3);
     }
 }
