@@ -14,6 +14,8 @@ import edu.ucsd.flappycow.model.IAccessory;
 import edu.ucsd.flappycow.model.IPlayableCharacter;
 import edu.ucsd.flappycow.model.NyanCat;
 import edu.ucsd.flappycow.model.Rainbow;
+import static edu.ucsd.flappycow.util.Contract.require;
+import static edu.ucsd.flappycow.util.Contract.ensure;
 
 public class PlayableCharacterPresenter {
     private IPlayableCharacter playableCharacterModel;
@@ -32,18 +34,24 @@ public class PlayableCharacterPresenter {
 
 
     private IPlayableCharacter createInstance(PlayableCharacter type) {
+        require( type != null, "Type is not null");
+        IPlayableCharacter playableCharacter = null;
         // depending on parameters create object
         if(type.equals(PlayableCharacter.COW)) {
             Cow cow = (Cow) abstractFactory.createPlayableCharacter(PlayableCharacter.COW, gameFacade.getWidth(), gameFacade.getHeight(), gameFacade.getHeightPixels());
             accessory = cow.getAccessory();
             cow.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.cow));
-            return cow;
+            playableCharacter = cow;
+            ensure(playableCharacter != null, "Playable Character is set to Cow");
+            return playableCharacter;
         } else if (type.equals(PlayableCharacter.NYAN_CAT)) {
             Rainbow rainbow = new Rainbow();
             rainbow.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.rainbow));
             NyanCat nyanCat = (NyanCat) abstractFactory.createPlayableCharacter(PlayableCharacter.NYAN_CAT, gameFacade.getWidth(), gameFacade.getHeight(), gameFacade.getHeightPixels());
             nyanCat.onInitBitmap(Util.getScaledBitmapAlpha8(gameFacade.getGameActivity(), R.drawable.nyan_cat));
-            return nyanCat;
+            playableCharacter = nyanCat;
+            ensure(playableCharacter != null, "Playable Character is set to Nyan Cat");
+            return playableCharacter;
         }
         return null;
     }
