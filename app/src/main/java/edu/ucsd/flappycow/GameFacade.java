@@ -29,6 +29,7 @@ import edu.ucsd.flappycow.presenter.TutorialPresenter;
 import edu.ucsd.flappycow.presenter.VirusPresenter;
 import edu.ucsd.flappycow.view.GameActivity;
 import edu.ucsd.flappycow.view.GameView;
+import static edu.ucsd.flappycow.util.Contract.invariant;
 
 public
 class GameFacade {
@@ -325,6 +326,8 @@ class GameFacade {
             // If no powerUp is present and 10% chance (if also no coin)
             powerUpPresenters.add(new VirusPresenter(this));
         }
+
+        invariant(powerUpPresenters.size()>=0, "Size of powerUpPresenters is always greater than or equal to 0");
     }
 
     /**
