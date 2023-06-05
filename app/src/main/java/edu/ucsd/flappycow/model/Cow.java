@@ -103,9 +103,12 @@ public class Cow extends IPlayableCharacter{
      */
     @Override
     public void dead(int viewHeight) {
+        require( viewHeight >= 0, "View Height is non negative");
         this.setRow(new Integer(3).byteValue());
         this.setFrameTime((short) 3);
         super.dead(viewHeight);
+        ensure(this.getRow() == 3, "Row is set to 3");
+        ensure(this.isDead() == true, "Cow is dead");
     }
 
 
