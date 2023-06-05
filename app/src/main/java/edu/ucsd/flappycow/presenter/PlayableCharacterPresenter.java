@@ -53,6 +53,7 @@ public class PlayableCharacterPresenter {
             ensure(playableCharacter != null, "Playable Character is set to Nyan Cat");
             return playableCharacter;
         }
+        ensure(playableCharacter == null, "Playable Character is set to null if type is neither cow or nyan cat");
         return null;
     }
 
