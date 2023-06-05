@@ -2,6 +2,8 @@ package edu.ucsd.flappycow.model;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import static edu.ucsd.flappycow.util.Contract.require;
+import static edu.ucsd.flappycow.util.Contract.ensure;
 
 public class NyanCat extends IPlayableCharacter{
     /** The rainbow tail behind the cat */
@@ -33,6 +35,9 @@ public class NyanCat extends IPlayableCharacter{
     }
 
     private void manageRainbowMovement(int viewWidth, int viewHeight) {
+        require(viewWidth >= 0 , "View Width is non negative");
+        require( viewHeight >= 0, "View Height is non negative");
+
         rainbow.setY(this.getY());       // nyan cat and rainbow bitmap have the same height
         rainbow.setX(this.getX() - rainbow.getWidth());
         rainbow.move(viewWidth, viewHeight);
@@ -45,6 +50,8 @@ public class NyanCat extends IPlayableCharacter{
         } else {
             rainbow.setRow((byte) 2);
         }
+        ensure(this.getRow() >= 0 && this.getRow() <= 3, "Row is set");
+
     }
 
     /**
