@@ -10,6 +10,8 @@ package edu.ucsd.flappycow.view;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import static edu.ucsd.flappycow.util.Contract.require;
+import static edu.ucsd.flappycow.util.Contract.ensure;
 
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 
@@ -55,30 +57,38 @@ public class AchievementBox {
      *
      * @param activity activity that is needed for shared preferences
      */
-    public void save(Activity activity) {
-        SharedPreferences saves = activity.getSharedPreferences(SAVE_NAME, 0);
-        SharedPreferences.Editor editor = saves.edit();
+    public void save(Activity activity) throws RuntimeException{
+        try{
+            require(activity != null, "Activity is not null");
+            SharedPreferences saves = activity.getSharedPreferences(SAVE_NAME, 0);
+            SharedPreferences.Editor editor = saves.edit();
+            if (points > saves.getInt(KEY_POINTS, 0)) {
+                editor.putInt(KEY_POINTS, points);
+            }
+            if (achievement_50_coins) {
+                editor.putBoolean(ACHIEVEMENT_KEY_50_COINS, true);
+            }
+            if (achievement_toastification) {
+                editor.putBoolean(ACHIEVEMENT_KEY_TOASTIFICATION, true);
+            }
+            if (achievement_bronze) {
+                editor.putBoolean(ACHIEVEMENT_KEY_BRONZE, true);
+            }
+            if (achievement_silver) {
+                editor.putBoolean(ACHIEVEMENT_KEY_SILVER, true);
+            }
+            if (achievement_gold) {
+                editor.putBoolean(ACHIEVEMENT_KEY_GOLD, true);
+            }
 
-        if (points > saves.getInt(KEY_POINTS, 0)) {
-            editor.putInt(KEY_POINTS, points);
-        }
-        if (achievement_50_coins) {
-            editor.putBoolean(ACHIEVEMENT_KEY_50_COINS, true);
-        }
-        if (achievement_toastification) {
-            editor.putBoolean(ACHIEVEMENT_KEY_TOASTIFICATION, true);
-        }
-        if (achievement_bronze) {
-            editor.putBoolean(ACHIEVEMENT_KEY_BRONZE, true);
-        }
-        if (achievement_silver) {
-            editor.putBoolean(ACHIEVEMENT_KEY_SILVER, true);
-        }
-        if (achievement_gold) {
-            editor.putBoolean(ACHIEVEMENT_KEY_GOLD, true);
+            editor.apply();
+            ensure(editor.commit(), "Saved to editor");
+        } catch (RuntimeException e){
+            e.printStackTrace();
         }
 
-        editor.apply();
+
+
     }
 
     /**

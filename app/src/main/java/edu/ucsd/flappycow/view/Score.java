@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import edu.ucsd.flappycow.consts.ApplicationConstants;
 import edu.ucsd.flappycow.util.IObserver;
+import static edu.ucsd.flappycow.util.Contract.require;
+import static edu.ucsd.flappycow.util.Contract.ensure;
 
 public class Score implements IObserver<GameOverUpdate> {
     /**
@@ -23,18 +25,26 @@ public class Score implements IObserver<GameOverUpdate> {
 
     @Override
     public void onUpdate(GameOverUpdate gameActivityHandlerUpdate) {
+        require(gameActivityHandlerUpdate != null , "gameActivityHandlerUpdate != null");
         if(gameActivityHandlerUpdate.type.equals(ApplicationConstants.SCORE)){
+            require(gameActivityHandlerUpdate.type.equals(ApplicationConstants.SCORE) , "Score update");
             SharedPreferences saves = gameActivityHandlerUpdate.gameActivity.getSharedPreferences(score_save_name, 0);
             int oldPoints = saves.getInt(best_score_key, 0);
-            if (gameActivityHandlerUpdate.gameActivity.getAccomplishmentBoxPoints() > oldPoints) {
+            int currPoints = gameActivityHandlerUpdate.gameActivity.getAccomplishmentBoxPoints();
+            if (currPoints > oldPoints) {
                 // Save new highscore
                 SharedPreferences.Editor editor = saves.edit();
-                editor.putInt(best_score_key, gameActivityHandlerUpdate.gameActivity.getAccomplishmentBoxPoints());
+                require(currPoints > oldPoints, "currPoints > oldPoints");
+                editor.putInt(best_score_key, currPoints);
                 gameActivityHandlerUpdate.tvCurrentScoreVal.setTextColor(Color.RED);
                 editor.apply();
             }
-            gameActivityHandlerUpdate.tvCurrentScoreVal.setText("" + gameActivityHandlerUpdate.gameActivity.getAccomplishmentBoxPoints());
+            gameActivityHandlerUpdate.tvCurrentScoreVal.setText("" + currPoints);
             gameActivityHandlerUpdate.tvBestScoreVal.setText("" + oldPoints);
+            ensure(currPoints >= 0, "Current Score is non negative");
+            ensure(gameActivityHandlerUpdate.tvCurrentScoreVal.getText().equals("" + currPoints), "Current Score Text Set");
+            ensure(gameActivityHandlerUpdate.tvBestScoreVal.getText().equals("" + oldPoints), "Best Score Text Set");
+
         }
 
        }

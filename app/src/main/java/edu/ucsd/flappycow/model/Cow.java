@@ -2,6 +2,9 @@ package edu.ucsd.flappycow.model;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import static edu.ucsd.flappycow.util.Contract.require;
+import static edu.ucsd.flappycow.util.Contract.ensure;
+
 
 
 public class Cow extends IPlayableCharacter{
@@ -62,6 +65,9 @@ public class Cow extends IPlayableCharacter{
      */
     @Override
     public void move(int viewWidth, int viewHeight) {
+        require(viewWidth >= 0 , "View Width is non negative");
+        require( viewHeight >= 0, "View Height is non negative");
+
         changeToNextFrame();
         super.move(viewWidth, viewHeight);
 
@@ -80,6 +86,7 @@ public class Cow extends IPlayableCharacter{
         if (this.accessory != null) {
             this.accessory.moveTo(this.getX(), this.getY());
         }
+        ensure(this.getRow() >= 0 && this.getRow() <= 3, "Row is set");
     }
 
     @Override
@@ -96,9 +103,12 @@ public class Cow extends IPlayableCharacter{
      */
     @Override
     public void dead(int viewHeight) {
+        require( viewHeight >= 0, "View Height is non negative");
         this.setRow(new Integer(3).byteValue());
         this.setFrameTime((short) 3);
         super.dead(viewHeight);
+        ensure(this.getRow() == 3, "Row is set to 3");
+        ensure(this.isDead() == true, "Cow is dead");
     }
 
 

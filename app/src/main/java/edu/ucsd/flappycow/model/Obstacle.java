@@ -1,6 +1,8 @@
 package edu.ucsd.flappycow.model;
 
 import android.graphics.Canvas;
+import static edu.ucsd.flappycow.util.Contract.require;
+import static edu.ucsd.flappycow.util.Contract.ensure;
 
 public class Obstacle extends Sprite {
     private IGameObstacle spider;
@@ -24,6 +26,9 @@ public class Obstacle extends Sprite {
      * The vertical position is in a certain area random.
      */
     private void initPos(int widthPixels, int heightPixels, int speedX) {
+        ensure(widthPixels >= 0, "Width Pixels is non-negative");
+        ensure(heightPixels >= 0, "Height Pixels is non-negative");
+        ensure(speedX >= 0, "speedX is non-negative");
         int height = heightPixels;
         int gab = height / 4 - speedX;
         if (gab < height / 5) {
@@ -35,6 +40,8 @@ public class Obstacle extends Sprite {
 
         spider.init(widthPixels, y1);
         log.init(widthPixels, y2);
+        require(spider.getX() >= 0, "X-Coordinate of spider is non-negative");
+        require(log.getX() >= 0 && log.getY() >= 0, "X and Y Coordinates of log is non-negative");
     }
 
     /**

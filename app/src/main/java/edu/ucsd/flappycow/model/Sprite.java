@@ -3,6 +3,8 @@ package edu.ucsd.flappycow.model;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import static edu.ucsd.flappycow.util.Contract.require;
+import static edu.ucsd.flappycow.util.Contract.ensure;
 
 public class Sprite implements IInteractable, IMovable {
 
@@ -237,13 +239,19 @@ public class Sprite implements IInteractable, IMovable {
      */
     @Override
     public boolean isColliding(Sprite sprite, int heightPixels) {
+        require(sprite != null, "Sprite is not null");
+        Boolean flag = null;
         if (this.x + getCollisionTolerance(heightPixels) < sprite.x + sprite.width
             && this.x + this.width > sprite.x + getCollisionTolerance(heightPixels)
             && this.y + getCollisionTolerance(heightPixels) < sprite.y + sprite.height
             && this.y + this.height > sprite.y + getCollisionTolerance(heightPixels)) {
-            return true;
+            flag =  true;
+
+        } else {
+            flag = false;
         }
-        return false;
+        ensure(flag != null , "flag is set");
+        return flag;
     }
 
     /**
@@ -298,6 +306,7 @@ public class Sprite implements IInteractable, IMovable {
      * */
     @Override
     public boolean isCollidingRadius(Sprite sprite, float factor) {
+        boolean flag = false;
         int m1x = this.x + (this.width >> 1);
         int m1y = this.y + (this.height >> 1);
         int m2x = sprite.x + (sprite.width >> 1);
@@ -308,10 +317,13 @@ public class Sprite implements IInteractable, IMovable {
 
         if (d < (this.width + sprite.width) * factor
             || d < (this.height + sprite.height) * factor) {
-            return true;
-        } else {
-            return false;
+            flag = true;
+            ensure(flag, "Flag is set to true");
+
         }
+        return flag;
+
+
     }
 
     /**
