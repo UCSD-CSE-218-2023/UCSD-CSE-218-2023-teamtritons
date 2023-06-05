@@ -11,6 +11,7 @@ import edu.ucsd.flappycow.model.PauseButton;
 public class ButtonFactory {
     public static IGameButton getInstance(GameButton type) {
         require(type != null, "Type is not null");
+        require(type instanceof edu.ucsd.flappycow.enums.GameButton, "Type should be of type GameButton");
         IGameButton gameButton = null;
         if (type.equals(GameButton.PAUSEBUTTON)) {
             gameButton = new PauseButton();

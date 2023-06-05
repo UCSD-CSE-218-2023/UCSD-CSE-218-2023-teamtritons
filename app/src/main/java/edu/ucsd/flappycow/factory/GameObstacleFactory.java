@@ -11,6 +11,7 @@ import edu.ucsd.flappycow.model.WoodLog;
 public class GameObstacleFactory {
     public static IGameObstacle getInstance(GameObstacle type) {
         require(type != null, "Type is not null");
+        require(type instanceof edu.ucsd.flappycow.enums.GameObstacle, "Type should be of type GameObstacle");
         IGameObstacle gameObstacle = null;
         if(type.equals(GameObstacle.SPIDER)) {
             gameObstacle = new Spider();

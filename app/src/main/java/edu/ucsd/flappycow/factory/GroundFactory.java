@@ -11,6 +11,7 @@ import edu.ucsd.flappycow.model.IGround;
 public class GroundFactory {
     public static IGround getInstance(Ground type) {
         require(type != null, "Type is not null");
+        require(type instanceof edu.ucsd.flappycow.enums.Ground, "Type should be of type Ground");
         IGround ground = null;
         if(type.equals(Ground.BACKGROUND)) {
             ground = new Background();

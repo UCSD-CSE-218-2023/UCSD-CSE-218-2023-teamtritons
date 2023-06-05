@@ -13,6 +13,7 @@ public class PowerUpFactory {
         require(type != null, "Type is not null");
         require(speedX >= 0, "speedX is non negative");
         require(viewWidth >= 0, "viewWidth is non negative");
+        require(type instanceof edu.ucsd.flappycow.enums.PowerUp, "Type should be of type PowerUp");
         IPowerUp powerUp = null;
         if(type.equals(PowerUp.COIN)) {
             powerUp = new Coin(speedX, viewWidth);

@@ -10,6 +10,7 @@ import edu.ucsd.flappycow.model.IAccessory;
 public class AccessoryFactory {
     public static IAccessory getInstance(edu.ucsd.flappycow.enums.Accessory type) {
         require(type != null, "Type is not null");
+        require(type instanceof edu.ucsd.flappycow.enums.Accessory, "Type should be of type accessory");
         IAccessory accessory = null;
         if(type.equals(edu.ucsd.flappycow.enums.Accessory.ACCESSORY)) {
             accessory = new Accessory();

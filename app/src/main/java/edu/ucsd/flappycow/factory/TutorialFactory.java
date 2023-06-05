@@ -10,6 +10,7 @@ public class TutorialFactory {
 
     public static Tutorial getInstance(edu.ucsd.flappycow.enums.Tutorial type) {
         require(type != null, "Type is not null");
+        require(type instanceof edu.ucsd.flappycow.enums.Tutorial, "Type should be of type Tutorial");
         edu.ucsd.flappycow.model.Tutorial tutorial = null;
         if(type.equals(edu.ucsd.flappycow.enums.Tutorial.TUTORIAL)) {
             tutorial = new Tutorial();
