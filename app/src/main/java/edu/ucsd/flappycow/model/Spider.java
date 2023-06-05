@@ -6,7 +6,7 @@ public class Spider extends IGameObstacle{
     @Override
     public void onInitBitmap(Bitmap bitmap) {
         super.onInitBitmap(bitmap);
-        this.setWidth(this.getBitmap().getWidth());
-        this.setHeight(this.getBitmap().getHeight());
+        this.setWidth(this.getSpriteBitmap().getBitmap().getWidth());
+        this.setHeight(this.getSpriteBitmap().getBitmap().getHeight());
     }
 }
